@@ -3,87 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShopNex - Profesyonel Oyun Platformu</title>
+<title>ShopNex Games - Profesyonel Oyun Portalı</title>
 <style>
     :root {
-        --bg-primary: #0b0f19;
-        --bg-secondary: #131825;
-        --bg-card: #1a2035;
-        --accent: #00f2ea;
-        --accent-hover: #00c9c2;
-        --text-primary: #ffffff;
-        --text-secondary: #8b94a7;
-        --success: #00ff88;
-        --danger: #ff4757;
-        --gold: #ffd700;
+        --bg-dark: #0f1115;
+        --bg-panel: #181b21;
+        --bg-card: #22262e;
+        --accent: #00e5ff;
+        --accent-glow: rgba(0, 229, 255, 0.3);
+        --text-main: #ffffff;
+        --text-muted: #9ca3af;
+        --success: #10b981;
+        --gold: #f59e0b;
+        --danger: #ef4444;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-    body { background: var(--bg-primary); color: var(--text-primary); display: flex; height: 100vh; overflow: hidden; }
+    body { background: var(--bg-dark); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
 
     /* SIDEBAR */
-    .sidebar { width: 260px; background: var(--bg-secondary); border-right: 1px solid #2a324a; display: flex; flex-direction: column; overflow-y: auto; }
-    .logo { padding: 20px; font-size: 24px; font-weight: 900; text-align: center; background: linear-gradient(90deg, var(--accent), #b026ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid #2a324a; letter-spacing: 2px;}
-    .nav-group { padding: 10px 0; border-bottom: 1px solid #2a324a; }
-    .nav-title { padding: 5px 20px; font-size: 11px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 1px; }
-    .nav-item { padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; font-size: 14px; color: var(--text-secondary); }
-    .nav-item:hover, .nav-item.active { background: rgba(0, 242, 234, 0.1); color: var(--accent); border-left: 3px solid var(--accent); }
-    .nav-item span.icon { font-size: 18px; }
+    .sidebar { width: 260px; background: var(--bg-panel); border-right: 1px solid #2d3342; display: flex; flex-direction: column; }
+    .logo { padding: 20px; font-size: 22px; font-weight: 900; text-align: center; background: linear-gradient(90deg, var(--accent), #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid #2d3342; letter-spacing: 1px; }
+    .nav-scroll { flex: 1; overflow-y: auto; padding: 10px 0; }
+    .nav-group { margin-bottom: 15px; }
+    .nav-title { padding: 8px 20px; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px; }
+    .nav-item { padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: 0.2s; font-size: 14px; color: var(--text-muted); border-left: 3px solid transparent; }
+    .nav-item:hover, .nav-item.active { background: rgba(0, 229, 255, 0.08); color: var(--accent); border-left-color: var(--accent); }
+    .nav-item .icon { font-size: 18px; width: 24px; text-align: center; }
 
-    /* MAIN CONTENT */
+    /* MAIN */
     .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
     
     /* TOPBAR */
-    .topbar { height: 60px; background: var(--bg-secondary); border-bottom: 1px solid #2a324a; display: flex; align-items: center; padding: 0 20px; gap: 20px; }
-    .search-box { flex: 1; max-width: 400px; position: relative; }
-    .search-box input { width: 100%; padding: 8px 15px 8px 35px; background: var(--bg-card); border: 1px solid #2a324a; border-radius: 20px; color: white; outline: none; }
-    .search-box::before { content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); }
-    .user-stats { display: flex; gap: 15px; align-items: center; margin-left: auto; }
-    .stat-badge { background: var(--bg-card); padding: 5px 12px; border-radius: 15px; font-size: 13px; display: flex; align-items: center; gap: 5px; }
-    .stat-badge.gold { color: var(--gold); }
-    .stat-badge.gem { color: #b026ff; }
-    .profile-btn { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #b026ff); display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; }
+    .topbar { height: 64px; background: var(--bg-panel); border-bottom: 1px solid #2d3342; display: flex; align-items: center; padding: 0 24px; gap: 20px; }
+    .search-box { flex: 1; max-width: 500px; position: relative; }
+    .search-box input { width: 100%; padding: 10px 15px 10px 40px; background: var(--bg-dark); border: 1px solid #2d3342; border-radius: 8px; color: white; outline: none; transition: 0.2s; }
+    .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .search-box::before { content: "🔍"; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; }
+    
+    .user-hud { display: flex; gap: 12px; align-items: center; margin-left: auto; }
+    .hud-item { background: var(--bg-dark); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; border: 1px solid #2d3342; }
+    .hud-gold { color: var(--gold); }
+    .hud-gem { color: #a855f7; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #a855f7); display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border: 2px solid var(--bg-panel); }
 
-    /* CONTENT AREA */
-    .content { flex: 1; overflow-y: auto; padding: 20px; }
-    .page { display: none; }
-    .page.active { display: block; animation: fadeIn 0.3s; }
+    /* CONTENT */
+    .content { flex: 1; overflow-y: auto; padding: 24px; }
+    .page { display: none; animation: fadeIn 0.3s ease; }
+    .page.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    .page-header { font-size: 24px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-    .btn { padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; transition: 0.2s; }
-    .btn-primary { background: var(--accent); color: var(--bg-primary); }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-success { background: var(--success); color: var(--bg-primary); }
-    .btn-danger { background: var(--danger); color: white; }
-
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .section-title { font-size: 22px; font-weight: 700; }
+    
     /* GAME GRID */
-    .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-    .game-card { background: var(--bg-card); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
-    .game-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,242,234,0.1); }
-    .game-thumb { height: 100px; background: linear-gradient(135deg, #1e293b, #334155); display: flex; align-items: center; justify-content: center; font-size: 30px; }
-    .game-info { padding: 10px; }
-    .game-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .game-price { font-size: 12px; color: var(--success); font-weight: bold; }
-    .game-tag { font-size: 10px; background: rgba(0,242,234,0.2); color: var(--accent); padding: 2px 6px; border-radius: 3px; display: inline-block; margin-top: 5px;}
+    .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+    .game-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid transparent; position: relative; }
+    .game-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .game-thumb { height: 110px; background: linear-gradient(135deg, #2d3748, #1a202c); display: flex; align-items: center; justify-content: center; font-size: 40px; position: relative; }
+    .game-fav { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .game-fav:hover, .game-fav.is-fav { background: var(--danger); color: white; }
+    .game-info { padding: 12px; }
+    .game-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .game-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-muted); }
+    .game-tag { background: rgba(0, 229, 255, 0.15); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
 
-    /* SHOP & INVENTORY */
-    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-    .shop-item { background: var(--bg-card); padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #2a324a; }
-    .shop-item .icon { font-size: 40px; margin-bottom: 10px; }
-    .shop-item .price { margin: 10px 0; font-weight: bold; color: var(--gold); }
+    /* GAME PLAYER OVERLAY */
+    #gameOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; }
+    #gameOverlay.active { display: flex; }
+    #gameContainer { position: relative; width: 800px; height: 600px; background: #000; border-radius: 12px; overflow: hidden; border: 2px solid var(--accent); box-shadow: 0 0 50px var(--accent-glow); }
+    #gameCanvas { width: 100%; height: 100%; display: block; }
+    .game-topbar { position: absolute; top: 0; left: 0; right: 0; height: 50px; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 10; }
+    .game-title-display { font-weight: bold; color: var(--accent); }
+    .btn-close-game { background: var(--danger); color: white; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    .game-ui-overlay { position: absolute; bottom: 20px; left: 20px; color: white; font-size: 18px; font-weight: bold; text-shadow: 0 2px 4px black; pointer-events: none; }
 
-    /* GAME PLAYER (Canvas) */
-    #gamePlayer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
-    #gamePlayer.active { display: flex; }
-    #gameCanvas { background: #000; border: 2px solid var(--accent); }
-    .game-ui { position: absolute; top: 20px; left: 20px; color: white; font-size: 18px; }
-    .close-game { position: absolute; top: 20px; right: 20px; background: var(--danger); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold;}
-
+    /* SHOP & UI ELEMENTS */
+    .panel { background: var(--bg-card); border-radius: 12px; padding: 20px; border: 1px solid #2d3342; margin-bottom: 20px; }
+    .btn { padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size: 13px; }
+    .btn-primary { background: var(--accent); color: var(--bg-dark); }
+    .btn-primary:hover { background: #00c4db; }
+    .btn-success { background: var(--success); color: white; }
+    
     /* SCROLLBAR */
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-primary); }
-    ::-webkit-scrollbar-thumb { background: #2a324a; border-radius: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: #2d3342; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 </style>
 </head>
@@ -91,384 +95,624 @@
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-    <div class="logo">SHOPNEX</div>
-    
-    <div class="nav-group">
-        <div class="nav-item active" onclick="showPage('home', this)"><span class="icon">🏠</span> Ana Sayfa</div>
-        <div class="nav-item" onclick="showPage('lobby', this)"><span class="icon">🌐</span> Lobi & Oda</div>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-title">Oyuncu</div>
-        <div class="nav-item" onclick="showPage('profile', this)"><span class="icon">👤</span> Profil & XP</div>
-        <div class="nav-item" onclick="showPage('character', this)"><span class="icon">🧙</span> Karakter & Envanter</div>
-        <div class="nav-item" onclick="showPage('quests', this)"><span class="icon">📜</span> Görevler & Etkinlikler</div>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-title">Ekonomi</div>
-        <div class="nav-item" onclick="showPage('shop', this)"><span class="icon">🛒</span> Market & Mağaza</div>
-        <div class="nav-item" onclick="showPage('wheel', this)"><span class="icon">🎡</span> Çarkıfelek & Sandık</div>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-title">Sosyal & Rekabet</div>
-        <div class="nav-item" onclick="showPage('leaderboard', this)"><span class="icon">🏆</span> Sıralama & Klan</div>
-        <div class="nav-item" onclick="showPage('chat', this)"><span class="icon">💬</span> Sohbet</div>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-title">Sistem</div>
-        <div class="nav-item" onclick="showPage('map', this)"><span class="icon">🗺️</span> Harita & Görev Takibi</div>
-        <div class="nav-item" onclick="showPage('settings', this)"><span class="icon">⚙️</span> Ayarlar</div>
-        <div class="nav-item" onclick="alert('Çıkış yapıldı!')"><span class="icon">🚪</span> Çıkış Yap</div>
+    <div class="logo">🎮 SHOPNEX</div>
+    <div class="nav-scroll">
+        <div class="nav-group">
+            <div class="nav-title">Ana Menü</div>
+            <div class="nav-item active" onclick="showPage('home', this)"><span class="icon">🏠</span> Ana Sayfa</div>
+            <div class="nav-item" onclick="showPage('favorites', this)"><span class="icon">⭐</span> Favorilerim</div>
+            <div class="nav-item" onclick="showPage('lobby', this)"><span class="icon">🌐</span> Lobi & Oda</div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-title">Kategoriler</div>
+            <div class="nav-item" onclick="filterGames('io')"><span class="icon">🌍</span> .io Oyunları</div>
+            <div class="nav-item" onclick="filterGames('aksiyon')"><span class="icon">🔫</span> Aksiyon & FPS</div>
+            <div class="nav-item" onclick="filterGames('bulmaca')"><span class="icon">🧩</span> Bulmaca & 2048</div>
+            <div class="nav-item" onclick="filterGames('araba')"><span class="icon">🏎️</span> Araba & Park</div>
+            <div class="nav-item" onclick="filterGames('tıklama')"><span class="icon">🍪</span> Tıklama (Clicker)</div>
+            <div class="nav-item" onclick="filterGames('spor')"><span class="icon">⚽</span> Spor & Koşu</div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-title">Oyuncu</div>
+            <div class="nav-item" onclick="showPage('profile', this)"><span class="icon">👤</span> Profil & XP</div>
+            <div class="nav-item" onclick="showPage('shop', this)"><span class="icon">🛒</span> Market & Sandık</div>
+            <div class="nav-item" onclick="showPage('settings', this)"><span class="icon">⚙️</span> Ayarlar</div>
+        </div>
     </div>
 </div>
 
-<!-- MAIN AREA -->
+<!-- MAIN -->
 <div class="main">
-    <!-- TOPBAR -->
     <div class="topbar">
         <div class="search-box">
-            <input type="text" placeholder="Oyun, kostüm veya eşya ara...">
+            <input type="text" id="searchInput" placeholder="50+ oyun arasında ara (örn: Agar, 2048, Yılan)..." onkeyup="searchGames(this.value)">
         </div>
-        <div class="user-stats">
-            <div class="stat-badge gold">💰 <span id="goldAmount">15,400</span></div>
-            <div class="stat-badge gem">💎 <span id="gemAmount">350</span></div>
-            <div class="stat-badge">⚡ Seviye 42</div>
-            <div class="profile-btn" onclick="showPage('profile', document.querySelector('.nav-item'))">SN</div>
+        <div class="user-hud">
+            <div class="hud-item hud-gold">💰 <span id="goldDisplay">5000</span></div>
+            <div class="hud-item hud-gem">💎 <span id="gemDisplay">150</span></div>
+            <div class="hud-item">⚡ Lv. <span id="levelDisplay">12</span></div>
+            <div class="avatar" onclick="showPage('profile', document.querySelector('.nav-item'))">SN</div>
         </div>
     </div>
 
-    <!-- CONTENT PAGES -->
     <div class="content">
-        
         <!-- HOME PAGE -->
         <div id="home" class="page active">
-            <div class="page-header">
-                <h2>🔥 Popüler Oyunlar (100 Oyun)</h2>
-                <button class="btn btn-primary" onclick="alert('Tüm Kategoriler: Aksiyon, RPG, Yarış, Bulmaca, Strateji...')">Kategoriler</button>
+            <div class="section-header">
+                <h2 class="section-title">🔥 Öne Çıkan Oyunlar</h2>
+                <button class="btn btn-primary" onclick="filterGames('all')">Tümünü Göster</button>
             </div>
             <div class="game-grid" id="gameGrid"></div>
         </div>
 
+        <!-- FAVORITES PAGE -->
+        <div id="favorites" class="page">
+            <div class="section-header"><h2 class="section-title">⭐ Favori Oyunlarım</h2></div>
+            <div class="game-grid" id="favGrid"></div>
+        </div>
+
         <!-- LOBBY PAGE -->
         <div id="lobby" class="page">
-            <div class="page-header"><h2>🌐 Çok Oyunculu Lobi</h2></div>
+            <div class="section-header"><h2 class="section-title">🌐 Çok Oyunculu Lobi</h2></div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="shop-item">
-                    <div class="icon">🏠</div>
+                <div class="panel" style="text-align: center;">
+                    <div style="font-size: 50px; margin-bottom: 15px;">🏠</div>
                     <h3>Hızlı Oda Oluştur</h3>
-                    <p style="color: var(--text-secondary); margin: 10px 0;">Rastgele bir oda oluştur ve arkadaşlarını davet et.</p>
-                    <button class="btn btn-primary" onclick="alert('Oda oluşturuldu! Kod: #8492')">Oda Oluştur</button>
+                    <p style="color: var(--text-muted); margin: 10px 0;">Rastgele bir oda oluştur ve arkadaşlarını davet et.</p>
+                    <button class="btn btn-primary" onclick="alert('✅ Oda oluşturuldu! Oda Kodu: #8X92K')">Oda Oluştur</button>
                 </div>
-                <div class="shop-item">
-                    <div class="icon">🔑</div>
+                <div class="panel" style="text-align: center;">
+                    <div style="font-size: 50px; margin-bottom: 15px;">🔑</div>
                     <h3>Odaya Katıl</h3>
-                    <p style="color: var(--text-secondary); margin: 10px 0;">Mevcut bir odaya kod ile katıl.</p>
-                    <input type="text" placeholder="Oda Kodu" style="padding: 8px; width: 100%; margin-bottom: 10px; background: var(--bg-primary); border: 1px solid #2a324a; color: white; border-radius: 4px;">
-                    <button class="btn btn-success">Katıl</button>
+                    <input type="text" placeholder="Oda Kodunu Girin" style="width: 100%; padding: 10px; background: var(--bg-dark); border: 1px solid #2d3342; color: white; border-radius: 6px; margin: 10px 0;">
+                    <button class="btn btn-success" onclick="alert('✅ Odaya başarıyla katıldın!')">Katıl</button>
                 </div>
-            </div>
-            <h3 style="margin-top: 30px; margin-bottom: 15px;">🟢 Çevrimiçi Arkadaşlar</h3>
-            <div class="shop-item" style="text-align: left; display: flex; align-items: center; gap: 15px;">
-                <div style="width: 40px; height: 40px; background: green; border-radius: 50%;"></div>
-                <div><b>ProGamer99</b> <span style="color: var(--text-secondary); font-size: 12px;">- Uzay Savaşı oynuyor</span></div>
-                <button class="btn btn-primary" style="margin-left: auto;">Katıl</button>
             </div>
         </div>
 
         <!-- PROFILE PAGE -->
         <div id="profile" class="page">
-            <div class="page-header"><h2>👤 Oyuncu Profili</h2></div>
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
-                <div class="shop-item">
-                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent), #b026ff); border-radius: 50%; margin: 0 auto 15px;"></div>
-                    <h3>ShopNex_Uzeri</h3>
-                    <p style="color: var(--accent);">Seviye 42 - Efsane</p>
-                    <div style="background: var(--bg-primary); height: 10px; border-radius: 5px; margin-top: 15px; overflow: hidden;">
-                        <div style="width: 75%; height: 100%; background: var(--accent);"></div>
+            <div class="section-header"><h2 class="section-title">👤 Oyuncu Profili</h2></div>
+            <div class="panel" style="display: flex; gap: 30px; align-items: center;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #a855f7); display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: bold;">SN</div>
+                <div style="flex: 1;">
+                    <h2>ShopNex_Uzeri</h2>
+                    <p style="color: var(--accent); margin: 5px 0;">Efsanevi Oyuncu</p>
+                    <div style="background: var(--bg-dark); height: 12px; border-radius: 6px; margin-top: 10px; overflow: hidden;">
+                        <div style="width: 65%; height: 100%; background: linear-gradient(90deg, var(--accent), #a855f7);"></div>
                     </div>
-                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">7,500 / 10,000 XP</p>
-                </div>
-                <div>
-                    <h3 style="margin-bottom: 15px;">🏅 Başarımlar & İstatistikler</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-                        <div class="shop-item"><div class="icon">⚔️</div><b>1,240</b><p style="font-size:12px; color:var(--text-secondary)">Toplam Kill</p></div>
-                        <div class="shop-item"><div class="icon">🏆</div><b>45</b><p style="font-size:12px; color:var(--text-secondary)">Kazanılan Maç</p></div>
-                        <div class="shop-item"><div class="icon">⏱️</div><b>320h</b><p style="font-size:12px; color:var(--text-secondary)">Oynama Süresi</p></div>
-                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">6,500 / 10,000 XP (Sonraki Seviye: 13)</p>
                 </div>
             </div>
-        </div>
-
-        <!-- CHARACTER PAGE -->
-        <div id="character" class="page">
-            <div class="page-header"><h2>🧙 Karakter & Envanter</h2></div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="shop-item">
-                    <h3>👗 Aktif Kostüm</h3>
-                    <div style="font-size: 60px; margin: 20px 0;">🥷</div>
-                    <p>Gölge Suikastçısı Seti</p>
-                    <button class="btn btn-primary" style="margin-top: 15px;">Özelleştir</button>
-                </div>
-                <div class="shop-item">
-                    <h3>🎒 Envanter (45/100)</h3>
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px;">
-                        <div style="background: var(--bg-primary); padding: 10px; border-radius: 5px; text-align: center;">🗡️<br><small>Kılıç</small></div>
-                        <div style="background: var(--bg-primary); padding: 10px; border-radius: 5px; text-align: center;">🛡️<br><small>Kalkan</small></div>
-                        <div style="background: var(--bg-primary); padding: 10px; border-radius: 5px; text-align: center;">🧪<br><small>İksir</small></div>
-                        <div style="background: var(--bg-primary); padding: 10px; border-radius: 5px; text-align: center;">🏹<br><small>Yay</small></div>
-                    </div>
-                </div>
-            </div>
-            <h3 style="margin-top: 30px;">🌳 Yetenek Ağacı</h3>
-            <div class="shop-item" style="text-align: left;">
-                <p>🔥 Ateş Topu (Seviye 3/5) - <button class="btn btn-primary" style="padding: 4px 10px; font-size: 12px;">Yükselt (500 XP)</button></p>
-                <p style="margin-top: 10px;">🛡️ Çelik Deri (Seviye 2/5) - <button class="btn btn-primary" style="padding: 4px 10px; font-size: 12px;">Yükselt (300 XP)</button></p>
-            </div>
-        </div>
-
-        <!-- QUESTS PAGE -->
-        <div id="quests" class="page">
-            <div class="page-header"><h2>📜 Görevler & Etkinlikler</h2></div>
-            <h3>Günlük Görevler</h3>
-            <div class="shop-item" style="text-align: left; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                <span>✅ 3 Oyuna Gir</span>
-                <span style="color: var(--success);">+100 XP</span>
-            </div>
-            <div class="shop-item" style="text-align: left; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                <span>⬜ 50 Canavar Kes</span>
-                <span style="color: var(--text-secondary);">32/50</span>
-            </div>
-            <h3 style="margin-top: 20px;">🎁 Günlük Giriş Ödülü</h3>
-            <div style="display: flex; gap: 10px;">
-                <div class="shop-item" style="flex:1; text-align: center; border-color: var(--success);"><div>1. Gün</div><b style="color: var(--gold);">💰 100</b></div>
-                <div class="shop-item" style="flex:1; text-align: center;"><div>2. Gün</div><b style="color: var(--gold);">💎 10</b></div>
-                <div class="shop-item" style="flex:1; text-align: center;"><div>3. Gün</div><b style="color: var(--gold);">🎁 Sandık</b></div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;">
+                <div class="panel" style="text-align: center;"><div style="font-size: 24px;">🏆</div><h3>42</h3><p style="font-size: 12px; color: var(--text-muted);">Kazanma</p></div>
+                <div class="panel" style="text-align: center;"><div style="font-size: 24px;">⏱️</div><h3>128s</h3><p style="font-size: 12px; color: var(--text-muted);">Oynama</p></div>
+                <div class="panel" style="text-align: center;"><div style="font-size: 24px;">🎯</div><h3>1,240</h3><p style="font-size: 12px; color: var(--text-muted);">Skor</p></div>
+                <div class="panel" style="text-align: center;"><div style="font-size: 24px;">🎁</div><h3>5</h3><p style="font-size: 12px; color: var(--text-muted);">Başarım</p></div>
             </div>
         </div>
 
         <!-- SHOP PAGE -->
         <div id="shop" class="page">
-            <div class="page-header"><h2>🛒 Premium Mağaza</h2></div>
-            <div class="shop-grid">
-                <div class="shop-item"><div class="icon">⚔️</div><h4>Ejderha Kılıcı</h4><div class="price">💎 500</div><button class="btn btn-primary">Satın Al</button></div>
-                <div class="shop-item"><div class="icon">🐎</div><h4>Işık Atı (Mount)</h4><div class="price">💎 1200</div><button class="btn btn-primary">Satın Al</button></div>
-                <div class="shop-item"><div class="icon">🎫</div><h4>Sezon Bileti</h4><div class="price">💎 950</div><button class="btn btn-primary">Satın Al</button></div>
-                <div class="shop-item"><div class="icon">💰</div><h4>10,000 Altın</h4><div class="price">💎 100</div><button class="btn btn-primary">Satın Al</button></div>
-            </div>
-        </div>
-
-        <!-- WHEEL PAGE -->
-        <div id="wheel" class="page">
-            <div class="page-header"><h2>🎡 Çarkıfelek & Şans</h2></div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="shop-item">
-                    <div class="icon" style="font-size: 80px;">🎡</div>
-                    <h3>Günlük Çark</h3>
-                    <p style="color: var(--text-secondary); margin: 15px 0;">Her gün ücretsiz çevir, büyük ödülü kap!</p>
-                    <button class="btn btn-success" onclick="alert('🎉 Tebrikler! 500 Altın kazandın!')">Ücretsiz Çevir</button>
+            <div class="section-header"><h2 class="section-title">🛒 Market & Ödüller</h2></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                <div class="panel" style="text-align: center;">
+                    <div style="font-size: 50px;">📦</div>
+                    <h3>Günlük Sandık</h3>
+                    <p style="color: var(--gold); margin: 10px 0;">+500 Altın</p>
+                    <button class="btn btn-primary" onclick="openChest()">Ücretsiz Aç</button>
                 </div>
-                <div class="shop-item">
-                    <div class="icon" style="font-size: 80px;">📦</div>
-                    <h3>Efsanevi Sandık</h3>
-                    <p style="color: var(--text-secondary); margin: 15px 0;">İçinden efsane eşyalar çıkabilir.</p>
-                    <button class="btn btn-primary" onclick="alert('📦 Sandık açıldı! İçinden: Ejderha Gözü çıktı!')">Aç (💎 50)</button>
+                <div class="panel" style="text-align: center;">
+                    <div style="font-size: 50px;">🎡</div>
+                    <h3>Şans Çarkı</h3>
+                    <p style="color: var(--gold); margin: 10px 0;">Maliyet: 50 💎</p>
+                    <button class="btn btn-primary" onclick="spinWheel()">Çevir</button>
                 </div>
-            </div>
-        </div>
-
-        <!-- LEADERBOARD PAGE -->
-        <div id="leaderboard" class="page">
-            <div class="page-header"><h2>🏆 Sıralama (Leaderboard)</h2></div>
-            <div class="shop-item" style="text-align: left;">
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #2a324a;"><span>🥇 1. xXDarkLordXx</span><span>15,400 Puan</span></div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #2a324a;"><span>🥈 2. NinjaMaster</span><span>14,200 Puan</span></div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #2a324a;"><span>🥉 3. ShopNex_Uzeri (Sen)</span><span>12,850 Puan</span></div>
-                <div style="display: flex; justify-content: space-between; padding: 10px 0;"><span>4. ProGamer99</span><span>11,300 Puan</span></div>
-            </div>
-        </div>
-
-        <!-- CHAT PAGE -->
-        <div id="chat" class="page">
-            <div class="page-header"><h2>💬 Klan Sohbeti</h2></div>
-            <div class="shop-item" style="height: 400px; display: flex; flex-direction: column;">
-                <div style="flex: 1; overflow-y: auto; text-align: left; padding: 10px;">
-                    <p><b style="color: var(--accent);">KlanLideri:</b> Akşam turnuvası var, herkes hazır olsun!</p>
-                    <p style="margin-top: 10px;"><b style="color: var(--success);">NinjaMaster:</b> Ben varım, saat kaçta?</p>
-                    <p style="margin-top: 10px;"><b style="color: var(--accent);">KlanLideri:</b> 21:00'de lobi'de buluşuyoruz.</p>
+                <div class="panel" style="text-align: center;">
+                    <div style="font-size: 50px;">👑</div>
+                    <h3>Sezon Bileti</h3>
+                    <p style="color: var(--gold); margin: 10px 0;">950 💎</p>
+                    <button class="btn btn-primary" onclick="alert('✅ Sezon bileti satın alındı!')">Satın Al</button>
                 </div>
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <input type="text" placeholder="Mesaj yaz..." style="flex: 1; padding: 10px; background: var(--bg-primary); border: 1px solid #2a324a; color: white; border-radius: 5px;">
-                    <button class="btn btn-primary">Gönder</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- MAP PAGE -->
-        <div id="map" class="page">
-            <div class="page-header"><h2>🗺️ Dünya Haritası</h2></div>
-            <div class="shop-item" style="height: 400px; background: linear-gradient(135deg, #1e3a8a, #064e3b); display: flex; align-items: center; justify-content: center; position: relative;">
-                <div style="position: absolute; top: 20%; left: 30%; font-size: 30px; cursor: pointer;" title="Karanlık Orman">🌲</div>
-                <div style="position: absolute; top: 50%; left: 60%; font-size: 30px; cursor: pointer;" title="Ejderha Dağı">🌋</div>
-                <div style="position: absolute; bottom: 20%; left: 40%; font-size: 30px; cursor: pointer;" title="Başlangıç Köyü">🏘️</div>
-                <p style="position: absolute; bottom: 20px; color: var(--text-secondary);">Bir bölgeye tıklayarak görev takibi yapabilirsin.</p>
             </div>
         </div>
 
         <!-- SETTINGS PAGE -->
         <div id="settings" class="page">
-            <div class="page-header"><h2>⚙️ Ayarlar</h2></div>
+            <div class="section-header"><h2 class="section-title">⚙️ Ayarlar</h2></div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="shop-item" style="text-align: left;">
+                <div class="panel">
                     <h3>🎨 Grafik Ayarları</h3>
-                    <p style="margin: 15px 0;">Çözünürlük: <select style="background: var(--bg-primary); color: white; padding: 5px; border: 1px solid #2a324a;"><option>1920x1080</option><option>2560x1440</option></select></p>
-                    <p>Kalite: <select style="background: var(--bg-primary); color: white; padding: 5px; border: 1px solid #2a324a;"><option>Ultra</option><option>Yüksek</option><option>Orta</option></select></p>
+                    <div style="margin-top: 15px;">
+                        <p style="margin-bottom: 5px;">Çözünürlük</p>
+                        <select style="width: 100%; padding: 8px; background: var(--bg-dark); color: white; border: 1px solid #2d3342; border-radius: 6px;"><option>1920x1080 (Full HD)</option><option>1280x720 (HD)</option></select>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p style="margin-bottom: 5px;">Grafik Kalitesi</p>
+                        <select style="width: 100%; padding: 8px; background: var(--bg-dark); color: white; border: 1px solid #2d3342; border-radius: 6px;"><option>Ultra</option><option>Yüksek</option><option>Düşük</option></select>
+                    </div>
                 </div>
-                <div class="shop-item" style="text-align: left;">
+                <div class="panel">
                     <h3>🔊 Ses Ayarları</h3>
-                    <p style="margin: 15px 0;">Ana Ses: <input type="range" style="width: 100%;"></p>
-                    <p>Müzik: <input type="range" style="width: 100%;"></p>
-                    <p style="margin-top: 10px;">Efektler: <input type="range" style="width: 100%;"></p>
+                    <div style="margin-top: 15px;"><p>Ana Ses</p><input type="range" style="width: 100%;"></div>
+                    <div style="margin-top: 15px;"><p>Müzik</p><input type="range" style="width: 100%;"></div>
+                    <div style="margin-top: 15px;">
+                        <p style="margin-bottom: 5px;">🌍 Dil Seçimi</p>
+                        <select style="width: 100%; padding: 8px; background: var(--bg-dark); color: white; border: 1px solid #2d3342; border-radius: 6px;"><option>Türkçe</option><option>English</option></select>
+                    </div>
                 </div>
-            </div>
-            <div class="shop-item" style="text-align: left; margin-top: 20px;">
-                <h3>🌍 Dil Seçimi</h3>
-                <select style="background: var(--bg-primary); color: white; padding: 8px; border: 1px solid #2a324a; margin-top: 10px; width: 200px;">
-                    <option>Türkçe</option><option>English</option><option>Deutsch</option>
-                </select>
             </div>
         </div>
-
     </div>
 </div>
 
-<!-- GAME PLAYER OVERLAY -->
-<div id="gamePlayer">
-    <button class="close-game" onclick="closeGame()">❌ Oyundan Çık</button>
-    <div class="game-ui">
-        <div>Skor: <span id="score">0</span></div>
-        <div>Can: <span id="health">❤️❤️❤️</span></div>
+<!-- GAME OVERLAY -->
+<div id="gameOverlay">
+    <div id="gameContainer">
+        <div class="game-topbar">
+            <span class="game-title-display" id="activeGameTitle">Oyun</span>
+            <button class="btn-close-game" onclick="closeGame()">✕ Çıkış Yap</button>
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div class="game-ui-overlay">
+            <div>Skor: <span id="gameScore">0</span></div>
+            <div id="gameHealth" style="margin-top: 5px;">❤️❤️❤️</div>
+        </div>
     </div>
-    <canvas id="gameCanvas" width="600" height="400"></canvas>
-    <p style="color: white; margin-top: 15px;">Oyunu Oynamak İçin: <b style="color: var(--accent);">Sol/Sağ Ok Tuşları</b> veya <b>A / D</b> kullan!</p>
+    <p style="color: var(--text-muted); margin-top: 15px; font-size: 14px;">Kontroller: Yön Tuşları veya W,A,S,D | Fare ile nişan al</p>
 </div>
 
 <script>
+    // --- VERİTABANI: 50+ OYUN ---
+    const gamesDB = [
+        { id: 1, name: "Agar.io", cat: "io", icon: "🦠", type: "io" },
+        { id: 2, name: "Slither.io", cat: "io", icon: "🐍", type: "io" },
+        { id: 3, name: "Krunker.io", cat: "aksiyon", icon: "🔫", type: "shooter" },
+        { id: 4, name: "Shell Shockers", cat: "aksiyon", icon: "🥚", type: "shooter" },
+        { id: 5, name: "Diep.io", cat: "io", icon: "🔵", type: "io" },
+        { id: 6, name: "ZombsRoyale.io", cat: "aksiyon", icon: "🧟", type: "shooter" },
+        { id: 7, name: "Paper.io 2", cat: "io", icon: "📄", type: "io" },
+        { id: 8, name: "Hole.io", cat: "io", icon: "🕳️", type: "io" },
+        { id: 9, name: "Cookie Clicker", cat: "tıklama", icon: "🍪", type: "clicker" },
+        { id: 10, name: "2048", cat: "bulmaca", icon: "🔢", type: "puzzle" },
+        { id: 11, name: "Yılan (Snake)", cat: "klasik", icon: "🐍", type: "snake" },
+        { id: 12, name: "Snow Rider 3D", cat: "araba", icon: "🏂", type: "runner" },
+        { id: 13, name: "Minesweeper", cat: "bulmaca", icon: "💣", type: "puzzle" },
+        { id: 14, name: "Wordle", cat: "bulmaca", icon: "🔤", type: "puzzle" },
+        { id: 15, name: "Smash Karts", cat: "araba", icon: "🏎️", type: "runner" },
+        { id: 16, name: "MooMoo.io", cat: "io", icon: "🐄", type: "io" },
+        { id: 17, name: "Powerline.io", cat: "io", icon: "⚡", type: "io" },
+        { id: 18, name: "Ev.io", cat: "aksiyon", icon: "👾", type: "shooter" },
+        { id: 19, name: "Chess.com", cat: "strateji", icon: "♟️", type: "puzzle" },
+        { id: 20, name: "Basketbol Mini", cat: "spor", icon: "🏀", type: "runner" }
+    ];
+
+    // Rastgele 30 oyun daha ekle (Poki, Y8, Miniclip tarzı)
+    const extraNames = ["Venge.io", "BuildNow GG", "Hexanaut.io", "Wormate.io", "Bonk.io", "Tetr.io", "Sudoku", "Park Etmece", "Kelime Avı", "Bilgi Yarışması", "Endless Runner", "Futbol Kafa", "Little Alchemy", "GeoGuessr", "Skribbl", "Codenames", "Forge of Empires", "Travian", "OGame", "Hero Wars", "DarkOrbit", "FlyOrDie", "EvoWorld", "Narwhale.io", "Crazy Shooters", "Bullet Force", "Kirka.io", "Slow Roads", "Tribal Wars", "Elvenar"];
+    const extraCats = ["io", "aksiyon", "bulmaca", "araba", "spor", "strateji", "tıklama"];
+    const extraIcons = ["🚀", "🏰", "🧩", "🏎️", "⚽", "🎯", "🎲", "👻", "🤖", "🐉"];
+    
+    extraNames.forEach((name, i) => {
+        gamesDB.push({
+            id: 21 + i,
+            name: name,
+            cat: extraCats[i % extraCats.length],
+            icon: extraIcons[i % extraIcons.length],
+            type: ["io", "shooter", "puzzle", "runner", "clicker"][i % 5]
+        });
+    });
+
+    // --- STATE ---
+    let favorites = JSON.parse(localStorage.getItem('sn_favs')) || [];
+    let gold = parseInt(localStorage.getItem('sn_gold')) || 5000;
+    let gems = parseInt(localStorage.getItem('sn_gems')) || 150;
+    let level = parseInt(localStorage.getItem('sn_level')) || 12;
+
+    // --- INIT ---
+    function init() {
+        updateHUD();
+        renderGames(gamesDB, 'gameGrid');
+    }
+
+    function updateHUD() {
+        document.getElementById('goldDisplay').innerText = gold.toLocaleString();
+        document.getElementById('gemDisplay').innerText = gems.toLocaleString();
+        document.getElementById('levelDisplay').innerText = level;
+        localStorage.setItem('sn_gold', gold);
+        localStorage.setItem('sn_gems', gems);
+        localStorage.setItem('sn_level', level);
+    }
+
     // --- NAVIGATION ---
-    function showPage(pageId, element) {
+    function showPage(pageId, el) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
-        if(element) element.classList.add('active');
-    }
-
-    // --- GENERATE 100 GAMES ---
-    const gameGrid = document.getElementById('gameGrid');
-    const categories = ['Aksiyon', 'RPG', 'Yarış', 'Bulmaca', 'Strateji', 'Spor', 'Korku'];
-    const emojis = ['🚀', '🏎️', '🧙', '🧟', '🏰', '🌌', '🤖', '🐉', '👾', '⚔️'];
-    
-    for(let i = 1; i <= 100; i++) {
-        const cat = categories[Math.floor(Math.random() * categories.length)];
-        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        card.innerHTML = `
-            <div class="game-thumb">${emoji}</div>
-            <div class="game-info">
-                <div class="game-title">Oyun #${i} - ${cat}</div>
-                <div class="game-price">ÜCRETSİZ</div>
-                <div class="game-tag">${cat}</div>
-            </div>
-        `;
-        card.onclick = () => startGame(i);
-        gameGrid.appendChild(card);
-    }
-
-    // --- PLAYABLE MINI GAME (Canvas) ---
-    let canvas, ctx, player, obstacles, score, gameLoop, health;
-
-    function startGame(id) {
-        document.getElementById('gamePlayer').classList.add('active');
-        canvas = document.getElementById('gameCanvas');
-        ctx = canvas.getContext('2d');
-        score = 0;
-        health = 3;
-        player = { x: 275, y: 350, width: 50, height: 50, speed: 7 };
-        obstacles = [];
+        if(el) el.classList.add('active');
         
-        document.getElementById('score').innerText = score;
-        updateHealth();
-        
-        if(gameLoop) clearInterval(gameLoop);
-        gameLoop = setInterval(updateGame, 20);
-        setInterval(spawnObstacle, 800);
+        if(pageId === 'favorites') {
+            const favGames = gamesDB.filter(g => favorites.includes(g.id));
+            renderGames(favGames, 'favGrid');
+        }
     }
 
-    function spawnObstacle() {
-        if(!document.getElementById('gamePlayer').classList.contains('active')) return;
-        obstacles.push({
-            x: Math.random() * 550,
-            y: -50,
-            width: 40,
-            height: 40,
-            speed: 3 + Math.random() * 3
+    function filterGames(cat) {
+        showPage('home', document.querySelector('.nav-item')); // Reset to home
+        if(cat === 'all') {
+            renderGames(gamesDB, 'gameGrid');
+        } else {
+            const filtered = gamesDB.filter(g => g.cat === cat || g.type === cat);
+            renderGames(filtered, 'gameGrid');
+        }
+    }
+
+    function searchGames(query) {
+        const q = query.toLowerCase();
+        const filtered = gamesDB.filter(g => g.name.toLowerCase().includes(q) || g.cat.includes(q));
+        renderGames(filtered, 'gameGrid');
+    }
+
+    // --- RENDER ---
+    function renderGames(list, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        if(list.length === 0) {
+            container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 40px;">Oyun bulunamadı.</p>';
+            return;
+        }
+        list.forEach(game => {
+            const isFav = favorites.includes(game.id);
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            card.innerHTML = `
+                <div class="game-thumb">
+                    ${game.icon}
+                    <button class="game-fav ${isFav ? 'is-fav' : ''}" onclick="event.stopPropagation(); toggleFav(${game.id})">
+                        ${isFav ? '★' : '☆'}
+                    </button>
+                </div>
+                <div class="game-info">
+                    <div class="game-title">${game.name}</div>
+                    <div class="game-meta">
+                        <span class="game-tag">${game.cat.toUpperCase()}</span>
+                        <span style="color: var(--success); font-weight: bold;">ÜCRETSİZ</span>
+                    </div>
+                </div>
+            `;
+            card.onclick = () => launchGame(game);
+            container.appendChild(card);
         });
     }
 
-    function updateGame() {
-        ctx.clearRect(0, 0, 600, 400);
+    function toggleFav(id) {
+        if(favorites.includes(id)) {
+            favorites = favorites.filter(f => f !== id);
+        } else {
+            favorites.push(id);
+        }
+        localStorage.setItem('sn_favs', JSON.stringify(favorites));
+        // Re-render current view
+        const activePage = document.querySelector('.page.active').id;
+        if(activePage === 'home') filterGames('all'); // Simple refresh
+        if(activePage === 'favorites') showPage('favorites', null);
+    }
+
+    // --- GAME ENGINE (Gerçekten Çalışan Mini Oyunlar) ---
+    let canvas, ctx, gameLoop, player, enemies, score, health, gameType;
+
+    function launchGame(game) {
+        document.getElementById('gameOverlay').classList.add('active');
+        document.getElementById('activeGameTitle').innerText = game.name;
+        canvas = document.getElementById('gameCanvas');
+        ctx = canvas.getContext('2d');
+        gameType = game.type;
+        score = 0;
+        health = 3;
+        updateGameUI();
+
+        if(gameLoop) clearInterval(gameLoop);
+
+        // Oyun tipine göre başlat
+        if(gameType === 'io') startIOGame();
+        else if(gameType === 'clicker') startClickerGame();
+        else if(gameType === 'puzzle') startPuzzleGame();
+        else if(gameType === 'runner') startRunnerGame();
+        else if(gameType === 'shooter') startShooterGame();
+        else startIOGame(); // Fallback
+    }
+
+    function closeGame() {
+        document.getElementById('gameOverlay').classList.remove('active');
+        if(gameLoop) clearInterval(gameLoop);
+        document.removeEventListener('keydown', handleInput);
+        canvas.removeEventListener('click', handleClick);
+        canvas.removeEventListener('mousemove', handleMouse);
+    }
+
+    function updateGameUI() {
+        document.getElementById('gameScore').innerText = score;
+        document.getElementById('gameHealth').innerText = '❤️'.repeat(health) + '🖤'.repeat(3 - health);
+    }
+
+    function addScore(points) {
+        score += points;
+        updateGameUI();
+        if(score % 100 === 0) {
+            gold += 10;
+            updateHUD();
+        }
+    }
+
+    // 1. IO OYUNU MOTORU (Agar.io benzeri)
+    function startIOGame() {
+        player = { x: 400, y: 300, r: 20, color: '#00e5ff' };
+        enemies = [];
+        for(let i=0; i<15; i++) spawnEnemy();
         
-        // Draw player
-        ctx.fillStyle = '#00f2ea';
-        ctx.fillRect(player.x, player.y, player.width, player.height);
-        
-        // Draw & move obstacles
-        for(let i = 0; i < obstacles.length; i++) {
-            let obs = obstacles[i];
-            obs.y += obs.speed;
-            ctx.fillStyle = '#ff4757';
-            ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+        canvas.addEventListener('mousemove', handleMouse);
+        gameLoop = setInterval(() => {
+            ctx.fillStyle = '#0f1115';
+            ctx.fillRect(0, 0, 800, 600);
             
-            // Collision
-            if(player.x < obs.x + obs.width && player.x + player.width > obs.x &&
-               player.y < obs.y + obs.height && player.y + player.height > obs.y) {
-                obstacles.splice(i, 1);
-                health--;
-                updateHealth();
-                if(health <= 0) {
-                    clearInterval(gameLoop);
-                    alert(`Oyun Bitti! Skorun: ${score}`);
-                    closeGame();
+            // Grid
+            ctx.strokeStyle = '#1f2533';
+            for(let i=0; i<800; i+=40) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,600); ctx.stroke(); }
+            for(let i=0; i<600; i+=40) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(800,i); ctx.stroke(); }
+
+            // Player
+            ctx.fillStyle = player.color;
+            ctx.beginPath(); ctx.arc(player.x, player.y, player.r, 0, Math.PI*2); ctx.fill();
+            ctx.fillStyle = 'white'; ctx.font = '12px Arial'; ctx.textAlign = 'center'; ctx.fillText('Sen', player.x, player.y+4);
+
+            // Enemies & Food
+            for(let i=enemies.length-1; i>=0; i--) {
+                let e = enemies[i];
+                e.x += e.vx; e.y += e.vy;
+                if(e.x < 0 || e.x > 800) e.vx *= -1;
+                if(e.y < 0 || e.y > 600) e.vy *= -1;
+
+                ctx.fillStyle = e.color;
+                ctx.beginPath(); ctx.arc(e.x, e.y, e.r, 0, Math.PI*2); ctx.fill();
+
+                // Collision
+                let dist = Math.hypot(player.x - e.x, player.y - e.y);
+                if(dist < player.r + e.r) {
+                    if(player.r > e.r) {
+                        player.r += 1;
+                        addScore(10);
+                        enemies.splice(i, 1);
+                        spawnEnemy();
+                    } else {
+                        health--;
+                        updateGameUI();
+                        player.x = 400; player.y = 300; player.r = 20;
+                        if(health <= 0) { alert('Oyun Bitti! Skor: ' + score); closeGame(); }
+                    }
                 }
             }
+        }, 20);
+    }
+
+    function spawnEnemy() {
+        enemies.push({
+            x: Math.random() * 800, y: Math.random() * 600,
+            r: 10 + Math.random() * 30,
+            vx: (Math.random() - 0.5) * 3, vy: (Math.random() - 0.5) * 3,
+            color: `hsl(${Math.random()*360}, 70%, 50%)`
+        });
+    }
+
+    // 2. CLICKER MOTORU (Cookie Clicker)
+    function startClickerGame() {
+        let clickPower = 1;
+        canvas.addEventListener('click', handleClick);
+        
+        function draw() {
+            ctx.fillStyle = '#181b21'; ctx.fillRect(0,0,800,600);
+            ctx.fillStyle = '#f59e0b'; ctx.font = 'bold 80px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('🍪', 400, 250);
+            ctx.fillStyle = 'white'; ctx.font = '30px Arial';
+            ctx.fillText('Tıkla! (Skor: ' + score + ')', 400, 350);
+            ctx.fillStyle = '#9ca3af'; ctx.font = '20px Arial';
+            ctx.fillText('Her tıklama +' + clickPower + ' puan', 400, 400);
             
-            // Score
-            if(obs.y > 400) {
-                obstacles.splice(i, 1);
-                score += 10;
-                document.getElementById('score').innerText = score;
+            ctx.fillStyle = '#00e5ff'; ctx.fillRect(300, 450, 200, 50);
+            ctx.fillStyle = '#0f1115'; ctx.font = '16px Arial';
+            ctx.fillText('Yükselt (100 Puan)', 400, 480);
+        }
+        
+        gameLoop = setInterval(draw, 50);
+        
+        function handleClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            if(y > 450 && y < 500 && x > 300 && x < 500) {
+                if(score >= 100) { score -= 100; clickPower++; addScore(0); }
+            } else if(y > 150 && y < 350 && x > 300 && x < 500) {
+                addScore(clickPower);
+                // Animasyon efekti
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.beginPath(); ctx.arc(400, 250, 100, 0, Math.PI*2); ctx.fill();
             }
         }
     }
 
-    function updateHealth() {
-        document.getElementById('health').innerText = '❤️'.repeat(health) + '🖤'.repeat(3 - health);
+    // 3. RUNNER MOTORU (Snow Rider / Endless Runner)
+    function startRunnerGame() {
+        player = { x: 100, y: 450, w: 40, h: 40, dy: 0, jumping: false };
+        enemies = [];
+        let frame = 0;
+        
+        document.addEventListener('keydown', handleInput);
+        gameLoop = setInterval(() => {
+            ctx.fillStyle = '#0f1115'; ctx.fillRect(0,0,800,600);
+            
+            // Zemin
+            ctx.fillStyle = '#2d3342'; ctx.fillRect(0, 500, 800, 100);
+            
+            // Oyuncu
+            ctx.fillStyle = '#10b981'; ctx.fillRect(player.x, player.y, player.w, player.h);
+            
+            // Fizik
+            if(player.jumping) {
+                player.y += player.dy;
+                player.dy += 0.8; // Gravity
+                if(player.y >= 450) { player.y = 450; player.jumping = false; }
+            }
+            
+            // Engeller
+            if(frame % 100 === 0) {
+                enemies.push({ x: 800, y: 460, w: 30, h: 40 });
+            }
+            
+            ctx.fillStyle = '#ef4444';
+            for(let i=enemies.length-1; i>=0; i--) {
+                let e = enemies[i];
+                e.x -= 5;
+                ctx.fillRect(e.x, e.y, e.w, e.h);
+                
+                // Çarpışma
+                if(player.x < e.x + e.w && player.x + player.w > e.x && player.y < e.y + e.h && player.y + player.h > e.y) {
+                    health--; updateGameUI();
+                    enemies.splice(i, 1);
+                    if(health <= 0) { alert('Oyun Bitti! Skor: ' + score); closeGame(); }
+                }
+                
+                if(e.x < -50) { enemies.splice(i, 1); addScore(10); }
+            }
+            frame++;
+        }, 20);
     }
 
-    function closeGame() {
-        document.getElementById('gamePlayer').classList.remove('active');
-        if(gameLoop) clearInterval(gameLoop);
+    // 4. SHOOTER MOTORU (Krunker benzeri basit nişan alma)
+    function startShooterGame() {
+        enemies = [];
+        let frame = 0;
+        canvas.addEventListener('click', handleClick);
+        
+        gameLoop = setInterval(() => {
+            ctx.fillStyle = '#1a202c'; ctx.fillRect(0,0,800,600);
+            
+            // Crosshair
+            ctx.strokeStyle = '#00e5ff'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.arc(400, 300, 20, 0, Math.PI*2); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(390,300); ctx.lineTo(410,300); ctx.moveTo(400,290); ctx.lineTo(400,310); ctx.stroke();
+            
+            if(frame % 60 === 0) {
+                enemies.push({ x: Math.random()*700+50, y: Math.random()*400+100, r: 25, life: 60 });
+            }
+            
+            ctx.fillStyle = '#ef4444';
+            for(let i=enemies.length-1; i>=0; i--) {
+                let e = enemies[i];
+                e.life--;
+                ctx.beginPath(); ctx.arc(e.x, e.y, e.r, 0, Math.PI*2); ctx.fill();
+                ctx.fillStyle = 'white'; ctx.font = '12px Arial'; ctx.fillText(e.life, e.x, e.y+4);
+                ctx.fillStyle = '#ef4444';
+                
+                if(e.life <= 0) {
+                    health--; updateGameUI();
+                    enemies.splice(i, 1);
+                    if(health <= 0) { alert('Oyun Bitti! Skor: ' + score); closeGame(); }
+                }
+            }
+            frame++;
+        }, 20);
+        
+        function handleClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            
+            for(let i=enemies.length-1; i>=0; i--) {
+                let e = enemies[i];
+                if(Math.hypot(mx - e.x, my - e.y) < e.r) {
+                    enemies.splice(i, 1);
+                    addScore(25);
+                    break;
+                }
+            }
+        }
     }
 
-    // Controls
-    document.addEventListener('keydown', (e) => {
-        if(!document.getElementById('gamePlayer').classList.contains('active')) return;
-        if((e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') && player.x > 0) player.x -= player.speed;
-        if((e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') && player.x < 550) player.x += player.speed;
-    });
+    // 5. PUZZLE / 2048 Basit Simülasyon
+    function startPuzzleGame() {
+        let grid = Array(4).fill().map(() => Array(4).fill(0));
+        grid[0][0] = 2; grid[0][1] = 2;
+        
+        canvas.addEventListener('keydown', handleInput);
+        canvas.setAttribute('tabindex', '0');
+        canvas.focus();
+        
+        function draw() {
+            ctx.fillStyle = '#181b21'; ctx.fillRect(0,0,800,600);
+            ctx.fillStyle = 'white'; ctx.font = '24px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('2048 Benzeri Bulmaca Modu', 400, 50);
+            ctx.fillText('Yön tuşlarını kullan (Simülasyon)', 400, 80);
+            
+            let startX = 250, startY = 150, size = 80, gap = 10;
+            for(let r=0; r<4; r++) {
+                for(let c=0; c<4; c++) {
+                    let val = grid[r][c];
+                    ctx.fillStyle = val === 0 ? '#2d3342' : (val === 2 ? '#00e5ff' : '#a855f7');
+                    ctx.fillRect(startX + c*(size+gap), startY + r*(size+gap), size, size);
+                    if(val > 0) {
+                        ctx.fillStyle = 'white'; ctx.font = 'bold 30px Arial';
+                        ctx.fillText(val, startX + c*(size+gap) + size/2, startY + r*(size+gap) + size/2 + 10);
+                    }
+                }
+            }
+        }
+        
+        gameLoop = setInterval(draw, 100);
+        
+        function handleInput(e) {
+            if(e.key.startsWith('Arrow')) {
+                e.preventDefault();
+                // Basit simülasyon: Her tuşta rastgele bir 2 ekle ve skor artır
+                let r = Math.floor(Math.random()*4), c = Math.floor(Math.random()*4);
+                if(grid[r][c] === 0) { grid[r][c] = 2; addScore(10); }
+            }
+        }
+    }
+
+    // Yardımcı Fonksiyonlar
+    function handleMouse(e) {
+        const rect = canvas.getBoundingClientRect();
+        player.x = e.clientX - rect.left;
+        player.y = e.clientY - rect.top;
+    }
+
+    function handleInput(e) {
+        if(gameType === 'runner') {
+            if((e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w') && !player.jumping) {
+                player.jumping = true;
+                player.dy = -12;
+            }
+        }
+    }
+
+    // Market Fonksiyonları
+    function openChest() {
+        const reward = Math.floor(Math.random() * 200) + 50;
+        gold += reward;
+        updateHUD();
+        alert(`🎉 Tebrikler! Sandıktan ${reward} Altın çıktı!`);
+    }
+
+    function spinWheel() {
+        if(gems < 50) { alert('Yetersiz Elmas!'); return; }
+        gems -= 50;
+        const outcomes = ['100 Altın', '500 Altın', '10 Elmas', 'Hiçbir Şey', 'Efsanevi Kostüm'];
+        const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+        updateHUD();
+        alert(`🎡 Çark döndü: ${result} kazandın!`);
+    }
+
+    // Başlat
+    init();
 </script>
-
 </body>
 </html>
