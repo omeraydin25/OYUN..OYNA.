@@ -1,12 +1,243 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web Araçları</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GameBox - Mini Oyun Merkezi</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    margin:0;
+    background:#f4f6f8;
+    color:#222;
+}
+
+header{
+    background:#111827;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+nav{
+    background:white;
+    padding:15px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    background:#2563eb;
+    color:white;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+    box-shadow:0 5px 15px #0001;
+}
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.game{
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 3px 10px #0002;
+}
+
+.ad{
+    height:90px;
+    background:#ddd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    margin:20px 0;
+}
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+</style>
+
 </head>
+
 <body>
-  <h1>Web Araçları</h1>
-  <p>Sitemize hoş geldiniz.</p>
+
+<header>
+<div class="logo">🎮 GameBox</div>
+<p>Ücretsiz mini oyun merkezi</p>
+
+<select>
+<option>Türkçe</option>
+<option>English</option>
+<option>Deutsch</option>
+<option>Français</option>
+<option>Español</option>
+</select>
+
+</header>
+
+
+<nav>
+<button>Ana Sayfa</button>
+<button>Oyunlar</button>
+<button>Puanlar</button>
+<button>Profil</button>
+</nav>
+
+
+<div class="container">
+
+<div class="ad">
+Reklam Alanı
+</div>
+
+
+<div class="card">
+
+<h2>🏆 Oyuncu Paneli</h2>
+
+<p>
+Puan:
+<span id="score">0</span>
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🎯 Oyunlar</h2>
+
+<div class="games">
+
+
+<div class="game">
+<h3>Yazı Tura</h3>
+<button onclick="coin()">Oyna</button>
+</div>
+
+
+<div class="game">
+<h3>Zar At</h3>
+<button onclick="dice()">Oyna</button>
+</div>
+
+
+<div class="game">
+<h3>Sayı Tahmin</h3>
+<button onclick="guess()">Oyna</button>
+</div>
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<footer>
+© 2026 GameBox - Mini Games
+</footer>
+
+
+<script>
+
+let score=0;
+
+
+function addScore(x){
+score+=x;
+document.getElementById("score").innerHTML=score;
+}
+
+
+function coin(){
+
+let a=Math.random()>0.5?"Yazı":"Tura";
+
+alert(a+" geldi!");
+
+addScore(10);
+
+}
+
+
+function dice(){
+
+let d=Math.floor(Math.random()*6)+1;
+
+alert("Zar: "+d);
+
+addScore(5);
+
+}
+
+
+
+function guess(){
+
+let n=Math.floor(Math.random()*10)+1;
+
+let x=prompt("1-10 arası tahmin et");
+
+if(x==n){
+
+alert("Doğru!");
+
+addScore(20);
+
+}else{
+
+alert("Yanlış sayı: "+n);
+
+}
+
+}
+
+
+</script>
+
+
 </body>
 </html>
