@@ -1,243 +1,447 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopNex - Oyun Mağazası</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<title>GameBox - Mini Oyun Merkezi</title>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
 
-<style>
-*{
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
+        /* Header & Navigation */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
 
-body{
-    margin:0;
-    background:#f4f6f8;
-    color:#222;
-}
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
 
-header{
-    background:#111827;
-    color:white;
-    padding:20px;
-    text-align:center;
-}
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
 
-.logo{
-    font-size:30px;
-    font-weight:bold;
-}
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
 
-nav{
-    background:white;
-    padding:15px;
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
 
-button{
-    border:none;
-    padding:10px 18px;
-    border-radius:10px;
-    cursor:pointer;
-    background:#2563eb;
-    color:white;
-}
+        .nav-links a:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
 
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
-}
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+            font-size: 20px;
+        }
 
-.card{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:20px;
-    box-shadow:0 5px 15px #0001;
-}
+        .nav-icons i {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-.games{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-}
+        .nav-icons i:hover {
+            color: #667eea;
+            transform: scale(1.2);
+        }
 
-.game{
-    background:#fff;
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 3px 10px #0002;
-}
+        /* Search Bar */
+        .search-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
 
-.ad{
-    height:90px;
-    background:#ddd;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:10px;
-    margin:20px 0;
-}
+        .search-bar {
+            display: flex;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
 
-footer{
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
-</style>
+        .search-bar input {
+            flex: 1;
+            padding: 18px 30px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+            color: #333;
+        }
 
+        .search-bar button {
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+
+        /* Categories */
+        .categories {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        .categories h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #667eea;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-card i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        /* Games Grid */
+        .games-section {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 30px;
+        }
+
+        .games-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: #667eea;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .game-price {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px 30px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .favorite-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .favorite-badge:hover {
+            background: #ff6b6b;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .game-card {
+            position: relative;
+        }
+    </style>
 </head>
-
 <body>
-
-<header>
-<div class="logo">🎮 GameBox</div>
-<p>Ücretsiz mini oyun merkezi</p>
-
-<select>
-<option>Türkçe</option>
-<option>English</option>
-<option>Deutsch</option>
-<option>Français</option>
-<option>Español</option>
-</select>
-
-</header>
-
-
-<nav>
-<button>Ana Sayfa</button>
-<button>Oyunlar</button>
-<button>Puanlar</button>
-<button>Profil</button>
-</nav>
-
-
-<div class="container">
-
-<div class="ad">
-Reklam Alanı
-</div>
-
-
-<div class="card">
-
-<h2>🏆 Oyuncu Paneli</h2>
-
-<p>
-Puan:
-<span id="score">0</span>
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>🎯 Oyunlar</h2>
-
-<div class="games">
-
-
-<div class="game">
-<h3>Yazı Tura</h3>
-<button onclick="coin()">Oyna</button>
-</div>
-
-
-<div class="game">
-<h3>Zar At</h3>
-<button onclick="dice()">Oyna</button>
-</div>
-
-
-<div class="game">
-<h3>Sayı Tahmin</h3>
-<button onclick="guess()">Oyna</button>
-</div>
-
-
-
-</div>
-
-</div>
-
-
-</div>
-
-
-
-<footer>
-© 2026 GameBox - Mini Games
-</footer>
-
-
-<script>
-
-let score=0;
-
-
-function addScore(x){
-score+=x;
-document.getElementById("score").innerHTML=score;
-}
-
-
-function coin(){
-
-let a=Math.random()>0.5?"Yazı":"Tura";
-
-alert(a+" geldi!");
-
-addScore(10);
-
-}
-
-
-function dice(){
-
-let d=Math.floor(Math.random()*6)+1;
-
-alert("Zar: "+d);
-
-addScore(5);
-
-}
-
-
-
-function guess(){
-
-let n=Math.floor(Math.random()*10)+1;
-
-let x=prompt("1-10 arası tahmin et");
-
-if(x==n){
-
-alert("Doğru!");
-
-addScore(20);
-
-}else{
-
-alert("Yanlış sayı: "+n);
-
-}
-
-}
-
-
-</script>
-
-
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">ShopNex</a>
+            <ul class="nav-links">
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#about">Hakkımızda</a></li>
+                <li><a href="#categories">Kategoriler</a></li>
+                <li><a href="#games">Oyunlar</a></li>
+            </ul>
+            <div class="nav-icons">
+                <i class="fas fa-heart" title="Favoriler"></i>
+                <i class="fas fa-shopping-cart" title="Sepet"></i>
+                <i class="fas fa-user" title="Profil"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" placeholder="Oyun ara..." id="searchInput">
+            <button onclick="searchGames()"><i class="fas fa-search"></i> Ara</button>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <section class="categories" id="categories">
+        <h2>Kategoriler</h2>
+        <div class="category-grid">
+            <div class="category-card" onclick="filterCategory('aksiyon')">
+                <i class="fas fa-gamepad"></i>
+                <h3>Aksiyon</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('macera')">
+                <i class="fas fa-compass"></i>
+                <h3>Macera</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('spor')">
+                <i class="fas fa-futbol"></i>
+                <h3>Spor</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('strateji')">
+                <i class="fas fa-chess"></i>
+                <h3>Strateji</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('yarış')">
+                <i class="fas fa-car"></i>
+                <h3>Yarış</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('rpg')">
+                <i class="fas fa-dragon"></i>
+                <h3>RPG</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="games-section" id="games">
+        <h2>Profesyonel Oyun Koleksiyonu (100 Oyun)</h2>
+        <div class="games-grid" id="gamesGrid">
+            <!-- Games will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 ShopNex - Tüm hakları saklıdır.</p>
+        <p>Profesyonel Oyun Mağazası</p>
+    </footer>
+
+    <script>
+        // 100 Oyun Verisi
+        const games = [
+            { id: 1, name: "Cyber Warriors 2077", category: "aksiyon", price: "299₺", icon: "🎮" },
+            { id: 2, name: "Fantasy Quest", category: "macera", price: "249₺", icon: "⚔️" },
+            { id: 3, name: "FIFA 2026", category: "spor", price: "399₺", icon: "⚽" },
+            { id: 4, name: "Empire Builder", category: "strateji", price: "199₺", icon: "🏰" },
+            { id: 5, name: "Speed Racer X", category: "yarış", price: "279₺", icon: "🏎️" },
+            { id: 6, name: "Dragon's Legacy", category: "rpg", price: "349₺", icon: "🐉" },
+            { id: 7, name: "Battle Royale Pro", category: "aksiyon", price: "Free", icon: "🎯" },
+            { id: 8, name: "Mystery Island", category: "macera", price: "229₺", icon: "🏝️" },
+            { id: 9, name: "NBA Champions", category: "spor", price: "379₺", icon: "🏀" },
+            { id: 10, name: "War Strategy", category: "strateji", price: "259₺", icon: "⚔️" },
+            // ... 90 oyun daha eklenecek
+        ];
+
+        // 100 oyuna tamamlama
+        const categories = ["aksiyon", "macera", "spor", "strateji", "yarış", "rpg"];
+        const icons = ["🎮", "⚔️", "⚽", "🏰", "🏎️", "🐉", "🎯", "🏝️", "🏀", "👾", "🎪", "🎨"];
+        
+        for (let i = 11; i <= 100; i++) {
+            games.push({
+                id: i,
+                name: `Pro Game ${i}`,
+                category: categories[Math.floor(Math.random() * categories.length)],
+                price: `${Math.floor(Math.random() * 300) + 100}₺`,
+                icon: icons[Math.floor(Math.random() * icons.length)]
+            });
+        }
+
+        // Oyunları göster
+        function displayGames(gamesToShow) {
+            const gamesGrid = document.getElementById('gamesGrid');
+            gamesGrid.innerHTML = '';
+            
+            gamesToShow.forEach(game => {
+                const gameCard = `
+                    <div class="game-card" data-category="${game.category}">
+                        <div class="favorite-badge" onclick="toggleFavorite(${game.id})">
+                            <i class="far fa-heart" id="fav-${game.id}"></i>
+                        </div>
+                        <div class="game-image">${game.icon}</div>
+                        <div class="game-info">
+                            <div class="game-title">${game.name}</div>
+                            <div class="game-price">${game.price}</div>
+                            <button class="add-to-cart" onclick="addToCart(${game.id})">
+                                <i class="fas fa-cart-plus"></i> Sepete Ekle
+                            </button>
+                        </div>
+                    </div>
+                `;
+                gamesGrid.innerHTML += gameCard;
+            });
+        }
+
+        // Kategori filtresi
+        function filterCategory(category) {
+            const filtered = games.filter(game => game.category === category);
+            displayGames(filtered);
+        }
+
+        // Arama fonksiyonu
+        function searchGames() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = games.filter(game => 
+                game.name.toLowerCase().includes(searchTerm)
+            );
+            displayGames(filtered);
+        }
+
+        // Favorilere ekle
+        function toggleFavorite(id) {
+            const favIcon = document.getElementById(`fav-${id}`);
+            favIcon.classList.toggle('fas');
+            favIcon.classList.toggle('far');
+        }
+
+        // Sepete ekle
+        function addToCart(id) {
+            const game = games.find(g => g.id === id);
+            alert(`${game.name} sepete eklendi!`);
+        }
+
+        // Sayfa yüklendiğinde tüm oyunları göster
+        displayGames(games);
+
+        // Enter tuşu ile arama
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchGames();
+            }
+        });
+    </script>
 </body>
 </html>
+
