@@ -1,356 +1,468 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-<title>GameVault — 100 Ücretsiz Web Oyunu | Tarayıcıda Hemen Oyna</title>
-<meta name="description" content="Subway Surfers'tan 2048'e, Slither.io'dan Bloons TD'ye 100 ücretsiz web oyunu. Kurulum yok, kayıt yok — tıkla ve hemen oyna!">
-<meta name="theme-color" content="#0d1322">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ShopNex — 200 Seviyeli Ücretsiz Web Oyunları</title>
+<meta name="description" content="ShopNex'te 12 farklı oyun, her birinde 200 zorlu seviye. Kayıt ol, seviye atla, rozet kazan. Tarayıcında anında oyna!">
+<meta property="og:title" content="ShopNex — Premium Web Oyun Platformu">
+<meta property="og:description" content="200 seviyeli zorlu oyunlar, rozetler, günlük görevler ve daha fazlası.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--ink:#0d1322;--panel:#121a2d;--card:#182238;--line:#28345233;--line2:#2b3a5c;--amber:#ffb703;--coral:#ef476f;--teal:#06d6a0;--sky:#3a86ff;--txt:#eef2ff;--mut:#8b97b8;--dark:#0a0f1c}
+:root{--bg:#0a0e1a;--bg2:#111827;--card:rgba(255,255,255,.04);--card2:rgba(255,255,255,.07);--glass:rgba(255,255,255,.06);--glass2:rgba(255,255,255,.1);--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--txt:#f1f5f9;--txt2:#94a3b8;--txt3:#64748b;--accent:#6366f1;--accent2:#818cf8;--accent-g:rgba(99,102,241,.15);--green:#10b981;--amber:#f59e0b;--red:#ef4444;--pink:#ec4899;--cyan:#06b6d4;--radius:16px;--radius-sm:10px;--shadow:0 8px 32px rgba(0,0,0,.3);--shadow-sm:0 4px 16px rgba(0,0,0,.2);--font:'Inter',system-ui,sans-serif;--font-d:'Space Grotesk',sans-serif;--header-h:64px}
+[data-theme="light"]{--bg:#f8fafc;--bg2:#ffffff;--card:rgba(0,0,0,.02);--card2:rgba(0,0,0,.04);--glass:rgba(255,255,255,.7);--glass2:rgba(255,255,255,.85);--border:rgba(0,0,0,.06);--border2:rgba(0,0,0,.1);--txt:#0f172a;--txt2:#475569;--txt3:#94a3b8;--shadow:0 8px 32px rgba(0,0,0,.08);--shadow-sm:0 4px 16px rgba(0,0,0,.05)}
 html{scroll-behavior:smooth}
-body{font-family:Rubik,sans-serif;color:var(--txt);overflow-x:hidden;line-height:1.55;background:radial-gradient(900px 520px at 88% -8%,rgba(58,134,255,.14),transparent 60%),radial-gradient(760px 520px at -8% 28%,rgba(255,183,3,.08),transparent 60%),radial-gradient(820px 620px at 55% 112%,rgba(6,214,160,.09),transparent 60%),var(--ink)}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 44px),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 44px)}
-button{cursor:pointer;border:none;font-family:inherit}
-input,select{font-family:inherit}
-::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:#2b3a5c;border-radius:3px}
-.dsp{font-family:Bungee,cursive;font-weight:400}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,.08),transparent),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(6,182,212,.05),transparent);pointer-events:none;z-index:0}
+button{cursor:pointer;border:none;font-family:inherit;font-size:inherit}
+input,select,textarea{font-family:inherit}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+img{max-width:100%}
 
-/* YERLEŞİM */
-.shell{display:flex;min-height:100vh;position:relative;z-index:1}
-.side{width:236px;background:var(--panel);border-right:1px solid var(--line2);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:120;display:flex;flex-direction:column;transition:left .3s}
-.logo{padding:18px 16px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line2)}
-.logo .cube{width:38px;height:38px;background:var(--amber);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:3px 3px 0 #7a5200;animation:cubespin 6s ease-in-out infinite}
-@keyframes cubespin{0%,100%{transform:rotate(0)}50%{transform:rotate(-8deg) scale(1.06)}}
-.logo b{font-family:Bungee;font-size:17px;letter-spacing:.5px}.logo b span{color:var(--amber)}
-.snav{padding:12px 0;flex:1}
-.sgroup{font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;padding:12px 18px 5px;font-weight:700}
-.si{padding:9px 18px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mut);cursor:pointer;border-left:3px solid transparent;transition:.15s;font-weight:500}
-.si:hover,.si.on{color:var(--txt);background:rgba(255,183,3,.05);border-left-color:var(--amber)}
-.si .em{width:20px;text-align:center}
-.maincol{margin-left:236px;flex:1;display:flex;flex-direction:column;min-width:0}
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;display:flex;align-items:center;padding:0 20px;gap:16px}
+.hamburger{display:none;width:40px;height:40px;border-radius:var(--radius-sm);background:var(--card2);border:1px solid var(--border);align-items:center;justify-content:center;flex-direction:column;gap:4px;transition:.2s}
+.hamburger span{width:18px;height:2px;background:var(--txt);border-radius:2px;transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:20px;font-weight:700;letter-spacing:-.5px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--cyan));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(99,102,241,.3)}
+.logo b{background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-search{flex:1;max-width:420px;position:relative;margin:0 auto}
+.header-search input{width:100%;padding:10px 16px 10px 40px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:var(--txt);font-size:13px;outline:none;transition:.2s}
+.header-search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+.header-search::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.6}
+.search-drop{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;overflow:hidden;display:none;box-shadow:var(--shadow);z-index:100}
+.search-drop.on{display:block}
+.sd-item{padding:11px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s;font-size:13px}
+.sd-item:hover{background:var(--card2)}
+.header-actions{display:flex;align-items:center;gap:8px}
+.hbtn{width:38px;height:38px;border-radius:var(--radius-sm);background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;transition:.2s;color:var(--txt)}
+.hbtn:hover{border-color:var(--accent);background:var(--accent-g)}
+.hbtn-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:.2s}
+.hbtn-avatar:hover{border-color:var(--accent2)}
 
-/* ÜST BAR */
-.top{height:58px;background:rgba(13,19,34,.92);border-bottom:1px solid var(--line2);display:flex;align-items:center;padding:0 20px;gap:12px;position:sticky;top:0;z-index:90;backdrop-filter:blur(6px)}
-.srch{flex:1;max-width:440px;position:relative}
-.srch input{width:100%;padding:10px 14px 10px 38px;background:var(--card);border:1px solid var(--line2);border-radius:11px;color:#fff;font-size:13px;outline:none;transition:.2s}
-.srch input:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,183,3,.15)}
-.srch::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px}
-.sdrop{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--panel);border:1px solid var(--line2);border-radius:12px;overflow:hidden;display:none;z-index:200;box-shadow:0 16px 40px rgba(0,0,0,.5)}
-.sdrop.on{display:block}
-.sdrow{padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;transition:.12s}
-.sdrow:hover{background:var(--card)}
-.hud{display:flex;gap:8px;margin-left:auto;align-items:center}
-.chip{background:var(--card);border:1px solid var(--line2);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px;white-space:nowrap}
-.chip.g{color:var(--amber)}.chip.x{color:var(--teal)}
-.chip.live{color:var(--coral)}.chip.live i{width:7px;height:7px;border-radius:50%;background:var(--coral);animation:blink 1.4s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.av{width:34px;height:34px;border-radius:10px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;cursor:pointer;box-shadow:2px 2px 0 #173a75;transition:.15s}
-.av:hover{transform:translateY(-2px)}
+/* SIDEBAR MOBILE */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1100;opacity:0;transition:.3s}
+.sidebar-overlay.on{display:block;opacity:1}
+.sidebar{position:fixed;top:0;left:-300px;width:280px;height:100vh;background:var(--bg2);border-right:1px solid var(--border);z-index:1200;transition:left .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:20px 0}
+.sidebar.on{left:0}
+.sidebar .logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.snav-item{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;color:var(--txt2);cursor:pointer;transition:.15s;border-left:3px solid transparent}
+.snav-item:hover,.snav-item.on{color:var(--txt);background:var(--accent-g);border-left-color:var(--accent)}
+.snav-item .si{width:22px;text-align:center;font-size:16px}
+.snav-sep{height:1px;background:var(--border);margin:12px 20px}
+.snav-title{padding:8px 20px 4px;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt3);font-weight:700}
 
-/* TİCKER */
-.ticker{overflow:hidden;background:var(--dark);border-bottom:1px solid var(--line2);position:relative}
-.ticker::before,.ticker::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
-.ticker::before{left:0;background:linear-gradient(90deg,var(--dark),transparent)}
-.ticker::after{right:0;background:linear-gradient(-90deg,var(--dark),transparent)}
-.tk{display:inline-flex;gap:34px;padding:8px 0;white-space:nowrap;animation:tkm 45s linear infinite;font-size:12px;font-weight:700;color:var(--mut)}
-.tk b{color:var(--amber)}
-@keyframes tkm{to{transform:translateX(-50%)}}
+/* MAIN */
+.main{margin-top:var(--header-h);min-height:calc(100vh - var(--header-h));position:relative;z-index:1}
+.container{max-width:1280px;margin:0 auto;padding:24px 20px 60px}
+.page{display:none;animation:pageIn .4s ease}.page.on{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-/* İÇERİK */
-.view{flex:1;padding:22px 24px 60px;max-width:1240px;width:100%;margin:0 auto}
-.pg{display:none}.pg.on{display:block;animation:pgin .35s ease}
-@keyframes pgin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.st{font-family:Bungee;font-size:17px;letter-spacing:.5px;display:flex;align-items:center;gap:10px;margin:26px 0 14px}
-.st i{width:11px;height:11px;background:var(--amber);transform:rotate(45deg);flex-shrink:0}
-.st small{font-family:Rubik;font-size:11px;color:var(--mut);font-weight:500;margin-left:auto;letter-spacing:0}
-.rv{opacity:0;transform:translateY(20px);transition:.6s cubic-bezier(.2,.7,.3,1)}
-.rv.in{opacity:1;transform:none}
+/* HERO */
+.hero{background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(6,182,212,.08));border:1px solid var(--border);border-radius:24px;padding:48px 40px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-g);border:1px solid rgba(99,102,241,.3);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;color:var(--accent2);margin-bottom:16px}
+.hero h1{font-family:var(--font-d);font-size:clamp(28px,5vw,44px);font-weight:700;line-height:1.15;margin-bottom:12px;letter-spacing:-1px}
+.hero h1 span{background:linear-gradient(135deg,var(--accent2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--txt2);font-size:15px;max-width:520px;margin-bottom:24px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:24px;margin-top:28px;flex-wrap:wrap}
+.hero-stat{text-align:center}.hero-stat b{display:block;font-size:22px;font-weight:800;color:var(--accent2)}.hero-stat span{font-size:11px;color:var(--txt3)}
 
-/* OYUN DUVARI */
-.wall{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.gc{background:var(--card);border:1px solid var(--line2);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;position:relative}
-.gc:hover{transform:translateY(-5px);border-color:var(--amber);box-shadow:0 16px 34px rgba(0,0,0,.45)}
-.gc::after{content:'';position:absolute;top:0;left:-90%;width:45%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.07),transparent);transition:left .55s;pointer-events:none}
-.gc:hover::after{left:140%}
-.gth{height:110px;display:flex;align-items:center;justify-content:center;font-size:46px;position:relative}
-.gc.big{grid-column:span 2;grid-row:span 2}
-.gc.big .gth{height:100%;min-height:248px;font-size:88px}
-.gbadge{position:absolute;top:9px;left:9px;background:var(--coral);color:#fff;padding:3px 9px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
-.gfav{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.55);border:none;width:27px;height:27px;border-radius:50%;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;transition:.15s;z-index:3}
-.gfav:hover{transform:scale(1.15)}
-.gbody{padding:11px 12px 12px}
-.gc.big .gbody{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,15,28,.95) 40%);padding:30px 16px 16px}
-.gname{font-size:13px;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gc.big .gname{font-family:Bungee;font-size:19px;white-space:normal}
-.gdesc{font-size:11px;color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px}
-.gc.big .gdesc{-webkit-line-clamp:2}
-.gmeta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--mut)}
-.gtag{padding:2px 8px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:.4px}
-.grate{color:var(--amber);font-weight:700}
-.gacts{display:flex;gap:6px;margin-top:9px}
-.btn{border-radius:9px;font-weight:800;font-size:11px;padding:8px 14px;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:5px;letter-spacing:.3px}
-.btn-a{background:var(--amber);color:#221500;box-shadow:0 3px 0 #9a6d00}
-.btn-a:hover{transform:translateY(-2px);box-shadow:0 5px 0 #9a6d00}
-.btn-a:active{transform:translateY(1px);box-shadow:0 1px 0 #9a6d00}
-.btn-t{background:var(--teal);color:#00281d;box-shadow:0 3px 0 #03785c}
-.btn-t:hover{transform:translateY(-2px);box-shadow:0 5px 0 #03785c}
-.btn-g{background:transparent;border:1px solid var(--line2);color:var(--txt)}
-.btn-g:hover{border-color:var(--amber);color:var(--amber)}
-.btn-c{background:var(--coral);color:#fff;box-shadow:0 3px 0 #93243e}
-.btn-c:hover{transform:translateY(-2px)}
-.btn-lg{font-family:Bungee;font-size:14px;padding:13px 26px;letter-spacing:1px}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:12px;font-size:13px;font-weight:600;transition:.2s;border:1px solid transparent}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;box-shadow:0 4px 16px rgba(99,102,241,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.4)}
+.btn-glass{background:var(--glass2);border-color:var(--border2);color:var(--txt);backdrop-filter:blur(8px)}
+.btn-glass:hover{border-color:var(--accent);background:var(--accent-g)}
+.btn-sm{padding:8px 16px;font-size:12px;border-radius:9px}
+.btn-lg{padding:14px 32px;font-size:15px;border-radius:14px}
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red);color:#fff}
 
-/* ŞERİT */
-.strip{display:flex;gap:13px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px}
-.strip .gc{min-width:212px;scroll-snap-align:start;flex-shrink:0}
+/* SECTION */
+.sec{margin-bottom:36px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.sec-title{font-family:var(--font-d);font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
+.sec-title i{width:4px;height:22px;background:linear-gradient(var(--accent),var(--cyan));border-radius:2px}
+.sec-link{font-size:12px;color:var(--accent2);font-weight:600;cursor:pointer;transition:.15s}
+.sec-link:hover{color:var(--accent)}
 
-/* IZGARA */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:13px}
-.empty{text-align:center;padding:50px 20px;color:var(--mut)}
-.empty .e{font-size:52px;display:block;margin-bottom:12px;opacity:.6}
+/* GAME CARDS - GLASSMORPHISM */
+.game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.game-card{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.25s;position:relative}
+.game-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 16px 40px rgba(99,102,241,.15)}
+.gc-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;background:linear-gradient(135deg,var(--card2),var(--card))}
+.gc-badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:8px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.gc-badge.new{background:var(--green);color:#fff}
+.gc-badge.trend{background:var(--amber);color:#000}
+.gc-badge.hot{background:var(--red);color:#fff}
+.gc-fav{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;font-size:14px;transition:.2s;border:none;color:#fff}
+.gc-fav:hover{transform:scale(1.2);background:var(--red)}
+.gc-fav.on{background:var(--red)}
+.gc-body{padding:14px}
+.gc-name{font-size:14px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gc-desc{font-size:11px;color:var(--txt2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;line-height:1.5}
+.gc-meta{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--txt3);margin-bottom:10px}
+.gc-tag{padding:3px 8px;border-radius:6px;background:var(--accent-g);color:var(--accent2);font-weight:600;font-size:9px}
+.gc-rating{color:var(--amber);font-weight:700}
+.gc-footer{display:flex;gap:8px}
+.gc-play{flex:1;padding:9px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;font-size:11px;font-weight:700;text-align:center;transition:.2s}
+.gc-play:hover{box-shadow:0 4px 12px rgba(99,102,241,.4)}
+.gc-level{padding:9px 12px;border-radius:9px;background:var(--card2);border:1px solid var(--border);font-size:10px;font-weight:600;color:var(--txt2)}
 
-/* FİLTRE */
-.fbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
-.fbar select{padding:8px 12px;background:var(--card);border:1px solid var(--line2);border-radius:9px;color:#fff;font-size:12px;outline:none;cursor:pointer}
-.fbar select:focus{border-color:var(--amber)}
-.fcount{font-size:11px;color:var(--mut);margin-left:auto;font-weight:700}
+/* CATEGORIES */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.cat-card{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;transition:.2s}
+.cat-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 24px rgba(99,102,241,.1)}
+.cat-icon{font-size:28px;margin-bottom:8px}
+.cat-name{font-size:12px;font-weight:700}
+.cat-count{font-size:10px;color:var(--txt3);margin-top:3px}
 
-/* OYUNCU */
-.ppage{max-width:980px;margin:0 auto}
-.phead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px}
-.ptitle{font-family:Bungee;font-size:21px;display:flex;align-items:center;gap:10px}
-.pbtns{display:flex;gap:7px;flex-wrap:wrap}
-.cwrap{position:relative;background:#000;border-radius:16px;overflow:hidden;border:2px solid var(--line2);box-shadow:0 20px 50px rgba(0,0,0,.5);margin-bottom:13px}
-.cwrap::before,.cwrap::after{content:'';position:absolute;width:22px;height:22px;border:3px solid var(--amber);z-index:6;pointer-events:none}
-.cwrap::before{top:8px;left:8px;border-right:none;border-bottom:none;border-radius:6px 0 0 0}
-.cwrap::after{bottom:8px;right:8px;border-left:none;border-top:none;border-radius:0 0 6px 0}
-#gc{width:100%;display:block;aspect-ratio:8/5;touch-action:none;user-select:none;-webkit-user-select:none}
-.gov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,12,24,.9);z-index:8;text-align:center;padding:20px}
-.gov h2{font-family:Bungee;font-size:26px;margin-bottom:6px;color:var(--amber)}
-.gov p{color:var(--mut);font-size:13px;margin-bottom:14px;max-width:420px}
-.gov .fscore{font-family:Bungee;font-size:40px;color:var(--teal);margin:8px 0 4px}
-.gov .frow{display:flex;gap:18px;margin:10px 0 16px;flex-wrap:wrap;justify-content:center}
-.gov .frow div{text-align:center}.gov .frow b{font-size:17px;display:block}.gov .frow span{font-size:10px;color:var(--mut)}
-.ghud{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;background:var(--card);border:1px solid var(--line2);border-radius:11px;margin-bottom:14px;font-size:12px}
-.ghud span{display:flex;align-items:center;gap:5px}.ghud .l{color:var(--mut)}
-.ginfo{display:grid;grid-template-columns:1.9fr 1fr;gap:15px;margin-top:15px}
-.ibox{background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:17px}
-.ibox h3{font-family:Bungee;font-size:13px;color:var(--amber);margin-bottom:9px;letter-spacing:.5px}
-.ibox p{font-size:12.5px;color:var(--mut);line-height:1.75}
-.irow{display:flex;justify-content:space-between;padding:7px 0;font-size:12px;border-bottom:1px dashed var(--line2)}
-.irow:last-child{border:none}.irow .l{color:var(--mut)}
-.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
-.tag{background:rgba(58,134,255,.12);color:var(--sky);padding:3px 10px;border-radius:14px;font-size:10px;font-weight:700;cursor:pointer}
-.tag:hover{background:rgba(58,134,255,.25)}
+/* GAME PLAYER PAGE */
+.player-wrap{max-width:1000px;margin:0 auto}
+.player-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.player-title{font-family:var(--font-d);font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+.player-btns{display:flex;gap:8px;flex-wrap:wrap}
+.canvas-wrap{position:relative;background:#000;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border2);box-shadow:var(--shadow);margin-bottom:16px}
+#gc{width:100%;display:block;aspect-ratio:16/10;touch-action:none}
+.game-overlay{position:absolute;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;text-align:center;padding:24px}
+.game-overlay h2{font-family:var(--font-d);font-size:26px;margin-bottom:8px}
+.game-overlay p{color:var(--txt2);font-size:13px;margin-bottom:6px;max-width:400px}
+.go-score{font-family:var(--font-d);font-size:42px;color:var(--accent2);margin:12px 0}
+.go-stats{display:flex;gap:20px;margin:12px 0 20px;flex-wrap:wrap;justify-content:center}
+.go-stat{text-align:center}.go-stat b{display:block;font-size:16px}.go-stat span{font-size:10px;color:var(--txt3)}
+.level-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--glass);border:1px solid var(--border);border-radius:12px;margin-bottom:14px}
+.level-bar .lb-info{flex:1}
+.level-bar .lb-title{font-size:12px;font-weight:700}
+.level-bar .lb-sub{font-size:10px;color:var(--txt3)}
+.lb-progress{height:6px;background:var(--card2);border-radius:3px;overflow:hidden;margin-top:6px}
+.lb-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:3px;transition:.5s}
+.game-hud{display:flex;gap:14px;flex-wrap:wrap;padding:12px 16px;background:var(--glass);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;font-size:12px}
+.game-hud span{display:flex;align-items:center;gap:5px}.game-hud .hl{color:var(--txt3)}
+.game-info{display:grid;grid-template-columns:1.8fr 1fr;gap:16px;margin-top:16px}
+.gi-box{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.gi-box h3{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.gi-box p{font-size:13px;color:var(--txt2);line-height:1.7}
+.gi-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.gi-row:last-child{border:none}.gi-row .l{color:var(--txt3)}
+.similar-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.sim-item{display:flex;align-items:center;gap:10px;padding:10px;background:var(--card2);border-radius:10px;cursor:pointer;transition:.15s}
+.sim-item:hover{background:var(--accent-g)}
+.comment-box{margin-top:16px}
+.comment-input{display:flex;gap:10px;margin-bottom:14px}
+.comment-input input{flex:1;padding:11px 14px;background:var(--card2);border:1px solid var(--border);border-radius:10px;color:var(--txt);font-size:13px;outline:none}
+.comment-input input:focus{border-color:var(--accent)}
+.comment{padding:12px;background:var(--card2);border-radius:10px;margin-bottom:8px}
+.comment-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.comment-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.comment-name{font-size:12px;font-weight:600}
+.comment-date{font-size:10px;color:var(--txt3);margin-left:auto}
+.comment-text{font-size:12px;color:var(--txt2)}
+.stars{display:flex;gap:3px;font-size:20px;cursor:pointer}
+.stars span{color:var(--border2);transition:.15s}.stars span.on{color:var(--amber)}
 
-/* PROFİL / GÜNLÜK / BAŞARIM */
-.pcard{background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:22px}
-.prow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.pav{width:66px;height:66px;border-radius:16px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;box-shadow:3px 3px 0 #173a75}
-.xpbar{background:var(--dark);height:10px;border-radius:5px;overflow:hidden;margin-top:9px;max-width:260px}
-.xpfill{height:100%;background:linear-gradient(90deg,var(--teal),var(--sky));width:0%;transition:.6s}
-.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:11px;margin-top:16px}
-.stat{background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:15px;text-align:center;transition:.2s}
-.stat:hover{transform:translateY(-3px);border-color:var(--amber)}
-.stat b{font-family:Bungee;font-size:20px;display:block;margin-bottom:3px}
-.stat span{font-size:10px;color:var(--mut);letter-spacing:.5px;text-transform:uppercase}
-.dgrid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:16px 0}
-.dday{background:var(--card);border:2px solid var(--line2);border-radius:11px;padding:10px 15px;text-align:center;min-width:72px;transition:.2s}
-.dday.done{background:rgba(6,214,160,.15);border-color:var(--teal)}
-.dday.now{border-color:var(--amber);animation:glowa 2s infinite}
-@keyframes glowa{0%,100%{box-shadow:0 0 4px rgba(255,183,3,.3)}50%{box-shadow:0 0 16px rgba(255,183,3,.55)}}
-.achgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:11px}
-.ach{background:var(--card);border:1px solid var(--line2);border-radius:13px;padding:16px 12px;text-align:center;transition:.2s}
-.ach:hover{transform:translateY(-3px)}
-.ach.lock{opacity:.38;filter:grayscale(1)}
-.ach .ai{font-size:30px;display:block;margin-bottom:7px}
-.ach b{font-size:11px;display:block}.ach span{font-size:9.5px;color:var(--mut)}
+/* AUTH PAGES */
+.auth-wrap{max-width:400px;margin:40px auto;padding:0 20px}
+.auth-card{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:20px;padding:36px 30px;box-shadow:var(--shadow)}
+.auth-card h2{font-family:var(--font-d);font-size:22px;text-align:center;margin-bottom:6px}
+.auth-card>p{color:var(--txt2);font-size:13px;text-align:center;margin-bottom:24px}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--txt2)}
+.fg input{width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);border-radius:11px;color:var(--txt);font-size:14px;outline:none;transition:.2s}
+.fg input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+.auth-link{text-align:center;margin-top:16px;font-size:12px;color:var(--txt2)}
+.auth-link a{color:var(--accent2);font-weight:600;cursor:pointer}
 
-/* MODAL / TOAST */
-.mbg{display:none;position:fixed;inset:0;background:rgba(6,10,20,.85);z-index:300;align-items:center;justify-content:center;padding:16px}
-.mbg.on{display:flex}
-.modal{background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:28px;max-width:390px;width:100%;animation:pgin .25s;position:relative}
-.modal h2{font-family:Bungee;text-align:center;font-size:20px;margin-bottom:5px}
-.modal>p{color:var(--mut);font-size:12px;text-align:center;margin-bottom:18px}
-.fg{margin-bottom:13px}.fg label{display:block;font-size:11px;font-weight:700;margin-bottom:5px;color:var(--mut)}
-.fg input{width:100%;padding:11px 13px;background:var(--card);border:1px solid var(--line2);border-radius:10px;color:#fff;font-size:13px;outline:none}
-.fg input:focus{border-color:var(--amber)}
-.mx{position:absolute;top:12px;right:12px;background:var(--card);border:1px solid var(--line2);color:var(--mut);width:29px;height:29px;border-radius:50%;font-size:13px}
-.mx:hover{color:#fff;border-color:var(--coral)}
-.toast{position:fixed;top:72px;right:16px;background:var(--panel);border:1px solid var(--line2);border-left:4px solid var(--amber);border-radius:12px;padding:13px 17px;max-width:290px;z-index:400;transform:translateX(340px);transition:.35s cubic-bezier(.2,.7,.3,1);box-shadow:0 14px 34px rgba(0,0,0,.5)}
+/* SETTINGS */
+.set-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.set-card{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.set-card h3{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.set-row:last-child{border:none}
+.set-row .sl{color:var(--txt2)}
+.toggle{width:44px;height:24px;border-radius:12px;background:var(--card2);border:1px solid var(--border2);position:relative;cursor:pointer;transition:.2s}
+.toggle.on{background:var(--accent);border-color:var(--accent)}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on::after{left:22px}
+.set-select{padding:8px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--txt);font-size:12px;outline:none}
+
+/* PROFILE */
+.prof-header{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:20px;padding:28px;display:flex;align-items:center;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+.prof-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;box-shadow:0 8px 24px rgba(99,102,241,.3)}
+.prof-info h2{font-family:var(--font-d);font-size:20px}
+.prof-info p{font-size:12px;color:var(--txt2)}
+.prof-xp{margin-top:8px}.prof-xp .xp-bar{height:8px;background:var(--card2);border-radius:4px;overflow:hidden;max-width:240px}
+.prof-xp .xp-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:4px}
+.prof-xp span{font-size:10px;color:var(--txt3);margin-top:4px;display:block}
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center;transition:.2s}
+.stat-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.stat-card b{font-family:var(--font-d);font-size:22px;display:block;margin-bottom:4px}
+.stat-card span{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px}
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.badge{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;transition:.2s}
+.badge:hover{transform:translateY(-2px)}
+.badge.lock{opacity:.35;filter:grayscale(1)}
+.badge .bi{font-size:26px;display:block;margin-bottom:6px}
+.badge b{font-size:10px;display:block}.badge span{font-size:9px;color:var(--txt3)}
+
+/* DAILY TASKS */
+.task{display:flex;align-items:center;gap:12px;padding:14px;background:var(--glass);border:1px solid var(--border);border-radius:12px;margin-bottom:10px}
+.task-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;cursor:pointer;transition:.2s}
+.task-check.done{background:var(--green);border-color:var(--green);color:#fff}
+.task-info{flex:1}.task-name{font-size:13px;font-weight:600}.task-prog{font-size:10px;color:var(--txt3)}
+.task-prog-bar{height:4px;background:var(--card2);border-radius:2px;margin-top:4px;overflow:hidden}
+.task-prog-fill{height:100%;background:var(--accent);border-radius:2px}
+.task-reward{font-size:11px;font-weight:700;color:var(--amber)}
+
+/* FOOTER */
+.footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20px 24px;margin-top:40px}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}
+.footer-col h4{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--txt)}
+.footer-col a{display:block;font-size:12px;color:var(--txt2);margin-bottom:8px;transition:.15s;cursor:pointer}
+.footer-col a:hover{color:var(--accent2)}
+.footer-bottom{max-width:1280px;margin:24px auto 0;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--txt3)}
+
+/* TOAST */
+.toast{position:fixed;top:80px;right:20px;background:var(--bg2);border:1px solid var(--border2);border-left:4px solid var(--accent);border-radius:12px;padding:14px 18px;max-width:300px;z-index:9999;transform:translateX(360px);transition:.35s cubic-bezier(.4,0,.2,1);box-shadow:var(--shadow)}
 .toast.on{transform:none}
-.toast b{display:block;font-size:12.5px;margin-bottom:2px}.toast span{color:var(--mut);font-size:11.5px}
-.welcome{display:none;position:fixed;inset:0;background:rgba(8,12,24,.96);z-index:350;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
-.welcome.on{display:flex}
-.welcome .we{font-size:70px;animation:bnc 1s infinite}
-@keyframes bnc{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.welcome h1{font-family:Bungee;font-size:30px;color:var(--amber);margin:14px 0 8px}
-.welcome p{color:var(--mut);margin-bottom:22px;font-size:14px}
-.cbar{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--line2);padding:13px 20px;z-index:250;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut)}
-.cbar.off{display:none}
-.cbar .cbtns{margin-left:auto;display:flex;gap:8px}
-.loader{position:fixed;inset:0;background:var(--ink);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s}
-.loader.off{opacity:0;pointer-events:none}
-.loader .lj{font-size:44px;animation:bnc .8s infinite}
-.loader b{font-family:Bungee;font-size:22px;letter-spacing:1px}.loader b span{color:var(--amber)}
-.lbar{width:200px;height:6px;background:var(--card);border-radius:3px;overflow:hidden}
-.lbar i{display:block;height:100%;background:var(--amber);animation:ld 1.2s ease-in-out infinite}
-@keyframes ld{0%{width:0;margin-left:0}50%{width:70%;margin-left:15%}100%{width:0;margin-left:100%}}
-.mbtn{display:none;position:fixed;top:11px;left:11px;z-index:200;background:var(--panel);border:1px solid var(--line2);padding:8px 11px;border-radius:9px;color:#fff;font-size:17px}
-.obg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:110}
-.obg.on{display:block}
-.foot{margin-top:44px;border-top:1px solid var(--line2);padding:22px 0 8px;color:var(--mut);font-size:11.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.foot b{font-family:Bungee;color:var(--txt);letter-spacing:.5px}
+.toast b{display:block;font-size:13px;margin-bottom:2px}.toast span{font-size:11px;color:var(--txt2)}
 
+/* FILTER BAR */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.filter-bar select{padding:9px 14px;background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:10px;color:var(--txt);font-size:12px;outline:none;cursor:pointer}
+.filter-count{margin-left:auto;font-size:11px;color:var(--txt3);font-weight:600}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s}
+.loader.off{opacity:0;pointer-events:none}
+.loader-logo{font-family:var(--font-d);font-size:28px;font-weight:700}
+.loader-logo b{color:var(--accent2)}
+.loader-bar{width:180px;height:4px;background:var(--card2);border-radius:2px;overflow:hidden}
+.loader-bar i{display:block;height:100%;background:var(--accent);animation:ld 1.2s ease-in-out infinite}
+@keyframes ld{0%{width:0;margin-left:0}50%{width:70%;margin-left:15%}100%{width:0;margin-left:100%}}
+
+/* RESPONSIVE */
 @media(max-width:900px){
-.side{left:-236px}.side.open{left:0}
-.maincol{margin-left:0}
-.mbtn{display:block}
-.top{padding:0 12px 0 52px}
-.view{padding:14px 12px 50px}
-.wall{grid-template-columns:repeat(2,1fr)}
-.gc.big{grid-column:span 2;grid-row:span 1}.gc.big .gth{min-height:150px;font-size:60px}
-.grid{grid-template-columns:repeat(2,1fr);gap:9px}
-.gth{height:82px;font-size:34px}
-.gdesc{display:none}
-.ginfo{grid-template-columns:1fr}
-.pbtns .btn{font-size:10px;padding:7px 10px}
-.chip.hide-m{display:none}
-.st{font-size:15px}
+.hamburger{display:flex}
+.header-search{max-width:none;flex:1}
+.header-actions .hbtn:not(:last-child){display:none}
+.game-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+.gc-thumb{height:90px;font-size:36px}
+.gc-desc{display:none}
+.hero{padding:28px 20px}
+.hero h1{font-size:24px}
+.game-info{grid-template-columns:1fr}
+.player-btns .btn{font-size:10px;padding:7px 10px}
+.cat-grid{grid-template-columns:repeat(3,1fr)}
+.set-grid{grid-template-columns:1fr}
+.footer-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+.game-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+.gc-body{padding:10px}
+.gc-name{font-size:12px}
+.gc-footer{flex-direction:column}
+.hero-stats{gap:14px}
+.stat-cards{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
-<div class="loader" id="loader"><div class="lj">🕹️</div><b>GAME<span>VAULT</span></b><div class="lbar"><i></i></div><p style="color:var(--mut);font-size:12px">100 oyun yükleniyor...</p></div>
-<button class="mbtn" onclick="tSide()">☰</button>
-<div class="obg" id="obg" onclick="tSide()"></div>
+<div class="loader" id="loader"><div class="loader-logo">Shop<b>Nex</b></div><div class="loader-bar"><i></i></div><p style="color:var(--txt3);font-size:12px">Oyunlar yükleniyor...</p></div>
 
-<div class="shell">
-<aside class="side" id="side">
-<div class="logo"><div class="cube">🕹️</div><b>GAME<span>VAULT</span></b></div>
-<nav class="snav">
-<div class="sgroup">Menü</div>
-<div class="si on" onclick="go('home',this)"><span class="em">🏠</span>Ana Sayfa</div>
-<div class="si" onclick="go('all',this)"><span class="em">🎮</span>Tüm Oyunlar</div>
-<div class="si" onclick="go('fav',this)"><span class="em">💜</span>Favoriler</div>
-<div class="si" onclick="go('hist',this)"><span class="em">🕐</span>Geçmiş</div>
-<div class="si" onclick="go('daily',this)"><span class="em">🎁</span>Günlük Ödül</div>
-<div class="si" onclick="go('ach',this)"><span class="em">🏅</span>Başarımlar</div>
-<div class="si" onclick="go('prof',this)"><span class="em">👤</span>Profil</div>
-<div class="sgroup">Kategoriler</div>
-<div id="sideCats"></div>
-</nav>
-<div style="padding:14px 18px;border-top:1px solid var(--line2);font-size:10px;color:var(--mut)">© 2026 GameVault<br>100 oyun • Tarayıcıda anında</div>
-</aside>
-
-<div class="maincol">
-<header class="top">
-<div class="srch"><input id="sIn" placeholder="100 oyun arasında ara..." autocomplete="off" oninput="doSearch(this.value)"><div class="sdrop" id="sDrop"></div></div>
-<div class="hud">
-<div class="chip live hide-m"><i></i><span id="liveN">1.247</span> çevrimiçi</div>
-<div class="chip g">🪙 <span id="hGold">250</span></div>
-<div class="chip x">⚡ <span id="hLv">Sv.1</span></div>
-<div class="av" id="hAv" onclick="go('prof',null)">?</div>
+<!-- HEADER -->
+<header class="header">
+<button class="hamburger" id="hamBtn" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
+<div class="logo"><div class="logo-icon">🎮</div>Shop<b>Nex</b></div>
+<div class="header-search"><input id="searchIn" placeholder="200 seviyeli oyunlarda ara..." oninput="doSearch(this.value)" autocomplete="off"><div class="search-drop" id="searchDrop"></div></div>
+<div class="header-actions">
+<button class="hbtn" onclick="toggleTheme()" title="Tema">🌓</button>
+<button class="hbtn" onclick="nav('settings')" title="Ayarlar">⚙️</button>
+<div class="hbtn-avatar" id="headerAv" onclick="nav(S.user?'profile':'login')">?</div>
 </div>
 </header>
-<div class="ticker"><div class="tk" id="tk"></div></div>
 
-<div class="view" id="view">
-<!-- ANA SAYFA -->
-<div class="pg on" id="pg-home">
-<div class="wall" id="wall"></div>
-<h2 class="st rv"><i></i>🔥 En Popüler Oyunlar <small>en çok oynananlar</small></h2>
-<div class="strip rv" id="sPop"></div>
-<h2 class="st rv"><i style="background:var(--coral)"></i>📈 Trend Oyunlar <small>bu hafta yükselişte</small></h2>
-<div class="strip rv" id="sTrend"></div>
-<h2 class="st rv"><i style="background:var(--teal)"></i>✨ Yeni Eklenenler <small>taze çıkmış oyunlar</small></h2>
-<div class="strip rv" id="sNew"></div>
-<h2 class="st rv"><i style="background:var(--sky)"></i>⭐ Editörün Seçimi <small>ekibimizin favorileri</small></h2>
-<div class="grid rv" id="gEdit"></div>
-<div class="foot"><b>GAMEVAULT</b><span>100 ücretsiz oyun • Kurulum yok • Tarayıcında anında oyna</span></div>
+<!-- SIDEBAR -->
+<div class="sidebar-overlay" id="sbOverlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+<div class="logo"><div class="logo-icon">🎮</div>Shop<b>Nex</b></div>
+<div class="snav-item on" onclick="nav('home',this)"><span class="si">🏠</span>Ana Sayfa</div>
+<div class="snav-item" onclick="nav('games',this)"><span class="si">🕹️</span>Tüm Oyunlar</div>
+<div class="snav-item" onclick="nav('fav',this)"><span class="si">💜</span>Favoriler</div>
+<div class="snav-item" onclick="nav('hist',this)"><span class="si">🕐</span>Geçmiş</div>
+<div class="snav-sep"></div>
+<div class="snav-title">Hesap</div>
+<div class="snav-item" onclick="nav(S.user?'profile':'login',this)"><span class="si">👤</span>Profil</div>
+<div class="snav-item" onclick="nav('daily',this)"><span class="si">🎁</span>Günlük Görevler</div>
+<div class="snav-item" onclick="nav('ach',this)"><span class="si">🏅</span>Başarımlar</div>
+<div class="snav-sep"></div>
+<div class="snav-title">Kategoriler</div>
+<div id="sideCats"></div>
+<div class="snav-sep"></div>
+<div class="snav-item" onclick="nav('settings',this)"><span class="si">⚙️</span>Ayarlar</div>
+<div class="snav-item" id="logoutBtn" style="display:none" onclick="doLogout()"><span class="si">🚪</span>Çıkış Yap</div>
+</aside>
+
+<!-- MAIN -->
+<main class="main"><div class="container">
+
+<!-- HOME -->
+<div class="page on" id="pg-home">
+<div class="hero">
+<div class="hero-badge">⚡ 12 Oyun • 200 Seviye • Sınırsız Eğlence</div>
+<h1>Oyun Dünyasının <span>Yeni Adresi</span></h1>
+<p>Her biri 200 zorlu seviyeden oluşan 12 benzersiz oyun. Seviye atla, rozet kazan, arkadaşlarınla yarış. Tarayıcında anında, kurulum olmadan.</p>
+<div class="hero-btns"><button class="btn btn-primary btn-lg" onclick="nav('games')">🎮 Hemen Oyna</button><button class="btn btn-glass btn-lg" onclick="nav(S.user?'profile':'login')">👤 Ücretsiz Katıl</button></div>
+<div class="hero-stats"><div class="hero-stat"><b>2.400</b><span>Toplam Seviye</span></div><div class="hero-stat"><b>12</b><span>Farklı Oyun</span></div><div class="hero-stat"><b id="liveCount">1.847</b><span>Çevrimiçi</span></div><div class="hero-stat"><b>4.8★</b><span>Ortalama Puan</span></div></div>
 </div>
 
-<!-- TÜM OYUNLAR -->
-<div class="pg" id="pg-all">
-<h2 class="st"><i></i>🎮 Tüm Oyunlar <small id="allCount"></small></h2>
-<div class="fbar">
-<select id="fCat" onchange="renderAll()"><option value="">Tüm Kategoriler</option></select>
-<select id="fDif" onchange="renderAll()"><option value="">Tüm Zorluklar</option><option>Kolay</option><option>Orta</option><option>Zor</option></select>
-<select id="fSort" onchange="renderAll()"><option value="pop">En Popüler</option><option value="rate">En Yüksek Puan</option><option value="new">En Yeni</option><option value="az">A → Z</option></select>
-<span class="fcount" id="fCount"></span>
-</div>
-<div class="grid" id="gAll"></div>
+<div class="sec"><div class="sec-head"><h2 class="sec-title"><i></i>🔥 Popüler Oyunlar</h2><span class="sec-link" onclick="nav('games')">Tümünü Gör →</span></div><div class="game-grid" id="homePop"></div></div>
+<div class="sec"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--amber)"></i>📈 Trend Oyunlar</h2></div><div class="game-grid" id="homeTrend"></div></div>
+<div class="sec"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--green)"></i>✨ Yeni Eklenenler</h2></div><div class="game-grid" id="homeNew"></div></div>
+<div class="sec"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--pink)"></i>⭐ Editörün Seçimi</h2></div><div class="game-grid" id="homeEdit"></div></div>
+<div class="sec"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--cyan)"></i>👑 En Çok Oynananlar</h2></div><div class="game-grid" id="homeMost"></div></div>
+<div class="sec"><div class="sec-head"><h2 class="sec-title"><i></i>📂 Kategoriler</h2></div><div class="cat-grid" id="homeCats"></div></div>
 </div>
 
-<div class="pg" id="pg-fav"><h2 class="st"><i style="background:var(--coral)"></i>💜 Favorilerin</h2><div class="grid" id="gFav"></div><div class="empty" id="eFav" style="display:none"><span class="e">💜</span>Henüz favori oyunun yok.<br>Oyun kartlarındaki kalbe dokun!</div></div>
-<div class="pg" id="pg-hist"><h2 class="st"><i style="background:var(--sky)"></i>🕐 Son Oynadıkların</h2><div class="grid" id="gHist"></div><div class="empty" id="eHist" style="display:none"><span class="e">🕐</span>Henüz oyun oynamadın. Hadi başla!</div></div>
+<!-- ALL GAMES -->
+<div class="page" id="pg-games">
+<div class="sec-head"><h2 class="sec-title"><i></i>🕹️ Tüm Oyunlar</h2></div>
+<div class="filter-bar">
+<select id="fCat" onchange="renderGames()"><option value="">Tüm Kategoriler</option></select>
+<select id="fDif" onchange="renderGames()"><option value="">Tüm Zorluklar</option><option>Kolay</option><option>Orta</option><option>Zor</option><option>Usta</option></select>
+<select id="fSort" onchange="renderGames()"><option value="pop">En Popüler</option><option value="rate">En Yüksek Puan</option><option value="new">En Yeni</option><option value="az">A → Z</option></select>
+<span class="filter-count" id="fCount"></span>
+</div>
+<div class="game-grid" id="gamesGrid"></div>
+</div>
 
-<!-- GÜNLÜK -->
-<div class="pg" id="pg-daily">
-<div class="pcard" style="text-align:center;border-color:var(--amber)">
-<h2 class="dsp" style="font-size:20px;color:var(--amber)">🎁 Günlük Ödül Takvimi</h2>
-<p style="color:var(--mut);font-size:13px;margin-top:6px">Her gün giriş yap, ödülün katlansın. Seri bozulursa sayaç sıfırlanır!</p>
-<div class="dgrid" id="dGrid"></div>
-<button class="btn btn-a btn-lg" id="dBtn" onclick="claimDaily()">🎁 Bugünkü Ödülü Al</button>
+<!-- FAVORITES -->
+<div class="page" id="pg-fav"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--pink)"></i>💜 Favori Oyunların</h2></div><div class="game-grid" id="favGrid"></div><div id="favEmpty" style="display:none;text-align:center;padding:60px 20px;color:var(--txt3)"><p style="font-size:48px;margin-bottom:12px">💜</p><p>Henüz favori oyunun yok. Oyun kartlarındaki kalbe dokun!</p></div></div>
+
+<!-- HISTORY -->
+<div class="page" id="pg-hist"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--cyan)"></i>🕐 Oyun Geçmişin</h2></div><div class="game-grid" id="histGrid"></div><div id="histEmpty" style="display:none;text-align:center;padding:60px 20px;color:var(--txt3)"><p style="font-size:48px;margin-bottom:12px">🕐</p><p>Henüz oyun oynamadın. Hadi ilk adımını at!</p></div></div>
+
+<!-- GAME PLAYER -->
+<div class="page" id="pg-play"><div class="player-wrap">
+<div class="player-top"><h1 class="player-title"><span id="plIcon"></span><span id="plName"></span></h1>
+<div class="player-btns">
+<button class="btn btn-glass btn-sm" onclick="startCur()">🔄 Yeniden</button>
+<button class="btn btn-glass btn-sm" onclick="tPause()">⏸️ Durdur</button>
+<button class="btn btn-glass btn-sm" onclick="tFS()">⛶ Tam Ekran</button>
+<button class="btn btn-glass btn-sm" onclick="nav('home')">← Çıkış</button>
+</div></div>
+<div class="level-bar"><div class="lb-info"><div class="lb-title" id="lbTitle">Seviye 1 / 200</div><div class="lb-sub" id="lbSub">Zorluk: Kolay</div><div class="lb-progress"><div class="lb-fill" id="lbFill" style="width:0.5%"></div></div></div></div>
+<div class="canvas-wrap" id="cwrap"><canvas id="gc" width="800" height="500"></canvas>
+<div class="game-overlay" id="gov"><h2 id="ovT">Hazır mısın?</h2><p id="ovD"></p><div class="go-score" id="ovS" style="display:none"></div><div class="go-stats" id="ovR" style="display:none"></div><button class="btn btn-primary btn-lg" onclick="startCur()">▶ Başla</button></div></div>
+<div class="game-hud" id="ghud"></div>
+<div class="game-info">
+<div><div class="gi-box"><h3>📖 Oyun Hakkında</h3><p id="giDesc"></p></div>
+<div class="gi-box" style="margin-top:14px"><h3>🎮 Nasıl Oynanır?</h3><p id="giHow"></p></div>
+<div class="gi-box comment-box" style="margin-top:14px"><h3>💬 Yorumlar (<span id="cmtN">0</span>)</h3>
+<div class="comment-input"><input id="cmtIn" placeholder="Yorumunu yaz..."><button class="btn btn-primary btn-sm" onclick="postCmt()">Gönder</button></div>
+<div id="cmtList"></div></div></div>
+<div><div class="gi-box"><h3>📊 Bilgiler</h3><div id="giStats"></div></div>
+<div class="gi-box" style="margin-top:14px"><h3>⭐ Puan Ver</h3><div class="stars" id="starsBox"><span onclick="rate(1)">★</span><span onclick="rate(2)">★</span><span onclick="rate(3)">★</span><span onclick="rate(4)">★</span><span onclick="rate(5)">★</span></div></div>
+<div class="gi-box" style="margin-top:14px"><h3>🎯 Benzer Oyunlar</h3><div class="similar-grid" id="giSim"></div></div></div>
+</div>
 </div></div>
 
-<!-- BAŞARIM -->
-<div class="pg" id="pg-ach"><h2 class="st"><i style="background:var(--amber)"></i>🏅 Başarımlar</h2><div class="achgrid" id="achG"></div></div>
-
-<!-- PROFİL -->
-<div class="pg" id="pg-prof">
-<div class="pcard"><div class="prow">
-<div class="pav" id="pAv">?</div>
-<div><h2 class="dsp" style="font-size:19px" id="pName">Misafir Oyuncu</h2>
-<p style="color:var(--mut);font-size:12px">Seviye <b id="pLv" style="color:var(--teal)">1</b> • <span id="pXp">0</span>/100 XP</p>
-<div class="xpbar"><div class="xpfill" id="pBar"></div></div></div>
-<button class="btn btn-g" style="margin-left:auto" onclick="openAuth()">✏️ Giriş / Kayıt</button>
-</div>
-<div class="statgrid">
-<div class="stat"><b style="color:var(--sky)" id="stP">0</b><span>Oynanan</span></div>
-<div class="stat"><b style="color:var(--amber)" id="stG">250</b><span>Coin</span></div>
-<div class="stat"><b style="color:var(--teal)" id="stB">0</b><span>Rekor</span></div>
-<div class="stat"><b style="color:var(--coral)" id="stF">0</b><span>Favori</span></div>
+<!-- LOGIN -->
+<div class="page" id="pg-login"><div class="auth-wrap"><div class="auth-card">
+<h2>👋 Tekrar Hoş Geldin</h2><p>Hesabına giriş yap ve kaldığın yerden devam et</p>
+<div class="fg"><label>E-posta</label><input type="email" id="loginMail" placeholder="ornek@mail.com"></div>
+<div class="fg"><label>Şifre</label><input type="password" id="loginPass" placeholder="••••••••"></div>
+<button class="btn btn-primary" style="width:100%" onclick="doLogin()">Giriş Yap</button>
+<div class="auth-link"><a onclick="nav('forgot')">Şifreni mi unuttun?</a></div>
+<div class="auth-link">Hesabın yok mu? <a onclick="nav('register')">Ücretsiz Kayıt Ol</a></div>
 </div></div></div>
 
-<!-- OYUNCU -->
-<div class="pg" id="pg-play"><div class="ppage">
-<div class="phead"><h1 class="ptitle"><span id="plIcon">🎮</span><span id="plName">Oyun</span></h1>
-<div class="pbtns">
-<button class="btn btn-t" onclick="startCur()">🔄 Yeniden</button>
-<button class="btn btn-g" onclick="tPause()">⏸️ Durdur</button>
-<button class="btn btn-g" onclick="tFS()">⛶ Tam Ekran</button>
-<button class="btn btn-c" onclick="go('home',null)">← Çıkış</button>
-</div></div>
-<div class="cwrap" id="cwrap">
-<canvas id="gc" width="800" height="500"></canvas>
-<div class="gov" id="gov"><h2 id="ovT">Hazır mısın?</h2><p id="ovD">Başlamak için tıkla</p><div class="fscore" id="ovS" style="display:none"></div><div class="frow" id="ovR" style="display:none"></div><button class="btn btn-a btn-lg" onclick="startCur()">▶ ŞİMDİ OYNA</button></div>
-</div>
-<div class="ghud" id="ghud"></div>
-<div class="ginfo">
-<div class="ibox"><h3 id="ibT">Oyun Hakkında</h3><p id="ibD"></p><div class="tagrow" id="ibTags"></div></div>
-<div class="ibox"><h3>📊 Oyun Bilgileri</h3><div id="ibS"></div></div>
-</div>
-</div></div>
-</div>
-</div>
+<!-- REGISTER -->
+<div class="page" id="pg-register"><div class="auth-wrap"><div class="auth-card">
+<h2>🚀 Aramıza Katıl</h2><p>30 saniyede hesabını oluştur, 2.400 seviyeye meydan oku</p>
+<div class="fg"><label>Kullanıcı Adı</label><input id="regName" placeholder="Oyuncu adın"></div>
+<div class="fg"><label>E-posta</label><input type="email" id="regMail" placeholder="ornek@mail.com"></div>
+<div class="fg"><label>Şifre</label><input type="password" id="regPass" placeholder="En az 6 karakter"></div>
+<div class="fg"><label>Şifre Tekrar</label><input type="password" id="regPass2" placeholder="Şifreni doğrula"></div>
+<button class="btn btn-primary" style="width:100%" onclick="doRegister()">Hesap Oluştur</button>
+<div class="auth-link">Zaten üye misin? <a onclick="nav('login')">Giriş Yap</a></div>
+</div></div></div>
+
+<!-- FORGOT -->
+<div class="page" id="pg-forgot"><div class="auth-wrap"><div class="auth-card">
+<h2>🔑 Şifre Sıfırlama</h2><p>E-posta adresini gir, sıfırlama bağlantısı gönderelim</p>
+<div class="fg"><label>E-posta</label><input type="email" id="forgotMail" placeholder="ornek@mail.com"></div>
+<button class="btn btn-primary" style="width:100%" onclick="doForgot()">Sıfırlama Bağlantısı Gönder</button>
+<div class="auth-link"><a onclick="nav('login')">← Giriş sayfasına dön</a></div>
+</div></div></div>
+
+<!-- PROFILE -->
+<div class="page" id="pg-profile">
+<div class="prof-header"><div class="prof-av" id="profAv">?</div><div class="prof-info"><h2 id="profName">Oyuncu</h2><p id="profMail">Seviye <span id="profLv">1</span> • ShopNex Üyesi</p><div class="prof-xp"><div class="xp-bar"><div class="xp-fill" id="profXpBar" style="width:0%"></div></div><span id="profXpTxt">0/100 XP</span></div></div><button class="btn btn-glass btn-sm" style="margin-left:auto" onclick="nav('settings')">⚙️ Düzenle</button></div>
+<div class="stat-cards"><div class="stat-card"><b style="color:var(--accent2)" id="stPlays">0</b><span>Oynanan</span></div><div class="stat-card"><b style="color:var(--amber)" id="stGold">0</b><span>Coin</span></div><div class="stat-card"><b style="color:var(--green)" id="stBest">0</b><span>Rekor</span></div><div class="stat-card"><b style="color:var(--pink)" id="stFav">0</b><span>Favori</span></div><div class="stat-card"><b style="color:var(--cyan)" id="stLvl">1</b><span>Seviye</span></div></div>
+<div class="sec"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--amber)"></i>🏅 Rozetler</h2></div><div class="badge-grid" id="badgeGrid"></div></div>
 </div>
 
-<!-- AUTH -->
-<div class="mbg" id="authM"><div class="modal"><button class="mx" onclick="closeAuth()">✕</button>
-<h2>🎮 Katıl</h2><p>Adını yaz, skorların ve ödüllerin kaydedilsin</p>
-<div class="fg"><label>Oyuncu Adın</label><input id="aName" placeholder="örn. GölgeAvcısı"></div>
-<div class="fg"><label>E-posta (isteğe bağlı)</label><input id="aMail" placeholder="ornek@mail.com"></div>
-<button class="btn btn-a btn-lg" style="width:100%" onclick="doLogin()">🚀 HEMEN BAŞLA</button>
+<!-- DAILY -->
+<div class="page" id="pg-daily"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--green)"></i>🎁 Günlük Görevler</h2></div><div id="taskList"></div></div>
+
+<!-- ACHIEVEMENTS -->
+<div class="page" id="pg-ach"><div class="sec-head"><h2 class="sec-title"><i style="background:var(--amber)"></i>🏅 Başarımlar</h2></div><div class="badge-grid" id="achGrid"></div></div>
+
+<!-- SETTINGS -->
+<div class="page" id="pg-settings"><div class="sec-head"><h2 class="sec-title"><i></i>⚙️ Ayarlar</h2></div>
+<div class="set-grid">
+<div class="set-card"><h3>🎨 Görünüm</h3>
+<div class="set-row"><span class="sl">Karanlık Tema</span><div class="toggle on" id="tgTheme" onclick="toggleTheme()"></div></div>
+<div class="set-row"><span class="sl">Dil</span><select class="set-select" id="setLang"><option>🇹🇷 Türkçe</option><option>🇬🇧 English</option><option>🇩🇪 Deutsch</option><option>🇪🇸 Español</option><option>🇫🇷 Français</option><option>🇸🇦 العربية</option></select></div>
+</div>
+<div class="set-card"><h3>🔔 Bildirimler</h3>
+<div class="set-row"><span class="sl">Yeni oyun bildirimleri</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+<div class="set-row"><span class="sl">Günlük görev hatırlatması</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+<div class="set-row"><span class="sl">Seviye atlama bildirimi</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+</div>
+<div class="set-card"><h3>🔊 Ses</h3>
+<div class="set-row"><span class="sl">Oyun sesleri</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+<div class="set-row"><span class="sl">Arka plan müziği</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+<div class="set-row"><span class="sl">Ses seviyesi</span><input type="range" min="0" max="100" value="70" style="width:100px;accent-color:var(--accent)"></div>
+</div>
+<div class="set-card"><h3>🔒 Gizlilik</h3>
+<div class="set-row"><span class="sl">Profil görünürlüğü</span><select class="set-select"><option>Herkese Açık</option><option>Sadece Arkadaşlar</option><option>Gizli</option></select></div>
+<div class="set-row"><span class="sl">Çevrimiçi durum</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+<div class="set-row"><span class="sl">Veri analizi</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+</div>
+<div class="set-card"><h3>👤 Hesap</h3>
+<div class="fg"><label>Kullanıcı Adı</label><input id="setName" placeholder="Adın"></div>
+<div class="fg"><label>E-posta</label><input id="setMail" placeholder="E-posta"></div>
+<button class="btn btn-primary btn-sm" onclick="saveProfile()">💾 Kaydet</button>
+<button class="btn btn-red btn-sm" style="margin-left:8px" onclick="doLogout()">🚪 Çıkış Yap</button>
+</div>
+<div class="set-card"><h3>🗑️ Veri Yönetimi</h3>
+<p style="font-size:12px;color:var(--txt2);margin-bottom:12px">Tüm oyun verilerini, ilerlemeni ve ayarlarını sıfırla. Bu işlem geri alınamaz.</p>
+<button class="btn btn-red btn-sm" onclick="clearAll()">Tüm Verileri Sil</button>
+</div>
 </div></div>
 
-<div class="welcome" id="wel"><div class="we">🎉</div><h1 id="welT">HOŞ GELDİN!</h1><p id="welD">GameVault ailesine katıldın. İyi eğlenceler!</p><button class="btn btn-t btn-lg" onclick="closeWel()">🎮 OYUNLARA BAŞLA</button></div>
-<div class="toast" id="toast"><b id="toT">Bildirim</b><span id="toM"></span></div>
-<div class="cbar off" id="cbar">🍪 Deneyimini iyileştirmek için çerez kullanıyoruz. <div class="cbtns"><button class="btn btn-g" onclick="ckOk()">Reddet</button><button class="btn btn-a" onclick="ckOk()">Kabul Et</button></div></div>
+</div></main>
+
+<!-- FOOTER -->
+<footer class="footer"><div class="footer-inner">
+<div class="footer-col"><div class="logo" style="margin-bottom:12px"><div class="logo-icon">🎮</div>Shop<b>Nex</b></div><p style="font-size:12px;color:var(--txt2);line-height:1.7">Türkiye'nin yeni nesil web oyun platformu. 12 farklı oyun, 2.400 seviye, sınırsız eğlence. Kurulum yok, kayıt zorunluluğu yok — tıkla ve oyna.</p></div>
+<div class="footer-col"><h4>Oyunlar</h4><a onclick="nav('games')">Tüm Oyunlar</a><a onclick="nav('games')">Popüler</a><a onclick="nav('games')">Yeni Eklenenler</a><a onclick="nav('games')">Editörün Seçimi</a></div>
+<div class="footer-col"><h4>Topluluk</h4><a onclick="nav('daily')">Günlük Görevler</a><a onclick="nav('ach')">Başarımlar</a><a onclick="nav('profile')">Profil</a><a onclick="toast('💬','Discord yakında!')">Discord</a></div>
+<div class="footer-col"><h4>Destek</h4><a onclick="toast('📧','destek@shopnex.com')">İletişim</a><a onclick="toast('❓','SSS yakında!')">SSS</a><a onclick="toast('📄','Gizlilik Politikası')">Gizlilik</a><a onclick="toast('📄','Kullanım Şartları')">Şartlar</a></div>
+</div><div class="footer-bottom"><span>© 2026 ShopNex. Tüm hakları saklıdır.</span><span>🇹🇷 Türkiye'de tasarlandı</span></div></footer>
+
+<div class="toast" id="toast"><b id="toT"></b><span id="toM"></span></div>
 
 <script>
 /* ZOOM ENGEL */
@@ -359,390 +471,318 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&['+','-','=',
 document.addEventListener('gesturestart',e=>e.preventDefault());
 document.addEventListener('touchmove',e=>{if(e.scale!==1)e.preventDefault()},{passive:false});
 
-/* DURUM */
-let S={gold:250,xp:0,lv:1,name:null,favs:[],hist:[],best:0,plays:0,streak:0,lastD:null};
-try{const v=localStorage.getItem('gv100');if(v)S=Object.assign(S,JSON.parse(v))}catch(e){}
-const save=()=>localStorage.setItem('gv100',JSON.stringify(S));
-let cur=null,running=false,paused=false,raf=null,score=0,t0=0,swP=null;
-const cv=document.getElementById('gc'),ctx=cv.getContext('2d');
-const W=800,H=500;
-const CATC={'Arcade':'#ffb703','Yarış':'#ef476f','Aksiyon':'#ff6b35','FPS':'#e63946','.io':'#06d6a0','Bulmaca':'#4cc9f0','Simülasyon':'#43aa8b','Strateji':'#fb8500','Spor':'#2ec4b6','Macera':'#e76f51'};
+/* STATE */
+let S={user:null,gold:300,xp:0,lv:1,favs:[],hist:[],best:0,plays:0,streak:0,lastD:null,levels:{},comments:{},ratings:{}};
+try{const v=localStorage.getItem('snx2');if(v)S=Object.assign(S,JSON.parse(v))}catch(e){}
+const save=()=>localStorage.setItem('snx2',JSON.stringify(S));
+let cur=null,running=false,paused=false,raf=null,score=0,t0=0,curLevel=1;
+const cv=document.getElementById('gc'),ctx=cv.getContext('2d'),W=800,H=500;
 
-/* 100 GERÇEK OYUN — [isim, kategori, motor, ikon, açıklama, etiketler, puan, oynanma, geliştirici, yıl, zorluk] */
-const RAW=[
-["Subway Surfers","Arcade","run","🏃","Gardiyan ve köpeğinden kaçarken metro hatlarında koş, zıpla ve kay.","koşu,sonsuz,refleks",4.9,"124M","SYBO Games",2012,"Kolay"],
-["Temple Run 2","Arcade","run","🏃‍♂️","Lanetli tapınaktan kaç; maymun canavar ensende, altınları topla.","koşu,macera,sonsuz",4.7,"98M","Imangi Studios",2013,"Kolay"],
-["Moto X3M","Yarış","run","🏍️","Patlayıcı parkurlarda motosikletle takla at, yıldızları kap.","motosiklet,fizik,parkur",4.8,"67M","MadPuffers",2015,"Orta"],
-["Moto X3M Winter","Yarış","run","❄️","Buzlu rampalarda kaymadan finişe ulaş; kışa özel parkurlar.","motosiklet,kış,fizik",4.7,"41M","MadPuffers",2017,"Orta"],
-["Moto X3M Spooky Land","Yarış","run","🎃","Cadılar Bayramı parkurlarında hayaletlerden kaçarak sür.","motosiklet,cadılar,fizik",4.6,"29M","MadPuffers",2019,"Orta"],
-["Vex 7","Arcade","run","🤸","Stickman'in en yeni macerası: dikenler, lazerler ve boss odaları.","stickman,parkur,zor",4.8,"33M","Amazing Adam",2022,"Zor"],
-["Vex 6","Arcade","run","🏃","Bölümler arası koş, duvarlardan sek, yıldızları topla.","stickman,parkur,bölüm",4.7,"27M","Amazing Adam",2021,"Orta"],
-["Vex 5","Arcade","run","🤾","Klasik Vex deneyimi: hassas zıplayışlar ve tuzak dolu koridorlar.","stickman,parkur,klasik",4.6,"24M","Amazing Adam",2019,"Orta"],
-["Run 3","Arcade","run","🌌","Uzay tünellerinde boşluklara düşmeden ilerle; yerçekimi dostun.","uzay,yerçekimi,sonsuz",4.5,"52M","Player03",2014,"Orta"],
-["Stickman Hook","Arcade","run","🕸️","Kancanı fırlat, sarkaç gibi sallan, bırakma anını doğru seç.","kanca,fizik,zamanlama",4.7,"76M","Madbox",2018,"Kolay"],
-["Getaway Shootout","Arcade","run","🚔","Polisten kaçış yarışında rakiplerini ezerek bitişe ulaş.","kaçış,yarış,eğlence",4.4,"19M","New Eich Games",2016,"Kolay"],
-["Crossy Road","Arcade","run","🐔","Tavuk karşıya geçecek! Trafik, nehir ve trenlere dikkat.","karşıya geç,retro,refleks",4.6,"88M","Hipster Whale",2014,"Kolay"],
-["Jetpack Joyride","Arcade","run","🚀","Jetpack'le laboratuvardan kaç; füzelerden kıl payı sıyrıl.","jetpack,sonsuz,refleks",4.7,"71M","Halfbrick",2011,"Orta"],
-["Sonic Classic","Arcade","run","🦔","Kirpi Sonic ile halkaları topla, Eggman'in robotlarını ez.","sonic,retro,hız",4.8,"45M","SEGA",1991,"Orta"],
-["Happy Wheels","Arcade","run","🚲","Absürt parkurlarda kollarını bacaklarını kaybetmeden bitişe gel.","fizik,ragdoll,komik",4.5,"63M","Jim Bonacci",2010,"Zor"],
-["Stickman Parkour","Arcade","run","🏃‍♀️","Duvarlardan atla, engelleri aş; şehir senin parkurun.","parkour,stickman,şehir",4.3,"15M","7Spot Games",2020,"Kolay"],
-["Bob the Robber","Macera","run","🥷","Hırsız Bob'la güvenlik sistemlerini atlatıp kasaları soy.","gizlilik,soygun,bölüm",4.4,"21M","Kizi",2015,"Orta"],
-["Traffic Rider","Yarış","run","🛵","Şehir trafiğinde motosikletle makas at, görevleri tamamla.","motosiklet,trafik,3d",4.6,"58M","Soner Kara",2015,"Orta"],
-["Hill Climb Racing","Yarış","run","🚙","Gaz-fren dengesiyle tepeleri aş; benzin bitmeden ilerle.","fizik,tepe,benzin",4.7,"95M","Fingersoft",2012,"Kolay"],
-["Bike Race","Yarış","run","🚴","Tek teker üzerinde tepeleri aş, bisikletle takla at.","bisiklet,fizik,denge",4.4,"49M","Top Free Games",2012,"Kolay"],
-["Drift Hunters","Yarış","run","🏎️","Japon efsaneleriyle drift yap, puan topla, aracını modifiye et.","drift,araba,modifiye",4.8,"83M","Kizi",2016,"Orta"],
-["Drift Boss","Yarış","run","🚗","Virajlarda gazı bırak, tam zamanında drift yap.","drift,zamanlama,viraj",4.3,"17M","GamePix",2019,"Kolay"],
-["Car Rush","Yarış","run","🚕","Şehirde gazla; trafiği yara yara en uzağa git.","trafik,sonsuz,hız",4.2,"9M","CrazyGames",2020,"Kolay"],
-["Madalin Stunt Cars 2","Yarış","run","🏁","Devasa arenada süper arabalarla rampalardan uç.","araba,akrobasi,3d",4.6,"38M","Madalin Games",2017,"Orta"],
-["Krunker","FPS","shoot","🔫","Piksel grafikli hızlı FPS: sınıfını seç, haritada fırtına estir.","fps,multiplayer,hızlı",4.7,"74M","Yendis Entertainment",2018,"Orta"],
-["Shell Shockers","FPS","shoot","🥚","Yumurta askerlerle nişan al; kabuğunu kırdırma!","fps,yumurta,eğlence",4.6,"56M","Blue Wizard Digital",2017,"Orta"],
-["Smash Karts","FPS","shoot","🛒","Savaş arabalarıyla arenada roket fırlat, sandıklardan güçlen.","kart,arena,roket",4.7,"61M","Tall Team",2019,"Orta"],
-["Time Shooter 2","FPS","shoot","⏱️","Zaman sadece sen hareket edince akıyor; kurşunları havada gör.","zaman,aksiyon,bulmaca",4.5,"22M","GoGoMan Games",2020,"Zor"],
-["Time Shooter 3","FPS","shoot","🕐","SWAT modları ve yeni silahlarla zamanı bükmeye devam.","zaman,swat,aksiyon",4.6,"18M","GoGoMan Games",2022,"Zor"],
-["Rooftop Snipers","Aksiyon","shoot","🎯","Çatıdan rakibini vurup düşür; saf refleks düellosu.","sniper,düello,refleks",4.5,"31M","New Eich Games",2016,"Orta"],
-["Zombs Royale",".io","shoot","🪂","100 kişi iniyor, tek kişi kalıyor; loot yap, hayatta kal.","battle royale,loot,io",4.4,"47M","End Game",2018,"Orta"],
-["Surviv.io",".io","shoot","🎖️","2D battle royale: silah bul, alan daralırken hayatta kal.","battle royale,2d,io",4.5,"39M","Kongregate",2017,"Orta"],
-["Diep.io",".io","shoot","🔷","Tankını geliştir, geometrik şekilleri yok et, boss'ları avla.","tank,gelişim,io",4.6,"51M","Matheus Valadares",2016,"Orta"],
-["Wings.io",".io","shoot","✈️","Uçağını seç, gökyüzünde it dalaşına gir.","uçak,io,aksiyon",4.3,"14M","Wings.io",2016,"Kolay"],
-["Bomb.io",".io","shoot","💣","Bomberman tarzı arenada rakiplerini köşeye sıkıştır.","bomberman,arena,io",4.2,"11M","Bomb.io",2017,"Kolay"],
-["Betrayal.io",".io","shoot","🕵️","Mürettebatla görevleri yap; hain kim, bul!","hain,görev,io",4.4,"26M","Betrayal.io",2021,"Orta"],
-["Slither.io",".io","snake","🐍","Solucanını büyüt; rakipleri kendi kuyruğuna çarptır.","yılan,io,büyüme",4.7,"89M","Lowtech Studios",2016,"Kolay"],
-["Agar.io",".io","snake","🦠","Hücrenle küçükleri yut, büyüklerden kaç, bölün ve fethet.","hücre,io,klasik",4.6,"112M","Miniclip",2015,"Kolay"],
-["Wormax.io",".io","snake","🪱","Hızlı tempolu solucan savaşı; güçlendirmeleri kap.","solucan,hız,io",4.3,"16M","PlayFlock",2017,"Kolay"],
-["Paper.io",".io","snake","📄","Bölgeni genişlet; kuyruğun kesilmeden alan boya.","alan,io,strateji",4.5,"44M","Voodoo",2017,"Kolay"],
-["Snake.io",".io","snake","🐍","Klasik yılan, çok oyunculu arenada; parlak yemleri topla.","yılan,arena,io",4.4,"23M","Amused Sloth",2016,"Kolay"],
-["Google Snake","Arcade","snake","🐍","Google'ın easter egg klasiği: elmaları ye, rekor kır.","yılan,klasik,elma",4.5,"34M","Google",2010,"Kolay"],
-["Mahjong","Bulmaca","mem","🀄","Aynı taşları eşleştirip piramidi katman katman çöz.","mahjong,taş,eşleştir",4.6,"57M","Softgames",2010,"Kolay"],
-["Solitaire","Bulmaca","mem","🂡","Klasik Klondike: kartları sırayla diz, serileri tamamla.","kart,klasik,sabır",4.7,"143M","Microsoft",1990,"Kolay"],
-["FreeCell","Bulmaca","mem","🃏","Tüm kartlar açık; hücreleri akıllıca kullan, desteyi çöz.","kart,freecell,zeka",4.5,"38M","Microsoft",1995,"Orta"],
-["Spider Solitaire","Bulmaca","mem","🕷️","İki desteyle örümcek sabrı: tam seriler kur, kolonları boşalt.","kart,örümcek,seri",4.6,"66M","Microsoft",1998,"Orta"],
-["Klondike","Bulmaca","mem","🂠","Tek kişilik kartın atası; üçer çek, sabırla ilerle.","kart,klondike,klasik",4.4,"29M","Microsoft",1991,"Kolay"],
-["TriPeaks","Bulmaca","mem","🔺","Üç tepe kartı: ardışık kartları toplayıp zirveleri erit.","kart,tepe,hız",4.3,"12M","Softgames",1989,"Kolay"],
-["Breakout","Arcade","break","🧱","Atari efsanesi: topu sektir, tuğla duvarı paramparça et.","atari,tuğla,klasik",4.6,"41M","Atari",1976,"Kolay"],
-["Arkanoid","Arcade","break","👾","Doh'nun peşinde: güç hapları, lazerler, çelik bloklar.","arkaik,güçlendirme,retro",4.7,"36M","Taito",1986,"Orta"],
-["Super Breakout","Arcade","break","🧱","Çoklu top ve ilerleyen duvarlarla klasik mod.","atari,çoklu top,retro",4.4,"18M","Atari",1978,"Orta"],
-["DX-Ball","Arcade","break","💠","90'ların PC klasiği: dev tuğla desenleri, manyetik raket.","retro,pc,tuğla",4.5,"15M","Michael Welch",1998,"Orta"],
-["Brick Breaker","Arcade","break","🧱","Modern tuğla kırıcı: kombolar ve bonus kapsülleri.","tuğla,kombo,modern",4.3,"21M","GamePix",2019,"Kolay"],
-["Wordle","Bulmaca","word","🟩","Günde bir kelime: 6 denemede 5 harfi bul.","kelime,günlük,mantık",4.8,"97M","Josh Wardle",2021,"Kolay"],
-["Quordle","Bulmaca","word","🟨","Dört Wordle aynı anda; dokuz hamlede dördünü de çöz.","kelime,dörtlü,zor",4.6,"28M","Freddie Meyer",2022,"Zor"],
-["Nerdle","Bulmaca","word","🔢","Matematik versiyonu: sayılar ve işlemlerle denklemi kur.","matematik,denklem,bulmaca",4.4,"13M","Richard Mann",2022,"Orta"],
-["Kelimelik","Bulmaca","word","🇹🇷","Türkçe kelime düellosu: çapraz kelimelerle rakibini geç.","türkçe,kelime,düello",4.5,"24M","Bilmo",2013,"Orta"],
-["Words With Friends","Bulmaca","word","💬","Arkadaşlarınla Scrabble keyfi; kelime hazinen konuşsun.","kelime,sosyal,scrabble",4.5,"52M","Zynga",2009,"Orta"],
-["Scrabble Go","Bulmaca","word","🔤","Resmi Scrabble: bonus kareleri kap, en yüksek puanı yaz.","scrabble,bonus,puan",4.4,"31M","Scopely",2020,"Orta"],
-["Heardle","Bulmaca","word","🎧","Şarkının ilk saniyelerini dinle, parçayı bil.","müzik,tahmin,günlük",4.3,"19M","Heardle",2021,"Orta"],
-["Tiny Fishing","Simülasyon","fish","🎣","Oltanı derinlere sal; nadir balıkları yakala, yükseltmeler al.","balık,oltalama,yükseltme",4.6,"37M","kizi",2021,"Kolay"],
-["Fishing.io","Simülasyon","fish","🐟","Yem seç, doğru anda çek; gölün en büyük balığı senin olsun.","balık,zamanlama,göl",4.3,"9M","CrazyGames",2020,"Kolay"],
-["Gold Miner","Simülasyon","fish","⛏️","Kancanı doğru zamanda fırlat; altın külçeleri, elmasları çıkar.","altın,kanca,klasik",4.5,"27M","GamePix",2003,"Kolay"],
-["Catch a Fish","Simülasyon","fish","🪝","Sakin göl, gergin misina: balık vurduğunda refleksin konuşsun.","balık,refleks,dingin",4.2,"7M","Poki",2022,"Kolay"],
-["Bloons TD 5","Strateji","td","🎈","Maymun kuleleri yerleştir; balon dalgalarını patlat.","kule,balon,maymun",4.8,"64M","Ninja Kiwi",2011,"Orta"],
-["Bloons TD 4","Strateji","td","🎈","Klasik balon savunması: dondur, yapıştır, patlat.","kule,balon,klasik",4.6,"33M","Ninja Kiwi",2009,"Orta"],
-["Kingdom Rush","Strateji","td","🏰","Krallığı savun: okçu, baraka, topçu ve büyücü kuleleri.","kule,krallık,fantezi",4.9,"58M","Ironhide",2011,"Orta"],
-["Kingdom Rush Frontiers","Strateji","td","🏰","Çöl ve orman cephelerinde yeni kahramanlarla savun.","kule,cephane,kahraman",4.8,"41M","Ironhide",2013,"Zor"],
-["Age of War","Strateji","td","⚔️","Taş devrinden geleceğe: birlik üret, çağını geliştir.","çağ,birlik,savaş",4.6,"49M","Max Games",2007,"Orta"],
-["Age of War 2","Strateji","td","⚔️","Beş çağ, onlarca birlik; düşman kalesini yerle bir et.","çağ,kale,savaş",4.5,"26M","Max Games",2013,"Orta"],
-["Stick War","Strateji","td","🗡️","Çöp adam ordunu yönet; madenci topla, heykeli koru.","stickman,ordu,ekonomi",4.5,"31M","Jason Whitham",2008,"Orta"],
-["Stick War Legacy","Strateji","td","🛡️","Kampanya modu ve yeni birimlerle çöp adam savaşları.","stickman,kampanya,birim",4.6,"22M","Max Games",2016,"Orta"],
-["Flappy Bird","Arcade","flap","🐦","Borular arasında kanat çırp; tek dokunuş, sonsuz gerilim.","kuş,zamanlama,efsane",4.5,"156M","Dong Nguyen",2013,"Zor"],
-["Geometry Dash","Arcade","flap","🔷","Müzikle senkron engellerin üzerinden ritimle atla.","ritim,geometri,zor",4.8,"134M","RobTop",2013,"Zor"],
-["Doodle Jump","Arcade","flap","🐤","Platformdan platforma zıpla; yaylar, jetpack'ler, canavarlar.","zıplama,sonsuz,sevimli",4.5,"67M","Lima Sky",2009,"Orta"],
-["Helix Jump","Arcade","flap","🌀","Dönen kulede boşluklardan süzül; kırılan katlar bonus.","kule,dönme,hız",4.4,"78M","Voodoo",2018,"Kolay"],
-["Stack Ball","Arcade","flap","⚽","Topu sektirerek katları kır; siyah bloklara dikkat.","top,kırma,hız",4.3,"54M","Azur Games",2019,"Kolay"],
-["Color Switch","Arcade","flap","🎨","Topun rengiyle aynı renkten geç; renk değiştir, ilerle.","renk,zamanlama,neon",4.4,"46M","Phoenix Games",2015,"Orta"],
-["Tiles Hop","Arcade","flap","🎵","Müzik ritmiyle karo karolar üzerinde zıpla.","ritim,müzik,zıplama",4.3,"39M","Amanotes",2018,"Orta"],
-["Dancing Ball","Arcade","flap","💃","Dans eden topu müzikle yönlendir; parkur ritimle değişir.","ritim,top,müzik",4.2,"21M","Boombit",2017,"Orta"],
-["Geometry Jump","Arcade","flap","🔶","Neon engeller arasında zamanlamalı zıplayışlar.","neon,zıplama,refleks",4.1,"11M","GamePix",2020,"Orta"],
-["2048","Bulmaca","g2048","🔢","Aynı sayıları birleştir; 2048 karesine ulaşabilecek misin?","sayı,birleştirme,klasik",4.7,"86M","Gabriele Cirulli",2014,"Kolay"],
-["Threes","Bulmaca","g2048","3️⃣","2048'in ilham kaynağı: 1+2=3, sonrası çorap söküğü.","sayı,minimal,zeka",4.6,"24M","Sirvo",2014,"Orta"],
-["2048 Merge","Bulmaca","g2048","🔣","Sürükle ve birleştir: blokları üst üste yığıp büyüt.","birleştirme,blok,bulmaca",4.3,"17M","Merge Games",2020,"Kolay"],
-["Merge Blocks","Bulmaca","g2048","🧊","Sayı bloklarını çarpıştır; büyük sayılar büyük puan.","blok,sayı,puan",4.2,"14M","Azur Games",2019,"Kolay"],
-["Whack-a-Mole","Arcade","whack","🐹","Klasik köstebek avı: delikten çıkanı çekiçle, rekoru kır.","köstebek,çekiç,refleks",4.5,"33M","Namco",1976,"Kolay"],
-["Whack the Burglars","Arcade","whack","🥊","Evini soyan hırsızları yaratıcı yöntemlerle püskürt.","hırsız,komik,refleks",4.3,"18M","Games2Rule",2014,"Orta"],
-["Mole Hunt","Arcade","whack","🔦","Köstebekler hızlandı! Işığı doğru deliğe tut, kaçırma.","köstebek,hız,dikkat",4.2,"8M","Poki",2021,"Orta"],
-["Cookie Clicker","Arcade","whack","🍪","Kurabiyeye tıkla, imparatorluk kur; büyükanneler ve portallar.","tıklama,idle,kurabiye",4.7,"71M","Orteil",2013,"Kolay"],
-["Monkey Mart","Arcade","whack","🐒","Marketini yönet: reyonları doldur, müşteriyi bekletme.","market,yönetim,maymun",4.6,"42M","kizi",2022,"Kolay"],
-["Piano Tiles","Arcade","reflex","🎹","Siyah tuşlara ritimle bas; tek yanlış tuş, oyun biter.","ritim,piyano,hız",4.6,"92M","Cheetah Games",2014,"Orta"],
-["Magic Tiles 3","Arcade","reflex","🎼","Pop şarkılar eşliğinde akan tuşlar; hız giderek artar.","ritim,müzik,hız",4.5,"68M","Amanotes",2017,"Orta"],
-["Piano Tiles 2","Arcade","reflex","🎹","Yeni şarkılar, yeni modlar; parmakların ısınmaya başlasın.","ritim,piyano,mod",4.4,"51M","Cheetah Games",2015,"Orta"],
-["osu!","Arcade","reflex","⭕","Ritim efsanesi: halkalara vuruş sırasıyla tıkla.","ritim,halka,usta",4.8,"44M","ppy",2007,"Zor"],
-["Friday Night Funkin","Arcade","reflex","🎤","Rap düelloları: ok tuşlarıyla ritmi yakala, sevgilini kurtar.","ritim,rap,ok tuşları",4.7,"83M","ninjamuffin99",2020,"Zor"],
-["Basketball Stars","Spor","reflex","🏀","1v1 sokak basketbolu; şut zamanlaman yıldızları belirler.","basketbol,düello,şut",4.6,"59M","MadPuffers",2016,"Orta"],
-["Soccer Random","Spor","reflex","⚽","Ragdoll futbol: her maç farklı saha, hava ve top.","futbol,ragdoll,rastgele",4.5,"47M","RHM Interactive",2020,"Kolay"],
-["Head Ball","Spor","reflex","🗣️","Büyük kafalar, küçük saha: kafa golüyle rakibi devir.","futbol,kafa,düello",4.4,"36M","Masomo",2016,"Orta"],
-["8 Ball Pool","Spor","reflex","🎱","Miniclip klasiği: falso ver, bank at, siyahı sona sakla.","bilardo,falso,klasik",4.7,"128M","Miniclip",2010,"Orta"],
-["Penalty Shooters","Spor","reflex","🥅","Penaltı düellosu: kaleciyi oku, köşeye bırak.","penaltı,futbol,zamanlama",4.3,"25M","GamePix",2016,"Kolay"],
-["Volleyball Challenge","Spor","reflex","🏐","Filede smaç zamanlaması; rakipten önce sayıyı kap.","voleybol,smaç,refleks",4.2,"12M","RHM Interactive",2021,"Kolay"],
-["Basket Random","Spor","reflex","🏀","Tek tuşla basketbol: ragdoll oyuncular, çılgın fizik.","basketbol,ragdoll,tek tuş",4.5,"34M","RHM Interactive",2021,"Kolay"],
-["Table Tennis","Spor","reflex","🏓","Masa tenisi düellosu: topu düşürmeden ralliyi kazan.","pingpong,ralli,refleks",4.1,"9M","GamePix",2019,"Kolay"]
-];
-const GAMES=RAW.map((g,i)=>({id:i,n:g[0],c:g[1],e:g[2],i:g[3],d:g[4],t:g[5].split(','),r:g[6],p:g[7],v:g[8],y:g[9],z:g[10],plays:parseFloat(g[7])}));
-
-/* YARDIMCILAR */
+/* HELPERS */
 const $=id=>document.getElementById(id);
-const theme=()=>CATC[cur.c]||'#ffb703';
-function toast(t,m){$('toT').textContent=t;$('toM').textContent=m;$('toast').classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>$('toast').classList.remove('on'),3200)}
-function hudTop(){$('hGold').textContent=S.gold.toLocaleString('tr-TR');$('hLv').textContent='Sv.'+S.lv;$('hAv').textContent=S.name?S.name[0].toUpperCase():'?'}
-function hud(items){$('ghud').innerHTML=items.map(x=>'<span><span class="l">'+x[0]+'</span> <b>'+x[1]+'</b></span>').join('')}
+function toast(t,m){$('toT').textContent=t;$('toM').textContent=m;$('toast').classList.add('on');clearTimeout(toast._);toast._=setTimeout(()=>$('toast').classList.remove('on'),3200)}
+function hudTop(){$('headerAv').textContent=S.user?S.user[0].toUpperCase():'?';$('logoutBtn').style.display=S.user?'flex':'none'}
 
-/* GEZİNME */
-function go(id,el){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));$('pg-'+id).classList.add('on');document.querySelectorAll('.si').forEach(n=>n.classList.remove('on'));if(el)el.classList.add('on');window.scrollTo(0,0);if(window.innerWidth<=900){$('side').classList.remove('open');$('obg').classList.remove('on')}
-if(id==='fav')renderFav();if(id==='hist')renderHist();if(id==='daily')renderDaily();if(id==='ach')renderAch();if(id==='prof')renderProf();if(id!=='play')stopAll()}
-function tSide(){$('side').classList.toggle('open');$('obg').classList.toggle('on')}
+/* THEME */
+function toggleTheme(){const h=document.documentElement;const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');$('tgTheme').classList.toggle('on',!d);localStorage.setItem('snxTheme',d?'light':'dark')}
+if(localStorage.getItem('snxTheme')==='light'){document.documentElement.setAttribute('data-theme','light');$('tgTheme').classList.remove('on')}
 
-/* KART */
-function card(g,big){
-const col=CATC[g.c],f=S.favs.includes(g.id);
-return '<div class="gc'+(big?' big':'')+'" onclick="launch('+g.id+')">'+
-'<div class="gth" style="background:linear-gradient(135deg,'+col+'26,'+col+'0a)">'+g.i+
-(g.y>=2020?'<span class="gbadge">Yeni</span>':(g.r>=4.7?'<span class="gbadge" style="background:var(--amber);color:#221500">⭐ Editör</span>':''))+
-'<button class="gfav" onclick="event.stopPropagation();togFav('+g.id+')">'+(f?'💜':'🤍')+'</button></div>'+
-'<div class="gbody"><div class="gname">'+g.n+'</div><div class="gdesc">'+g.d+'</div>'+
-'<div class="gmeta"><span class="gtag" style="background:'+col+'1f;color:'+col+'">'+g.c+'</span><span class="grate">⭐ '+g.r.toFixed(1)+'</span></div>'+
-'<div class="gacts"><button class="btn btn-a" style="flex:1" onclick="event.stopPropagation();launch('+g.id+')">▶ ŞİMDİ OYNA</button></div></div></div>'}
+/* SIDEBAR */
+function toggleSidebar(){$('sidebar').classList.toggle('on');$('sbOverlay').classList.toggle('on');$('hamBtn').classList.toggle('active')}
 
-/* SAYFALAR */
+/* NAV */
+function nav(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));const pg=$('pg-'+id);if(pg)pg.classList.add('on');
+document.querySelectorAll('.snav-item').forEach(n=>n.classList.remove('on'));if(el)el.classList.add('on');
+window.scrollTo(0,0);if(window.innerWidth<=900){$('sidebar').classList.remove('on');$('sbOverlay').classList.remove('on');$('hamBtn').classList.remove('active')}
+if(id==='fav')renderFav();if(id==='hist')renderHist();if(id==='daily')renderTasks();if(id==='ach')renderAch();if(id==='profile')renderProf();if(id==='games')renderGames();if(id!=='play')stopAll();
+if(id==='settings'&&S.user){$('setName').value=S.user;$('setMail').value=S.mail||''}}
+
+/* 12 GAMES DATA */
+const GAMES=[
+{id:0,name:'Neon Yılan',cat:'Arcade',icon:'🐍',color:'#10b981',desc:'Karanlık neon tünellerde yılanını büyüt. Her seviyede hız artar, engeller çoğalır. 200 seviyenin sonunda seni efsanevi bir boss bekliyor.',how:'Ok tuşları veya WASD ile yön değiştir. Mobilde parmağını kaydır. Duvarlara ve kuyruğuna çarpma!',dif:'Kolay → Usta',rating:4.8,plays:'45M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:1,name:'Galaksi Savaşı',cat:'Aksiyon',icon:'🚀',color:'#ef4444',desc:'Galaksinin son savunucusu sensin. 200 dalga boyunca düşman filolarını yok et. Her 10 seviyede devasa bir boss gemisiyle karşılaşacaksın.',how:'Mouse veya dokunma ile gemini hareket ettir. Otomatik ateş eder. Space ile özel saldırı.',dif:'Orta → Usta',rating:4.9,plays:'62M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:2,name:'Hafıza Ustası',cat:'Bulmaca',icon:'🃏',color:'#8b5cf6',desc:'Kartları çevir, eşleri bul. 4 kartla başla, 200. seviyede 40 kartlık devasa bir tabloyla mücadele et. Süre her seviyede daralır.',how:'Karta tıkla veya dokun. İki kart seç — eşleşirse açık kalır. En az hamlede bitir!',dif:'Kolay → Zor',rating:4.6,plays:'28M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:3,name:'Tuğla Fırtınası',cat:'Arcade',icon:'🧱',color:'#f59e0b',desc:'Klasik tuğla kırma, 200 seviyelik destansı bir yolculukla buluşuyor. Her seviyede yeni desenler, güçlendirmeler ve tuzaklar seni bekliyor.',how:'Mouse veya parmağınla raketi hareket ettir. Tıkla ile topu fırlat. Tüm tuğlaları kır!',dif:'Kolay → Usta',rating:4.7,plays:'38M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:4,name:'Kelime Şampiyonu',cat:'Bulmaca',icon:'📝',color:'#06b6d4',desc:'Karışık harflerden Türkçe kelimeler oluştur. 3 harfle başla, 200. seviyede 9 harfli kelimelerle yarış. Süre acımasızca kısalır.',how:'Harflere sırayla tıkla. Kelimeyi tamamla ve gönder. Doğru kelime = puan!',dif:'Kolay → Usta',rating:4.5,plays:'19M',dev:'ShopNex Studio',year:2025,levels:200},
+{id:5,name:'Sonsuz Koşu',cat:'Aksiyon',icon:'🏃',color:'#ec4899',desc:'Engellerin üzerinden atla, altınları topla! 200 seviye boyunca hız sürekli artar. Reflekslerinin sınırlarını zorla.',how:'Space veya yukarı ok ile zıpla. Aşağı ok ile eğil. Mobilde yukarı/aşağı kaydır.',dif:'Orta → Usta',rating:4.9,plays:'71M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:6,name:'Derin Sular',cat:'Simülasyon',icon:'🎣',color:'#0ea5e9',desc:'Oltanı derinlere sal, nadir balıkları yakala. 200 seviyede okyanusun en gizemli canlılarıyla karşılaş. Zamanlaman her şey.',how:'Tıkla ile oltayı at. Balık vurduğunda tekrar tıkla. Doğru an = büyük balık!',dif:'Kolay → Zor',rating:4.4,plays:'15M',dev:'ShopNex Studio',year:2025,levels:200},
+{id:7,name:'Kule İmparatorluğu',cat:'Strateji',icon:'🏰',color:'#f97316',desc:'Düşman dalgaları yaklaşıyor! Kulelerini stratejik noktalara yerleştir. 200 dalga boyunca üssünü koru — her dalga bir öncekinden acımasız.',how:'Boş alanlara tıkla, kule yerleştir. Kuleler otomatik ateş eder. Düşmanları durdur!',dif:'Orta → Usta',rating:4.8,plays:'33M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:8,name:'Kanat Çırpışı',cat:'Arcade',icon:'🐦',color:'#84cc16',desc:'Borular arasında kanat çırp! 200 seviyede boşluklar daralır, hız artar. Tek dokunuşla başlayan sonsuz gerilim.',how:'Tıkla, Space veya yukarı ok ile kanat çırp. Borulara çarpma!',dif:'Orta → Usta',rating:4.7,plays:'89M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:9,name:'Sayı Fırtınası',cat:'Bulmaca',icon:'🔢',color:'#a855f7',desc:'Aynı sayıları birleştir, hedefe ulaş! 2048 ile başla, 200. seviyede 131.072 hedefine koş. Stratejin ve şansın sınanacak.',how:'Ok tuşları veya kaydırma ile tile\'ları hareket ettir. Aynı sayılar birleşir.',dif:'Kolay → Zor',rating:4.6,plays:'52M',dev:'ShopNex Studio',year:2024,levels:200},
+{id:10,name:'Çekiç Ustası',cat:'Arcade',icon:'🔨',color:'#eab308',desc:'Hedefler beliriyor, sen vuruyorsun! 200 seviyede hız artar, sahte hedefler belirir. Refleksin ve dikkatin aynı anda sınanacak.',how:'Beliren hedeflere tıkla. Yıldız = 3x puan. Kırmızı = tuzak, vurma!',dif:'Kolay → Usta',rating:4.5,plays:'24M',dev:'ShopNex Studio',year:2025,levels:200},
+{id:11,name:'Ritim Şöleni',cat:'Müzik',icon:'🎹',color:'#d946ef',desc:'Notalar akıyor, sen yakalıyorsun! 200 seviyede tempo artar, notalar sıklaşır. Parmakların müzikle dans etsin.',how:'D-F-J-K tuşları veya ekrandaki 4 şeride dokun. Notalar çizgiye gelince vur!',dif:'Orta → Usta',rating:4.8,plays:'41M',dev:'ShopNex Studio',year:2025,levels:200}
+];
+const CATS=[...new Set(GAMES.map(g=>g.cat))];
+const CAT_ICO={Arcade:'👾',Aksiyon:'💥',Bulmaca:'🧩',Simülasyon:'🎣',Strateji:'♟️',Müzik:'🎵'};
+
+/* CARD */
+function card(g){const f=S.favs.includes(g.id);const lv=S.levels[g.id]||1;
+const badge=g.year>=2025?'<span class="gc-badge new">Yeni</span>':g.rating>=4.8?'<span class="gc-badge hot">🔥 Hot</span>':g.plays>'40M'?'<span class="gc-badge trend">Trend</span>':'';
+return `<div class="game-card" onclick="launch(${g.id})">
+<div class="gc-thumb" style="background:linear-gradient(135deg,${g.color}18,${g.color}08)">${g.icon}${badge}<button class="gc-fav ${f?'on':''}" onclick="event.stopPropagation();togFav(${g.id})">${f?'❤️':'🤍'}</button></div>
+<div class="gc-body"><div class="gc-name">${g.name}</div><div class="gc-desc">${g.desc}</div>
+<div class="gc-meta"><span class="gc-tag">${g.cat}</span><span class="gc-rating">⭐ ${g.rating}</span><span>▶ ${g.plays}</span></div>
+<div class="gc-footer"><div class="gc-play" onclick="event.stopPropagation();launch(${g.id})">▶ Şimdi Oyna</div><div class="gc-level">Sv.${lv}/200</div></div></div></div>`}
+
+/* RENDERS */
 function renderHome(){
-const pop=[...GAMES].sort((a,b)=>b.plays-a.plays);
-$('wall').innerHTML=card(pop[0],true)+pop.slice(1,9).map(g=>card(g)).join('');
-$('sPop').innerHTML=pop.slice(0,14).map(g=>card(g)).join('');
-$('sTrend').innerHTML=GAMES.filter(g=>g.r>=4.5&&g.id%2===0).slice(0,14).map(g=>card(g)).join('');
-$('sNew').innerHTML=GAMES.filter(g=>g.y>=2020).slice(0,14).map(g=>card(g)).join('');
-$('gEdit').innerHTML=GAMES.filter(g=>g.r>=4.7).map(g=>card(g)).join('');
-rv()}
-function renderAll(){
-let list=[...GAMES];
-const c=$('fCat').value,d=$('fDif').value,s=$('fSort').value;
-if(c)list=list.filter(g=>g.c===c);if(d)list=list.filter(g=>g.z===d);
-if(s==='pop')list.sort((a,b)=>b.plays-a.plays);if(s==='rate')list.sort((a,b)=>b.r-a.r);if(s==='new')list.sort((a,b)=>b.y-a.y);if(s==='az')list.sort((a,b)=>a.n.localeCompare(b.n,'tr'));
-$('gAll').innerHTML=list.map(g=>card(g)).join('');
-$('fCount').textContent=list.length+' oyun listeleniyor';
-$('allCount').textContent=GAMES.length+' oyun'}
-function renderFav(){const l=GAMES.filter(g=>S.favs.includes(g.id));$('eFav').style.display=l.length?'none':'block';$('gFav').innerHTML=l.map(g=>card(g)).join('')}
-function renderHist(){const l=S.hist.map(id=>GAMES[id]).filter(Boolean);$('eHist').style.display=l.length?'none':'block';$('gHist').innerHTML=l.map(g=>card(g)).join('')}
-function togFav(id){const i=S.favs.indexOf(id);if(i>-1){S.favs.splice(i,1);toast('💜 Kaldırıldı','Oyun favorilerinden çıkarıldı')}else{S.favs.push(id);toast('💜 Eklendi','Favorilerine eklendi!')}save();renderHome();renderAll()}
-function filterCatSide(c){$('fCat').value=c;go('all',document.querySelectorAll('.si')[1]);renderAll()}
+const pop=[...GAMES].sort((a,b)=>parseFloat(b.plays)-parseFloat(a.plays));
+$('homePop').innerHTML=pop.slice(0,4).map(card).join('');
+$('homeTrend').innerHTML=GAMES.filter(g=>g.rating>=4.7).slice(0,4).map(card).join('');
+$('homeNew').innerHTML=GAMES.filter(g=>g.year>=2025).map(card).join('');
+$('homeEdit').innerHTML=GAMES.filter(g=>g.rating>=4.8).slice(0,4).map(card).join('');
+$('homeMost').innerHTML=pop.slice(4,8).map(card).join('');
+$('homeCats').innerHTML=CATS.map(c=>`<div class="cat-card" onclick="filterCat('${c}')"><div class="cat-icon">${CAT_ICO[c]||'🎮'}</div><div class="cat-name">${c}</div><div class="cat-count">${GAMES.filter(g=>g.cat===c).length} oyun</div></div>`).join('')}
+function renderGames(){let l=[...GAMES];const c=$('fCat').value,d=$('fDif').value,s=$('fSort').value;
+if(c)l=l.filter(g=>g.cat===c);if(d)l=l.filter(g=>g.dif.includes(d));
+if(s==='pop')l.sort((a,b)=>parseFloat(b.plays)-parseFloat(a.plays));if(s==='rate')l.sort((a,b)=>b.rating-a.rating);if(s==='new')l.sort((a,b)=>b.year-a.year);if(s==='az')l.sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+$('gamesGrid').innerHTML=l.map(card).join('');$('fCount').textContent=l.length+' oyun'}
+function renderFav(){const l=GAMES.filter(g=>S.favs.includes(g.id));$('favEmpty').style.display=l.length?'none':'block';$('favGrid').innerHTML=l.map(card).join('')}
+function renderHist(){const l=S.hist.map(id=>GAMES[id]).filter(Boolean);$('histEmpty').style.display=l.length?'none':'block';$('histGrid').innerHTML=l.map(card).join('')}
+function filterCat(c){$('fCat').value=c;nav('games');renderGames()}
+function togFav(id){const i=S.favs.indexOf(id);if(i>-1){S.favs.splice(i,1);toast('💜','Favorilerden kaldırıldı')}else{S.favs.push(id);toast('💜','Favorilere eklendi!')}save();renderHome();renderGames()}
 
-/* ARAMA */
-function doSearch(q){const d=$('sDrop');if(q.length<2){d.classList.remove('on');return}
-const r=GAMES.filter(g=>g.n.toLowerCase().includes(q.toLocaleLowerCase('tr'))).slice(0,8);
+/* SEARCH */
+function doSearch(q){const d=$('searchDrop');if(q.length<2){d.classList.remove('on');return}
+const r=GAMES.filter(g=>g.name.toLowerCase().includes(q.toLowerCase())||g.cat.toLowerCase().includes(q.toLowerCase()));
 if(!r.length){d.classList.remove('on');return}
-d.innerHTML=r.map(g=>'<div class="sdrow" onmousedown="launch('+g.id+');$(\'sDrop\').classList.remove(\'on\');$(\'sIn\').value=\'\'"><span style="font-size:19px">'+g.i+'</span><div><b style="font-size:12px">'+g.n+'</b><div style="font-size:10px;color:var(--mut)">'+g.c+' • ⭐ '+g.r.toFixed(1)+' • '+g.p+' oynanma</div></div></div>').join('');
+d.innerHTML=r.map(g=>`<div class="sd-item" onmousedown="launch(${g.id});$('searchDrop').classList.remove('on');$('searchIn').value=''"><span style="font-size:20px">${g.icon}</span><div><b style="font-size:13px">${g.name}</b><div style="font-size:10px;color:var(--txt3)">${g.cat} • ⭐${g.rating} • 200 Seviye</div></div></div>`).join('');
 d.classList.add('on')}
-document.addEventListener('click',e=>{if(!e.target.closest('.srch'))$('sDrop').classList.remove('on')});
+document.addEventListener('click',e=>{if(!e.target.closest('.header-search'))$('searchDrop').classList.remove('on')});
 
-/* ================= 12 FARKLI OYUN MOTORU ================= */
+/* AUTH */
+function doLogin(){const m=$('loginMail').value.trim(),p=$('loginPass').value;
+if(!m||!p)return toast('⚠️','E-posta ve şifre gerekli');
+S.user=m.split('@')[0];S.mail=m;save();hudTop();nav('home');toast('👋 Hoş Geldin!',S.user+' olarak giriş yaptın')}
+function doRegister(){const n=$('regName').value.trim(),m=$('regMail').value.trim(),p=$('regPass').value,p2=$('regPass2').value;
+if(!n)return toast('⚠️','Kullanıcı adı gerekli');if(!m)return toast('⚠️','E-posta gerekli');
+if(p.length<6)return toast('⚠️','Şifre en az 6 karakter olmalı');if(p!==p2)return toast('⚠️','Şifreler eşleşmiyor');
+S.user=n;S.mail=m;save();hudTop();nav('home');toast('🎉 Tebrikler!',n+' hesabın oluşturuldu. Hoş geldin!')}
+function doForgot(){const m=$('forgotMail').value.trim();if(!m)return toast('⚠️','E-posta adresini gir');
+toast('📧 Gönderildi!','Sıfırlama bağlantısı '+m+' adresine gönderildi')}
+function doLogout(){S.user=null;S.mail=null;save();hudTop();nav('home');toast('👋 Görüşürüz!','Başarıyla çıkış yaptın')}
+function saveProfile(){const n=$('setName').value.trim();if(n){S.user=n;S.mail=$('setMail').value;save();hudTop();toast('✅','Profil güncellendi')}}
+function clearAll(){if(confirm('Tüm verilerin silinecek. Emin misin?')){localStorage.clear();location.reload()}}
+
+/* PROFILE */
+function renderProf(){if(!S.user){nav('login');return}
+$('profAv').textContent=S.user[0].toUpperCase();$('profName').textContent=S.user;$('profMail').innerHTML='Seviye <b>'+S.lv+'</b> • '+S.mail;
+$('profLv').textContent=S.lv;$('profXpBar').style.width=(S.xp%100)+'%';$('profXpTxt').textContent=(S.xp%100)+'/100 XP';
+$('stPlays').textContent=S.plays;$('stGold').textContent=S.gold.toLocaleString('tr-TR');$('stBest').textContent=S.best.toLocaleString('tr-TR');$('stFav').textContent=S.favs.length;$('stLvl').textContent=S.lv;
+renderBadges()}
+function renderBadges(){const b=[['🎮','İlk Adım','İlk oyununu oyna',S.plays>=1],['🔥','Seri Oyuncu','10 oyun oyna',S.plays>=10],['💜','Koleksiyoncu','5 favori ekle',S.favs.length>=5],['🪙','Zengin','1000 coin',S.gold>=1000],['⚡','Seviye 5','5. seviye',S.lv>=5],['🏆','Rekor','500 puan',S.best>=500],['📅','Sadık','3 gün seri',S.streak>=3],['🌟','Kaşif','12 oyun dene',S.hist.length>=12],['👑','Efsane','Seviye 10',S.lv>=10],['💎','Usta','Seviye 50 ulaş',S.lv>=50],['🎯','Mükemmel','Seviye 100 bitir',Object.values(S.levels).some(v=>v>=100)],['🏅','Tamamlayıcı','200. seviye',Object.values(S.levels).some(v=>v>=200)]];
+$('badgeGrid').innerHTML=b.map(x=>`<div class="badge ${x[3]?'':'lock'}"><span class="bi">${x[0]}</span><b>${x[1]}</b><span>${x[2]}</span></div>`).join('')}
+function renderAch(){renderBadges();$('achGrid').innerHTML=$('badgeGrid').innerHTML}
+
+/* DAILY TASKS */
+function renderTasks(){const tasks=[['🎮','3 oyun oyna',Math.min(S.plays,3),3,'+50 🪙'],['⭐','1 oyun puanla',Object.keys(S.ratings).length>0?1:0,1,'+30 🪙'],['💜','2 favori ekle',Math.min(S.favs.length,2),2,'+40 🪙'],['🏆','200 puan yap',S.best>=200?1:0,1,'+100 🪙'],['📈','1 seviye atla',S.lv>1?1:0,1,'+60 🪙']];
+$('taskList').innerHTML=tasks.map(t=>{const done=t[2]>=t[3];return `<div class="task"><div class="task-check ${done?'done':''}">${done?'✓':''}</div><div class="task-info"><div class="task-name">${t[0]} ${t[1]}</div><div class="task-prog">${t[2]}/${t[3]}</div><div class="task-prog-bar"><div class="task-prog-fill" style="width:${t[2]/t[3]*100}%"></div></div></div><div class="task-reward">${t[4]}</div></div>`}).join('')}
+
+/* ==================== 12 GAME ENGINES ==================== */
 const E={};
+function diff(lv){return 1+lv*0.04} // difficulty multiplier per level
 
-/* 1) YILAN */
-E.snake={cs:25,
-start(){this.sn=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];this.d={x:1,y:0};this.food=this.nf();this.spd=130;this.last=0;this.loop()},
-nf(){return{x:1+Math.floor(Math.random()*30),y:1+Math.floor(Math.random()*18)}},
+/* 1: SNAKE */
+E.snake={cs:25,start(lv){const d=diff(lv);this.sn=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];this.dir={x:1,y:0};this.food=this.nf();this.spd=Math.max(50,140-lv*0.45);this.last=0;this.obs=[];
+for(let i=0;i<Math.min(lv,30);i++)this.obs.push({x:2+Math.floor(Math.random()*28),y:2+Math.floor(Math.random()*16)});
+this.loop()},
+nf(){let p;do{p={x:1+Math.floor(Math.random()*30),y:1+Math.floor(Math.random()*18)}}while(this.obs.some(o=>o.x===p.x&&o.y===p.y));return p},
 loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());const n=Date.now();if(paused||n-this.last<this.spd)return;this.last=n;
-const h={x:this.sn[0].x+this.d.x,y:this.sn[0].y+this.d.y};
-if(h.x<0||h.x>31||h.y<0||h.y>19||this.sn.some(s=>s.x===h.x&&s.y===h.y))return endGame(false);
-this.sn.unshift(h);
-if(h.x===this.food.x&&h.y===this.food.y){score+=10;this.food=this.nf();this.spd=Math.max(60,this.spd-2)}else this.sn.pop();
+const h={x:this.sn[0].x+this.dir.x,y:this.sn[0].y+this.dir.y};
+if(h.x<0||h.x>31||h.y<0||h.y>19||this.sn.some(s=>s.x===h.x&&s.y===h.y)||this.obs.some(o=>o.x===h.x&&o.y===h.y))return endGame(false);
+this.sn.unshift(h);if(h.x===this.food.x&&h.y===this.food.y){score+=10;this.food=this.nf()}else this.sn.pop();
+const target=10+curLevel*2;if(score>=target)return endGame(true);
 this.draw()},
-draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);const c=this.cs,t=theme();
-ctx.strokeStyle='rgba(255,255,255,.03)';for(let i=0;i<33;i++){ctx.beginPath();ctx.moveTo(i*c,0);ctx.lineTo(i*c,H);ctx.stroke()}for(let i=0;i<21;i++){ctx.beginPath();ctx.moveTo(0,i*c);ctx.lineTo(W,i*c);ctx.stroke()}
-this.sn.forEach((s,i)=>{ctx.fillStyle=i===0?t:'rgba('+hex(t)+','+(1-i*.015)+')';ctx.shadowColor=t;ctx.shadowBlur=i===0?12:3;rr(s.x*c+1,s.y*c+1,c-2,c-2,6);ctx.fill();ctx.shadowBlur=0});
-ctx.fillStyle='#ef476f';ctx.shadowColor='#ef476f';ctx.shadowBlur=10;ctx.beginPath();ctx.arc(this.food.x*c+c/2,this.food.y*c+c/2,c/3+Math.sin(Date.now()/200)*2,0,7);ctx.fill();ctx.shadowBlur=0;
-hud([['Skor',score],['Uzunluk',this.sn.length],['Hız',(1000/this.spd).toFixed(1)]])},
-key(k){const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[k];if(m&&!(m[0]===-this.d.x&&m[1]===-this.d.y))this.d={x:m[0],y:m[1]}},
+draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);const c=this.cs,t=cur.color;
+ctx.strokeStyle='rgba(255,255,255,.02)';for(let i=0;i<33;i++){ctx.beginPath();ctx.moveTo(i*c,0);ctx.lineTo(i*c,H);ctx.stroke()}for(let i=0;i<21;i++){ctx.beginPath();ctx.moveTo(0,i*c);ctx.lineTo(W,i*c);ctx.stroke()}
+this.obs.forEach(o=>{ctx.fillStyle='rgba(239,68,68,.4)';rr(o.x*c+2,o.y*c+2,c-4,c-4,4);ctx.fill()});
+this.sn.forEach((s,i)=>{ctx.fillStyle=i===0?t:`rgba(${hex(t)},${1-i*.012})`;ctx.shadowColor=t;ctx.shadowBlur=i===0?10:2;rr(s.x*c+1,s.y*c+1,c-2,c-2,5);ctx.fill();ctx.shadowBlur=0});
+ctx.fillStyle='#ef4444';ctx.shadowColor='#ef4444';ctx.shadowBlur=8;ctx.beginPath();ctx.arc(this.food.x*c+c/2,this.food.y*c+c/2,c/3,0,7);ctx.fill();ctx.shadowBlur=0;
+hud([['Skor',score],['Hedef',10+curLevel*2],['Uzunluk',this.sn.length]])},
+key(k){const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[k];if(m&&!(m[0]===-this.dir.x&&m[1]===-this.dir.y))this.dir={x:m[0],y:m[1]}},
 swipe(dx,dy){if(Math.abs(dx)>Math.abs(dy))this.key(dx>0?'ArrowRight':'ArrowLeft');else this.key(dy>0?'ArrowDown':'ArrowUp')}};
 
-/* 2) NİŞANCI */
-E.shoot={
-start(){this.px=400;this.py=430;this.bul=[];this.en=[];this.par=[];this.wave=1;this.f=0;this.lives=3;this.loop()},
-loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;const t=theme();
-if(this.f%55===0)this.en.push({x:30+Math.random()*740,y:-25,s:1+Math.random()*this.wave*.35,hp:1+Math.floor(this.wave/3)});
-if(this.f%420===0)this.wave++;
-if(this.f%11===0)this.bul.push({x:this.px,y:this.py-22});
-this.bul.forEach(b=>b.y-=9);this.bul=this.bul.filter(b=>b.y>-10);
-this.en.forEach(e=>{e.y+=e.s;if(e.y>505){e.hp=0;this.lives--;if(this.lives<=0)endGame(false)}});
-this.bul.forEach(b=>this.en.forEach(e=>{if(e.hp>0&&Math.abs(b.x-e.x)<19&&Math.abs(b.y-e.y)<19){e.hp--;b.y=-99;if(e.hp<=0){score+=15;for(let i=0;i<7;i++)this.par.push({x:e.x,y:e.y,vx:(Math.random()-.5)*7,vy:(Math.random()-.5)*7,l:22})}}}));
+/* 2: SHOOTER */
+E.shoot={start(lv){this.px=400;this.py=430;this.bul=[];this.en=[];this.par=[];this.wave=1;this.f=0;this.lives=3;this.target=8+lv*3;this.kills=0;this.loop()},
+loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;const d=diff(curLevel);
+if(this.f%Math.max(20,60-curLevel*0.2)===0)this.en.push({x:30+Math.random()*740,y:-25,s:(1+Math.random())*d*.5,hp:1+Math.floor(curLevel/20)});
+if(this.f%12===0)this.bul.push({x:this.px,y:this.py-22});
+this.bul.forEach(b=>b.y-=10);this.bul=this.bul.filter(b=>b.y>-10);
+this.en.forEach(e=>{e.y+=e.s;if(e.y>510){e.hp=0;this.lives--;if(this.lives<=0)endGame(false)}});
+this.bul.forEach(b=>this.en.forEach(e=>{if(e.hp>0&&Math.abs(b.x-e.x)<18&&Math.abs(b.y-e.y)<18){e.hp--;b.y=-99;if(e.hp<=0){score+=10;this.kills++;for(let i=0;i<6;i++)this.par.push({x:e.x,y:e.y,vx:(Math.random()-.5)*6,vy:(Math.random()-.5)*6,l:20})}}}));
 this.en=this.en.filter(e=>e.hp>0&&e.y<530);
 this.par.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.l--});this.par=this.par.filter(p=>p.l>0);
+if(this.kills>=this.target)return endGame(true);
 this.draw()},
-draw(){ctx.fillStyle='#070a18';ctx.fillRect(0,0,W,H);const t=theme();
-for(let i=0;i<40;i++){ctx.fillStyle='rgba(255,255,255,'+(.08+Math.random()*.25)+')';ctx.fillRect((i*97)%W,(i*53+this.f*.3)%H,1.5,1.5)}
-ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=12;ctx.beginPath();ctx.moveTo(this.px,this.py-20);ctx.lineTo(this.px-15,this.py+13);ctx.lineTo(this.px+15,this.py+13);ctx.closePath();ctx.fill();ctx.shadowBlur=0;
-ctx.fillStyle='#ffb703';this.bul.forEach(b=>ctx.fillRect(b.x-2,b.y-7,4,13));
-this.en.forEach(e=>{ctx.font='26px sans-serif';ctx.textAlign='center';ctx.fillText('👾',e.x,e.y+8)});
-this.par.forEach(p=>{ctx.fillStyle='rgba(255,183,3,'+(p.l/22)+')';ctx.fillRect(p.x,p.y,3,3)});
-hud([['Skor',score],['Dalga',this.wave],['Can','❤️'.repeat(this.lives)]])},
-key(k){if(k==='ArrowLeft')this.px=Math.max(25,this.px-22);if(k==='ArrowRight')this.px=Math.min(775,this.px+22)},
-move(x){this.px=Math.max(25,Math.min(775,x))}};
+draw(){ctx.fillStyle='#070a18';ctx.fillRect(0,0,W,H);const t=cur.color;
+for(let i=0;i<30;i++){ctx.fillStyle='rgba(255,255,255,.1)';ctx.fillRect((i*97)%W,(i*53+this.f*.2)%H,1,1)}
+ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=10;ctx.beginPath();ctx.moveTo(this.px,this.py-18);ctx.lineTo(this.px-14,this.py+12);ctx.lineTo(this.px+14,this.py+12);ctx.closePath();ctx.fill();ctx.shadowBlur=0;
+ctx.fillStyle='#fbbf24';this.bul.forEach(b=>ctx.fillRect(b.x-2,b.y-6,4,12));
+this.en.forEach(e=>{ctx.font='24px sans-serif';ctx.textAlign='center';ctx.fillText('👾',e.x,e.y+8)});
+this.par.forEach(p=>{ctx.fillStyle=`rgba(251,191,36,${p.l/20})`;ctx.fillRect(p.x,p.y,3,3)});
+hud([['Skor',score],['İlerleme',this.kills+'/'+this.target],['Can','❤️'.repeat(this.lives)]])},
+key(k){if(k==='ArrowLeft')this.px=Math.max(20,this.px-24);if(k==='ArrowRight')this.px=Math.min(780,this.px+24)},
+move(x){this.px=Math.max(20,Math.min(780,x))}};
 
-/* 3) HAFIZA */
-E.mem={
-start(){const em=[cur.i,'🎮','🚀','🧩','🏆','⚡','🌟','🎯'];const dk=[...em,...em].sort(()=>Math.random()-.5);
-this.cards=dk.map(e=>({e,f:false,m:false}));this.fl=[];this.mt=0;this.mv=0;this.lock=false;this.draw()},
+/* 3: MEMORY */
+E.mem={start(lv){const pairs=Math.min(2+Math.floor(lv/10),20);const em=['🎮','🚀','🐍','🧩','🏆','⚡','🌟','🎯','🔥','💎','🎵','🌈','🦊','🐙','🍀','🎪','🌸','🦋','🍄','🎲'];
+const dk=em.slice(0,pairs);const deck=[...dk,...dk].sort(()=>Math.random()-.5);
+this.cards=deck.map(e=>({e,f:false,m:false}));this.fl=[];this.mt=0;this.mv=0;this.lock=false;this.pairs=pairs;this.draw()},
 flip(i){if(this.lock||this.cards[i].f||this.cards[i].m)return;this.cards[i].f=true;this.fl.push(i);this.draw();
 if(this.fl.length===2){this.mv++;this.lock=true;const[a,b]=this.fl;
-if(this.cards[a].e===this.cards[b].e){this.cards[a].m=this.cards[b].m=true;this.mt++;score+=25;this.fl=[];this.lock=false;this.draw();if(this.mt===8){score+=Math.max(0,60-this.mv)*5;setTimeout(()=>endGame(true),450)}}
-else setTimeout(()=>{this.cards[a].f=this.cards[b].f=false;this.fl=[];this.lock=false;this.draw()},750)}},
-draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);const t=theme(),cw=165,ch=102,gap=14,ox=(W-4*(cw+gap))/2+gap/2,oy=(H-4*(ch+gap))/2+gap/2;
-this.cards.forEach((c,i)=>{const x=ox+(i%4)*(cw+gap),y=oy+Math.floor(i/4)*(ch+gap);
-ctx.fillStyle=c.m?'rgba(6,214,160,.16)':c.f?'#22304f':'#182238';ctx.strokeStyle=c.m?'#06d6a0':c.f?t:'#2b3a5c';ctx.lineWidth=2;rr(x,y,cw,ch,12);ctx.fill();ctx.stroke();
-ctx.font='40px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c.f||c.m?c.e:'❔',x+cw/2,y+ch/2+2)});ctx.textBaseline='alphabetic';
-hud([['Skor',score],['Hamle',this.mv],['Eşleşme',this.mt+'/8']])},
-down(x,y){const cw=165,ch=102,gap=14,ox=(W-4*(cw+gap))/2+gap/2,oy=(H-4*(ch+gap))/2+gap/2;
-for(let i=0;i<16;i++){const cx=ox+(i%4)*(cw+gap),cy=oy+Math.floor(i/4)*(ch+gap);if(x>=cx&&x<=cx+cw&&y>=cy&&y<=cy+ch){this.flip(i);break}}}};
+if(this.cards[a].e===this.cards[b].e){this.cards[a].m=this.cards[b].m=true;this.mt++;score+=20;this.fl=[];this.lock=false;this.draw();if(this.mt===this.pairs)endGame(true)}
+else setTimeout(()=>{this.cards[a].f=this.cards[b].f=false;this.fl=[];this.lock=false;this.draw()},Math.max(300,800-curLevel*2))}},
+draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);const cols=Math.min(this.pairs>8?6:4,6),rows=Math.ceil(this.pairs*2/cols);
+const cw=Math.min(130,(W-40)/cols-10),ch=Math.min(90,(H-40)/rows-8),gap=8;
+const ox=(W-cols*(cw+gap))/2,oy=(H-rows*(ch+gap))/2;
+this.cards.forEach((c,i)=>{const x=ox+(i%cols)*(cw+gap),y=oy+Math.floor(i/cols)*(ch+gap);
+ctx.fillStyle=c.m?'rgba(16,185,129,.15)':c.f?'#1e293b':'#151d2e';ctx.strokeStyle=c.m?'#10b981':c.f?cur.color:'#2a3550';ctx.lineWidth=2;rr(x,y,cw,ch,10);ctx.fill();ctx.stroke();
+ctx.font=Math.min(32,cw/3)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c.f||c.m?c.e:'❔',x+cw/2,y+ch/2);ctx.textBaseline='alphabetic'});
+hud([['Skor',score],['Hamle',this.mv],['Eşleşme',this.mt+'/'+this.pairs]])},
+down(x,y){const cols=Math.min(this.pairs>8?6:4,6),rows=Math.ceil(this.pairs*2/cols);
+const cw=Math.min(130,(W-40)/cols-10),ch=Math.min(90,(H-40)/rows-8),gap=8;
+const ox=(W-cols*(cw+gap))/2,oy=(H-rows*(ch+gap))/2;
+for(let i=0;i<this.cards.length;i++){const cx=ox+(i%cols)*(cw+gap),cy=oy+Math.floor(i/cols)*(ch+gap);if(x>=cx&&x<=cx+cw&&y>=cy&&y<=cy+ch){this.flip(i);break}}}};
 
-/* 4) TUĞLA KIRICI */
-E.break={
-start(){this.pd=360;this.b={x:400,y:430,dx:4.2,dy:-4.2};this.launched=false;this.lives=3;
-const cols=['#ef476f','#ffb703','#06d6a0','#3a86ff','#4cc9f0'];this.br=[];
-for(let r=0;r<5;r++)for(let c=0;c<10;c++)this.br.push({x:c*76+22,y:r*30+45,w:70,h:24,col:cols[r],on:true});
-this.loop()},
+/* 4: BREAKOUT */
+E.break={start(lv){this.pd=360;this.b={x:400,y:430,dx:4+lv*.02,dy:-(4+lv*.02)};this.launched=false;this.lives=3;
+const rows=Math.min(3+Math.floor(lv/15),8),cols=10;const cols2=['#ef4444','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+this.br=[];for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)this.br.push({x:c*76+22,y:r*28+40,w:70,h:22,col:cols2[r%8],on:true,hp:1+Math.floor(lv/40)});
+this.total=this.br.length;this.loop()},
 loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;const b=this.b;
 if(!this.launched){b.x=this.pd+40;b.y=432}else{b.x+=b.dx;b.y+=b.dy;
-if(b.x<9||b.x>791)b.dx*=-1;if(b.y<9)b.dy*=-1;
-if(b.dy>0&&b.y>448&&b.y<466&&b.x>this.pd-4&&b.x<this.pd+84){b.dy=-Math.abs(b.dy);b.dx+=(b.x-(this.pd+40))*.09}
+if(b.x<8||b.x>792)b.dx*=-1;if(b.y<8)b.dy*=-1;
+if(b.dy>0&&b.y>450&&b.y<466&&b.x>this.pd-4&&b.x<this.pd+84){b.dy=-Math.abs(b.dy);b.dx+=(b.x-(this.pd+40))*.08}
 if(b.y>512){this.lives--;if(this.lives<=0)return endGame(false);this.launched=false}
-this.br.forEach(br=>{if(br.on&&b.x>br.x-6&&b.x<br.x+br.w+6&&b.y>br.y-6&&b.y<br.y+br.h+6){br.on=false;b.dy*=-1;score+=10}});
+this.br.forEach(br=>{if(br.on&&b.x>br.x-6&&b.x<br.x+br.w+6&&b.y>br.y-6&&b.y<br.y+br.h+6){br.hp--;if(br.hp<=0){br.on=false;score+=10}b.dy*=-1}});
 if(this.br.every(x=>!x.on))return endGame(true)}
 this.draw()},
-draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);const t=theme();
-this.br.forEach(br=>{if(!br.on)return;ctx.fillStyle=br.col;ctx.shadowColor=br.col;ctx.shadowBlur=5;rr(br.x,br.y,br.w,br.h,5);ctx.fill();ctx.shadowBlur=0});
-ctx.fillStyle='#dfe6e9';rr(this.pd,458,80,13,7);ctx.fill();
-ctx.fillStyle='#fff';ctx.shadowColor=t;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(this.b.x,this.b.y,7,0,7);ctx.fill();ctx.shadowBlur=0;
-hud([['Skor',score],['Tuğla',this.br.filter(b=>b.on).length],['Can','❤️'.repeat(this.lives)]])},
-move(x){this.pd=Math.max(0,Math.min(720,x-40))},
-down(){this.launched=true}};
+draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);
+this.br.forEach(br=>{if(!br.on)return;ctx.fillStyle=br.col;ctx.shadowColor=br.col;ctx.shadowBlur=4;rr(br.x,br.y,br.w,br.h,4);ctx.fill();ctx.shadowBlur=0});
+ctx.fillStyle='#e2e8f0';rr(this.pd,458,80,12,6);ctx.fill();
+ctx.fillStyle='#fff';ctx.shadowColor=cur.color;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(this.b.x,this.b.y,6,0,7);ctx.fill();ctx.shadowBlur=0;
+hud([['Skor',score],['Tuğla',this.br.filter(b=>b.on).length+'/'+this.total],['Can','❤️'.repeat(this.lives)]])},
+move(x){this.pd=Math.max(0,Math.min(720,x-40))},down(){this.launched=true}};
 
-/* 5) KELİME */
-E.word={words:['OYUN','KALE','DENİZ','BULUT','KİTAP','MÜZİK','GÜNEŞ','YILDIZ','ÇİÇEK','ORMAN','NEHİR','RÜZGAR','TOPRAK','PANTER','KARTAL','YUNUS','ZÜRAFA','KELEBEK','ATEŞ','DENİZ'],
-start(){this.found=[];this.inp='';this.time=75;this.nw();
-this.iv=setInterval(()=>{if(paused)return;this.time--;if(this.time<=0){clearInterval(this.iv);endGame(false)}this.draw()},1000);this.draw()},
-nw(){this.cur=this.words[Math.floor(Math.random()*this.words.length)];this.sh=this.cur.split('').sort(()=>Math.random()-.5).join('');this.inp=''},
-send(){if(this.inp===this.cur){score+=30;this.found.push(this.cur);this.nw();toast('✅ Doğru!','+30 puan kazandın')}else{this.inp='';toast('❌ Olmadı','Tekrar dene!')}this.draw()},
-draw(){ctx.fillStyle='#0a1410';ctx.fillRect(0,0,W,H);const t=theme();
-ctx.fillStyle='#8b97b8';ctx.font='bold 15px Rubik';ctx.textAlign='center';ctx.fillText('⏱️ '+this.time+'s   •   Bulunan: '+this.found.length+' kelime',400,34);
-ctx.fillStyle='#fff';ctx.font='900 44px Rubik';ctx.fillText(this.sh.split('').join(' '),400,165);
-ctx.fillStyle='#182238';rr(210,215,380,52,11);ctx.fill();ctx.strokeStyle=t;ctx.lineWidth=2;ctx.stroke();
-ctx.fillStyle=t;ctx.font='900 26px Rubik';ctx.fillText(this.inp+(this.inp.length?'':'_'),400,250);
+/* 5: WORD */
+E.word={words3:['KAR','GÖL','DAĞ','YOL','SU','AY','GÜN','EL','GÖZ','SAÇ'],words5:['DENİZ','BULUT','KİTAP','MÜZİK','GÜNEŞ','ÇİÇEK','ORMAN','NEHİR','KALEM','SAAT'],words7:['YILDIZ','RÜZGAR','TOPRAK','PANTER','KARTAL','ZÜRAFA','KELEBEK','ATEŞBÖ','DENKLEM','PENCERE'],words9:['KELEBEKLER','GÖKKUŞAĞI','BİLGİSAYAR','TELEFONLAR','PENCERELER','KİTAPLIKLAR','ÇİÇEKLERİ','YILDIZLAR'],
+start(lv){this.time=Math.max(20,80-lv*.3);this.found=0;this.inp='';this.nw(lv);
+this.iv=setInterval(()=>{if(paused)return;this.time--;if(this.time<=0){this.stop();endGame(this.found>=3)}this.draw()},1000);this.draw()},
+nw(lv){const pool=lv<30?this.words3:lv<80?this.words5:lv<140?this.words7:this.words9;
+this.cur=pool[Math.floor(Math.random()*pool.length)];this.sh=this.cur.split('').sort(()=>Math.random()-.5).join('');this.inp=''},
+send(){if(this.inp===this.cur){score+=30;this.found++;if(this.found>=3+Math.floor(curLevel/20))return endGame(true);this.nw(curLevel);toast('✅ Doğru!','+30 puan')}else{this.inp='';toast('❌','Tekrar dene')}this.draw()},
+draw(){ctx.fillStyle='#0a1410';ctx.fillRect(0,0,W,H);
+ctx.fillStyle='#94a3b8';ctx.font='bold 14px Inter';ctx.textAlign='center';ctx.fillText('⏱️ '+Math.ceil(this.time)+'s • Bulunan: '+this.found+'/'+(3+Math.floor(curLevel/20)),400,32);
+ctx.fillStyle='#fff';ctx.font='900 40px Inter';ctx.fillText(this.sh.split('').join(' '),400,155);
+ctx.fillStyle='#1e293b';rr(220,200,360,48,10);ctx.fill();ctx.strokeStyle=cur.color;ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle=cur.color;ctx.font='900 24px Inter';ctx.fillText(this.inp+'_',400,232);
 const keys='ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ';
-keys.split('').forEach((k,i)=>{const x=118+(i%10)*58,y=305+Math.floor(i/10)*46;
-ctx.fillStyle='#182238';rr(x,y,48,36,8);ctx.fill();ctx.fillStyle='#eef2ff';ctx.font='bold 15px Rubik';ctx.fillText(k,x+24,y+24)});
-ctx.fillStyle=t;rr(330,448,140,38,9);ctx.fill();ctx.fillStyle='#0a1410';ctx.font='900 15px Rubik';ctx.fillText('GÖNDER ↵',400,472);
-hud([['Skor',score],['Süre',this.time+'s'],['Bulunan',this.found.length]])},
+keys.split('').forEach((k,i)=>{const x=108+(i%10)*60,y=280+Math.floor(i/10)*44;
+ctx.fillStyle='#1e293b';rr(x,y,50,34,7);ctx.fill();ctx.fillStyle='#e2e8f0';ctx.font='bold 14px Inter';ctx.fillText(k,x+25,y+22)});
+ctx.fillStyle=cur.color;rr(330,430,140,36,8);ctx.fill();ctx.fillStyle='#0a1410';ctx.font='900 14px Inter';ctx.fillText('GÖNDER ↵',400,453);
+hud([['Skor',score],['Süre',Math.ceil(this.time)+'s'],['Bulunan',this.found]])},
 key(k){if(k==='Enter')this.send();else if(k==='Backspace')this.inp=this.inp.slice(0,-1);
-else{const c=k.toLocaleUpperCase('tr');if(c.length===1&&'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ'.includes(c)&&this.inp.length<9)this.inp+=c}this.draw()},
+else{const c=k.toLocaleUpperCase('tr');if(c.length===1&&'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ'.includes(c)&&this.inp.length<10)this.inp+=c}this.draw()},
 down(x,y){const keys='ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ';
-for(let i=0;i<keys.length;i++){const kx=118+(i%10)*58,ky=305+Math.floor(i/10)*46;if(x>=kx&&x<=kx+48&&y>=ky&&y<=ky+36){if(this.inp.length<9)this.inp+=keys[i];this.draw();return}}
-if(x>=330&&x<=470&&y>=448&&y<=486)this.send();
-if(x>=210&&x<=590&&y>=215&&y<=267&&this.inp.length){this.inp=this.inp.slice(0,-1);this.draw()}},
+for(let i=0;i<keys.length;i++){const kx=108+(i%10)*60,ky=280+Math.floor(i/10)*44;if(x>=kx&&x<=kx+50&&y>=ky&&y<=ky+34){if(this.inp.length<10)this.inp+=keys[i];this.draw();return}}
+if(x>=330&&x<=470&&y>=430&&y<=466)this.send()},
 stop(){if(this.iv)clearInterval(this.iv)}};
 
-/* 6) KOŞU */
-E.run={
-start(){this.py=352;this.vy=0;this.j=false;this.duck=false;this.ob=[];this.co=[];this.spd=5.5;this.f=0;this.loop()},
-loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;this.spd=5.5+this.f*.0022;
+/* 6: RUNNER */
+E.run={start(lv){this.py=352;this.vy=0;this.j=false;this.duck=false;this.ob=[];this.co=[];this.spd=5+lv*.03;this.f=0;this.dist=0;this.target=500+lv*50;this.loop()},
+loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;this.spd=5+curLevel*.03+this.f*.001;this.dist+=this.spd;
 if(this.j){this.vy+=.85;this.py+=this.vy;if(this.py>=352){this.py=352;this.j=false;this.vy=0}}
-if(this.f%75===0)this.ob.push({x:830,h:26+Math.random()*26});
-if(this.f%48===0)this.co.push({x:830,y:270+Math.random()*70});
+if(this.f%Math.max(30,70-curLevel*.2)===0)this.ob.push({x:830,h:24+Math.random()*28});
+if(this.f%45===0)this.co.push({x:830,y:270+Math.random()*70});
 this.ob.forEach(o=>o.x-=this.spd);this.co.forEach(c=>c.x-=this.spd);
 this.ob=this.ob.filter(o=>o.x>-50);this.co=this.co.filter(c=>c.x>-30);
 const ph=this.duck?20:42;
-this.ob.forEach(o=>{if(o.x<105&&o.x+28>62&&this.py+ph>390-o.h)endGame(false)});
-this.co.forEach(c=>{if(Math.abs(c.x-84)<24&&Math.abs(c.y-this.py)<28){c.x=-99;score+=5}});
-score+=Math.floor(this.spd/6);this.draw()},
-draw(){ctx.fillStyle='#140a28';ctx.fillRect(0,0,W,H);const t=theme();
-ctx.fillStyle='#241542';ctx.fillRect(0,392,W,108);
-ctx.strokeStyle=t;ctx.lineWidth=2;ctx.globalAlpha=.6;ctx.beginPath();ctx.moveTo(0,392);ctx.lineTo(W,392);ctx.stroke();ctx.globalAlpha=1;
-for(let i=0;i<6;i++){ctx.fillStyle='rgba(255,255,255,.05)';ctx.fillRect(((i*170)-this.f*this.spd*.4)%(W+60),392,3,108)}
-const ph=this.duck?20:42;
-ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=12;rr(62,this.py,30,ph,7);ctx.fill();ctx.shadowBlur=0;
-ctx.font='20px sans-serif';ctx.textAlign='center';ctx.fillText(cur.i,77,this.py-8);
-this.ob.forEach(o=>{ctx.fillStyle='#ef476f';ctx.shadowColor='#ef476f';ctx.shadowBlur=6;rr(o.x,392-o.h,28,o.h,5);ctx.fill();ctx.shadowBlur=0});
-ctx.fillStyle='#ffb703';this.co.forEach(c=>{if(c.x>0){ctx.beginPath();ctx.arc(c.x,c.y,8,0,7);ctx.fill()}});
-hud([['Skor',score],['Hız',this.spd.toFixed(1)],['Mesafe',Math.floor(this.f/12)+'m']])},
-jump(){if(!this.j){this.j=true;this.vy=-14.5}},
-key(k){if(k===' '||k==='ArrowUp'){this.jump()}if(k==='ArrowDown')this.duck=true},
-kup(k){if(k==='ArrowDown')this.duck=false},
-down(){this.jump()}};
+this.ob.forEach(o=>{if(o.x<105&&o.x+26>62&&this.py+ph>392-o.h)endGame(false)});
+this.co.forEach(c=>{if(Math.abs(c.x-84)<22&&Math.abs(c.y-this.py)<26){c.x=-99;score+=5}});
+score=Math.floor(this.dist/10);
+if(this.dist>=this.target)return endGame(true);
+this.draw()},
+draw(){ctx.fillStyle='#140a28';ctx.fillRect(0,0,W,H);const t=cur.color;
+ctx.fillStyle='#1f1040';ctx.fillRect(0,392,W,108);ctx.strokeStyle=t;ctx.globalAlpha=.5;ctx.beginPath();ctx.moveTo(0,392);ctx.lineTo(W,392);ctx.stroke();ctx.globalAlpha=1;
+const ph=this.duck?20:42;ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=10;rr(62,this.py,28,ph,6);ctx.fill();ctx.shadowBlur=0;
+ctx.font='18px sans-serif';ctx.textAlign='center';ctx.fillText(cur.icon,76,this.py-8);
+this.ob.forEach(o=>{ctx.fillStyle='#ef4444';rr(o.x,392-o.h,26,o.h,4);ctx.fill()});
+ctx.fillStyle='#fbbf24';this.co.forEach(c=>{if(c.x>0){ctx.beginPath();ctx.arc(c.x,c.y,7,0,7);ctx.fill()}});
+hud([['Mesafe',Math.floor(this.dist)+'m'],['Hedef',this.target+'m'],['Hız',this.spd.toFixed(1)]])},
+jump(){if(!this.j){this.j=true;this.vy=-14}},
+key(k){if(k===' '||k==='ArrowUp')this.jump();if(k==='ArrowDown')this.duck=true},
+kup(k){if(k==='ArrowDown')this.duck=false},down(){this.jump()}};
 
-/* 7) BALIKÇI */
-E.fish={
-start(){this.st='idle';this.hy=110;this.bite=false;this.bt=0;this.time=60;this.caught=0;
-this.fish=[];for(let i=0;i<9;i++)this.fish.push({x:Math.random()*720+40,y:210+Math.random()*250,s:.6+Math.random()*1.6,d:Math.random()>.5?1:-1,e:['🐟','🐠','🐡','🦈'][Math.floor(Math.random()*4)]});
-this.iv=setInterval(()=>{if(paused)return;this.time--;if(this.time<=0){clearInterval(this.iv);endGame(this.caught>0)}this.draw()},1000);this.loop()},
+/* 7: FISHING */
+E.fish={start(lv){this.st='idle';this.hy=110;this.bite=false;this.bt=0;this.time=Math.max(25,60-lv*.15);this.caught=0;this.target=3+Math.floor(lv/15);
+this.fish=[];for(let i=0;i<8+Math.floor(lv/10);i++)this.fish.push({x:Math.random()*720+40,y:200+Math.random()*260,s:.5+Math.random()*(1+lv*.01),d:Math.random()>.5?1:-1,e:['🐟','🐠','🐡','🦈','🐙','🦑'][Math.floor(Math.random()*6)]});
+this.iv=setInterval(()=>{if(paused)return;this.time--;if(this.time<=0){this.stop();endGame(this.caught>=this.target)}this.draw()},1000);this.loop()},
 loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;
 this.fish.forEach(f=>{f.x+=f.s*f.d;if(f.x>775||f.x<25)f.d*=-1});
-if(this.st==='wait'){this.hy=Math.min(440,this.hy+1.6);
-if(!this.bite&&Math.random()<.012){this.bite=true;this.bt=Date.now()}}
-if(this.bite&&Date.now()-this.bt>1400){this.bite=false;this.st='idle';this.hy=110}
+if(this.st==='wait'){this.hy=Math.min(440,this.hy+1.5+curLevel*.005);
+if(!this.bite&&Math.random()<.01+curLevel*.0002){this.bite=true;this.bt=Date.now()}}
+if(this.bite&&Date.now()-this.bt>Math.max(600,1400-curLevel*4)){this.bite=false;this.st='idle';this.hy=110}
 this.draw()},
-draw(){ctx.fillStyle='#0a2a4a';ctx.fillRect(0,0,W,150);
-const g=ctx.createLinearGradient(0,150,0,H);g.addColorStop(0,'#0d3a66');g.addColorStop(1,'#04121f');ctx.fillStyle=g;ctx.fillRect(0,150,W,350);
-ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(400,40);ctx.lineTo(400,this.hy);ctx.stroke();
-ctx.fillStyle='#b2bec3';ctx.beginPath();ctx.arc(400,this.hy,5,0,7);ctx.fill();
-if(this.bite){ctx.font='24px sans-serif';ctx.textAlign='center';ctx.fillText('❗',400,this.hy-16)}
-this.fish.forEach(f=>{ctx.font='24px sans-serif';ctx.textAlign='center';ctx.save();ctx.translate(f.x,f.y);ctx.scale(f.d,1);ctx.fillText(f.e,0,8);ctx.restore()});
-ctx.fillStyle='#eef2ff';ctx.font='bold 14px Rubik';ctx.textAlign='center';
-ctx.fillText(this.st==='idle'?'🎣 Oltayı atmak için tıkla':this.bite?'❗ ŞİMDİ ÇEK — TIKLA!':'Bekle... balık yaklaşıyor',400,482);
-hud([['Skor',score],['Yakalanan',this.caught],['Süre',this.time+'s']])},
+draw(){ctx.fillStyle='#0a2a4a';ctx.fillRect(0,0,W,150);const g=ctx.createLinearGradient(0,150,0,H);g.addColorStop(0,'#0d3a66');g.addColorStop(1,'#04121f');ctx.fillStyle=g;ctx.fillRect(0,150,W,350);
+ctx.strokeStyle='rgba(255,255,255,.2)';ctx.beginPath();ctx.moveTo(400,40);ctx.lineTo(400,this.hy);ctx.stroke();
+ctx.fillStyle='#94a3b8';ctx.beginPath();ctx.arc(400,this.hy,4,0,7);ctx.fill();
+if(this.bite){ctx.font='22px sans-serif';ctx.textAlign='center';ctx.fillText('❗',400,this.hy-14)}
+this.fish.forEach(f=>{ctx.font='22px sans-serif';ctx.textAlign='center';ctx.save();ctx.translate(f.x,f.y);ctx.scale(f.d,1);ctx.fillText(f.e,0,8);ctx.restore()});
+ctx.fillStyle='#e2e8f0';ctx.font='bold 13px Inter';ctx.textAlign='center';
+ctx.fillText(this.st==='idle'?'🎣 Oltayı atmak için tıkla':this.bite?'❗ ŞİMDİ ÇEK!':'Bekle...',400,482);
+hud([['Yakalanan',this.caught+'/'+this.target],['Süre',Math.ceil(this.time)+'s'],['Durum',this.bite?'BALIK!':'Bekliyor']])},
 down(){if(this.st==='idle'){this.st='wait';this.bite=false}
-else if(this.bite){const pts=[10,15,20,30,50][Math.floor(Math.random()*5)];score+=pts;this.caught++;this.bite=false;this.st='idle';this.hy=110;toast('🎣 Yakaladın!','+'+pts+' puan')}
+else if(this.bite){const pts=[10,15,20,30,50][Math.floor(Math.random()*5)];score+=pts;this.caught++;this.bite=false;this.st='idle';this.hy=110;
+if(this.caught>=this.target)return endGame(true);toast('🎣','+'+pts+' puan!')}
 else{this.st='idle';this.hy=110;this.bite=false}},
 stop(){if(this.iv)clearInterval(this.iv)}};
 
-/* 8) KULE SAVUNMA */
+/* 8: TOWER DEFENSE */
 E.td={path:[{x:-20,y:250},{x:200,y:250},{x:200,y:100},{x:520,y:100},{x:520,y:400},{x:820,y:400}],
-start(){this.tw=[];this.en=[];this.bul=[];this.wave=1;this.lives=10;this.f=0;this.st=0;this.loop()},
-loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;this.st++;
-const rate=Math.max(28,85-this.wave*6);
-if(this.st>=rate){this.st=0;const hp=3+this.wave*2;this.en.push({x:-20,y:250,hp,mhp:hp,s:1+this.wave*.14,pi:0})}
-if(this.f%560===0)this.wave++;
+start(lv){this.tw=[];this.en=[];this.bul=[];this.wave=1;this.lives=10;this.f=0;this.st=0;this.kills=0;this.target=10+lv*2;this.loop()},
+loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;this.st++;const d=diff(curLevel);
+const rate=Math.max(20,70-curLevel*.25);
+if(this.st>=rate){this.st=0;const hp=Math.floor((2+curLevel*.3)*d*.5);this.en.push({x:-20,y:250,hp,mhp:hp,s:(1+curLevel*.01)*.8,pi:0})}
 this.en.forEach(e=>{const tg=this.path[e.pi+1];if(!tg){this.lives--;e.hp=0;if(this.lives<=0)endGame(false);return}
-const dx=tg.x-e.x,dy=tg.y-e.y,d=Math.hypot(dx,dy);if(d<6)e.pi++;else{e.x+=dx/d*e.s;e.y+=dy/d*e.s}});
-this.tw.forEach(t=>{t.cd--;if(t.cd<=0){let near=null,nd=1e9;
-this.en.forEach(e=>{const d=Math.hypot(e.x-t.x,e.y-t.y);if(e.hp>0&&d<155&&d<nd){nd=d;near=e}});
-if(near){this.bul.push({x:t.x,y:t.y,tg:near});t.cd=28}}});
-this.bul.forEach(b=>{if(!b.tg||b.tg.hp<=0){b.done=true;return}
-const dx=b.tg.x-b.x,dy=b.tg.y-b.y,d=Math.hypot(dx,dy);
-if(d<11){b.tg.hp-=2;if(b.tg.hp<=0)score+=20;b.done=true}else{b.x+=dx/d*9;b.y+=dy/d*9}});
+const dx=tg.x-e.x,dy=tg.y-e.y,dd=Math.hypot(dx,dy);if(dd<6)e.pi++;else{e.x+=dx/dd*e.s;e.y+=dy/dd*e.s}});
+this.tw.forEach(t=>{t.cd--;if(t.cd<=0){let near=null,nd=1e9;this.en.forEach(e=>{const dd=Math.hypot(e.x-t.x,e.y-t.y);if(e.hp>0&&dd<150&&dd<nd){nd=dd;near=e}});
+if(near){this.bul.push({x:t.x,y:t.y,tg:near});t.cd=Math.max(15,30-curLevel*.05)}}});
+this.bul.forEach(b=>{if(!b.tg||b.tg.hp<=0){b.done=true;return}const dx=b.tg.x-b.x,dy=b.tg.y-b.y,dd=Math.hypot(dx,dy);
+if(dd<10){b.tg.hp-=2;if(b.tg.hp<=0){score+=10;this.kills++}b.done=true}else{b.x+=dx/dd*9;b.y+=dy/dd*9}});
 this.bul=this.bul.filter(b=>!b.done);this.en=this.en.filter(e=>e.hp>0);
+if(this.kills>=this.target)return endGame(true);
 this.draw()},
-draw(){ctx.fillStyle='#12211a';ctx.fillRect(0,0,W,H);const t=theme();
-ctx.strokeStyle='#2c4436';ctx.lineWidth=34;ctx.lineCap='round';ctx.lineJoin='round';
-ctx.beginPath();ctx.moveTo(this.path[0].x,this.path[0].y);this.path.forEach(p=>ctx.lineTo(p.x,p.y));ctx.stroke();
-ctx.strokeStyle='#1d3026';ctx.lineWidth=28;ctx.beginPath();ctx.moveTo(this.path[0].x,this.path[0].y);this.path.forEach(p=>ctx.lineTo(p.x,p.y));ctx.stroke();
-this.tw.forEach(tw=>{ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(tw.x,tw.y,14,0,7);ctx.fill();ctx.shadowBlur=0;ctx.font='15px sans-serif';ctx.textAlign='center';ctx.fillText('🗼',tw.x,tw.y+5)});
-this.en.forEach(e=>{ctx.fillStyle='#e63946';ctx.beginPath();ctx.arc(e.x,e.y,11,0,7);ctx.fill();
-ctx.fillStyle='#0a0f1c';ctx.fillRect(e.x-13,e.y-20,26,4);ctx.fillStyle='#06d6a0';ctx.fillRect(e.x-13,e.y-20,26*(e.hp/e.mhp),4)});
-ctx.fillStyle='#ffb703';this.bul.forEach(b=>{ctx.beginPath();ctx.arc(b.x,b.y,3.5,0,7);ctx.fill()});
-hud([['Skor',score],['Can','❤️'.repeat(Math.max(0,Math.min(this.lives,10)))],['Dalga',this.wave],['Kule',this.tw.length+'/8']])},
-down(x,y){if(this.tw.length>=8)return toast('⚠️ Limit','En fazla 8 kule yerleştirebilirsin');
-const onP=this.path.some((p,i)=>{if(!i)return false;const q=this.path[i-1],dx=p.x-q.x,dy=p.y-q.y;const tt=Math.max(0,Math.min(1,((x-q.x)*dx+(y-q.y)*dy)/(dx*dx+dy*dy)));return Math.hypot(x-(q.x+tt*dx),y-(q.y+tt*dy))<30});
-if(!onP){this.tw.push({x,y,cd:0});toast('🗼 Kule hazır!','Düşmanlar otomatik vuruluyor')}}};
+draw(){ctx.fillStyle='#12211a';ctx.fillRect(0,0,W,H);const t=cur.color;
+ctx.strokeStyle='#2c4436';ctx.lineWidth=32;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(this.path[0].x,this.path[0].y);this.path.forEach(p=>ctx.lineTo(p.x,p.y));ctx.stroke();
+ctx.strokeStyle='#1d3026';ctx.lineWidth=26;ctx.beginPath();ctx.moveTo(this.path[0].x,this.path[0].y);this.path.forEach(p=>ctx.lineTo(p.x,p.y));ctx.stroke();
+this.tw.forEach(tw=>{ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=6;ctx.beginPath();ctx.arc(tw.x,tw.y,13,0,7);ctx.fill();ctx.shadowBlur=0;ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText('🗼',tw.x,tw.y+5)});
+this.en.forEach(e=>{ctx.fillStyle='#e63946';ctx.beginPath();ctx.arc(e.x,e.y,10,0,7);ctx.fill();
+ctx.fillStyle='#0a0f1c';ctx.fillRect(e.x-12,e.y-18,24,4);ctx.fillStyle='#10b981';ctx.fillRect(e.x-12,e.y-18,24*(e.hp/e.mhp),4)});
+ctx.fillStyle='#fbbf24';this.bul.forEach(b=>{ctx.beginPath();ctx.arc(b.x,b.y,3,0,7);ctx.fill()});
+hud([['Skor',score],['İlerleme',this.kills+'/'+this.target],['Can','❤️'.repeat(Math.min(this.lives,10))],['Kule',this.tw.length+'/8']])},
+down(x,y){if(this.tw.length>=8)return;const onP=this.path.some((p,i)=>{if(!i)return false;const q=this.path[i-1],dx=p.x-q.x,dy=p.y-q.y;const tt=Math.max(0,Math.min(1,((x-q.x)*dx+(y-q.y)*dy)/(dx*dx+dy*dy)));return Math.hypot(x-(q.x+tt*dx),y-(q.y+tt*dy))<28});
+if(!onP)this.tw.push({x,y,cd:0})}};
 
-/* 9) FLAPPY */
-E.flap={
-start(){this.y=250;this.v=0;this.pipes=[];this.f=0;this.loop()},
+/* 9: FLAPPY */
+E.flap={start(lv){this.y=250;this.v=0;this.pipes=[];this.f=0;this.passed=0;this.target=5+lv;this.gapW=Math.max(90,160-lv*.35);this.spd=3+lv*.015;this.loop()},
 loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;
 this.v+=.5;this.y+=this.v;
-if(this.f%88===0)this.pipes.push({x:830,gap:120+Math.random()*130});
-this.pipes.forEach(p=>p.x-=3.1);this.pipes=this.pipes.filter(p=>p.x>-90);
-this.pipes.forEach(p=>{if(!p.p&&p.x<110){p.p=true;score++}
-if(p.x<140&&p.x+60>70&&(this.y<p.gap||this.y>p.gap+150))endGame(false)});
-if(this.y>488||this.y<-10)endGame(false);
+if(this.f%Math.max(50,90-curLevel*.2)===0)this.pipes.push({x:830,gap:80+Math.random()*(H-200-this.gapW)});
+this.pipes.forEach(p=>p.x-=this.spd);this.pipes=this.pipes.filter(p=>p.x>-80);
+this.pipes.forEach(p=>{if(!p.p&&p.x<100){p.p=true;this.passed++;score=this.passed*10;if(this.passed>=this.target)return endGame(true)}
+if(p.x<130&&p.x+55>70&&(this.y<p.gap||this.y>p.gap+this.gapW))endGame(false)});
+if(this.y>490||this.y<-10)endGame(false);
 this.draw()},
 draw(){const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#0d1322');g.addColorStop(1,'#1a2745');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-const t=theme();
-this.pipes.forEach(p=>{ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=8;
-rr(p.x,-6,60,p.gap+6,6);ctx.fill();rr(p.x,p.gap+150,60,H-p.gap-144,6);ctx.fill();
-ctx.fillStyle='rgba(0,0,0,.25)';ctx.fillRect(p.x+44,-6,16,p.gap+6);ctx.fillRect(p.x+44,p.gap+150,16,H);ctx.shadowBlur=0});
-ctx.font='34px sans-serif';ctx.textAlign='center';ctx.save();ctx.translate(100,this.y);ctx.rotate(Math.max(-.4,Math.min(.5,this.v*.05)));ctx.fillText(cur.i,0,10);ctx.restore();
-hud([['Skor',score],['Rekor',S.best]])},
-flap(){this.v=-8.2},
-key(k){if(k===' '||k==='ArrowUp')this.flap()},
-down(){this.flap()}};
+const t=cur.color;this.pipes.forEach(p=>{ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=6;
+rr(p.x,-4,55,p.gap+4,5);ctx.fill();rr(p.x,p.gap+this.gapW,55,H,5);ctx.fill();ctx.shadowBlur=0});
+ctx.font='30px sans-serif';ctx.textAlign='center';ctx.save();ctx.translate(100,this.y);ctx.rotate(Math.max(-.4,Math.min(.5,this.v*.04)));ctx.fillText(cur.icon,0,10);ctx.restore();
+hud([['Skor',score],['Hedef',this.target],['Geçilen',this.passed]])},
+flap(){this.v=-8},key(k){if(k===' '||k==='ArrowUp')this.flap()},down(){this.flap()}};
 
-/* 10) 2048 */
-E.g2048={cols:{2:'#2b3a5c',4:'#3a4f7a',8:'#fb8500',16:'#ff6b35',32:'#ef476f',64:'#e63946',128:'#ffb703',256:'#ffd166',512:'#06d6a0',1024:'#3a86ff',2048:'#4cc9f0'},
-start(){this.g=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];this.spawn();this.spawn();this.draw()},
+/* 10: 2048 */
+E.g2048={cols:{2:'#334155',4:'#475569',8:'#f97316',16:'#ef4444',32:'#ec4899',64:'#dc2626',128:'#f59e0b',256:'#fbbf24',512:'#10b981',1024:'#3b82f6',2048:'#8b5cf6',4096:'#06b6d4',8192:'#d946ef',16384:'#84cc16',32768:'#f43f5e',65536:'#14b8a6',131072:'#a855f7'},
+start(lv){this.g=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];this.target=[2048,4096,8192,16384,32768,65536,131072][Math.min(Math.floor(lv/30),6)];this.spawn();this.spawn();this.draw()},
 spawn(){const e=[];for(let r=0;r<4;r++)for(let c=0;c<4;c++)if(!this.g[r][c])e.push([r,c]);if(!e.length)return;const[r,c]=e[Math.floor(Math.random()*e.length)];this.g[r][c]=Math.random()<.9?2:4},
 trans(m){return m[0].map((_,c)=>m.map(r=>r[c]))},
 move(dir){let g=this.g.map(r=>r.slice()),ch=false;
@@ -750,164 +790,139 @@ if(dir===2||dir===3)g=this.trans(g);if(dir===1||dir===3)g=g.map(r=>r.reverse());
 g=g.map(row=>{const a=row.filter(v=>v),o=[];for(let i=0;i<a.length;i++){if(a[i]===a[i+1]){o.push(a[i]*2);score+=a[i]*2;i++}else o.push(a[i])}while(o.length<4)o.push(0);if(o.some((v,j)=>v!==row[j]))ch=true;return o});
 if(dir===1||dir===3)g=g.map(r=>r.reverse());if(dir===2||dir===3)g=this.trans(g);
 if(ch){this.g=g;this.spawn();this.draw();
-if(this.g.flat().includes(2048))endGame(true);
-else if(this.dead())endGame(false)}},
+if(this.g.flat().some(v=>v>=this.target))return endGame(true);
+if(this.dead())endGame(false)}},
 dead(){for(let r=0;r<4;r++)for(let c=0;c<4;c++){if(!this.g[r][c])return false;if(c<3&&this.g[r][c]===this.g[r][c+1])return false;if(r<3&&this.g[r][c]===this.g[r+1][c])return false}return true},
-draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);const cs=106,gap=12,ox=(W-4*cs-3*gap)/2,oy=(H-4*cs-3*gap)/2;
+draw(){ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H);const cs=104,gap=12,ox=(W-4*cs-3*gap)/2,oy=(H-4*cs-3*gap)/2;
 for(let r=0;r<4;r++)for(let c=0;c<4;c++){const x=ox+c*(cs+gap),y=oy+r*(cs+gap),v=this.g[r][c];
-ctx.fillStyle=v?this.cols[v]||'#4cc9f0':'#182238';rr(x,y,cs,cs,12);ctx.fill();
-if(v){ctx.fillStyle=v>=8?'#fff':'#c7d2f5';ctx.font='900 '+(v>=1024?26:v>=128?32:38)+'px Rubik';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(v,x+cs/2,y+cs/2+2);ctx.textBaseline='alphabetic'}}
-hud([['Skor',score],['En Büyük',Math.max(...this.g.flat())]])},
+ctx.fillStyle=v?this.cols[v]||'#a855f7':'#1e293b';rr(x,y,cs,cs,12);ctx.fill();
+if(v){ctx.fillStyle=v>=8?'#fff':'#cbd5e1';ctx.font='900 '+(v>=10000?20:v>=1000?24:v>=128?30:36)+'px Inter';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(v,x+cs/2,y+cs/2);ctx.textBaseline='alphabetic'}}
+hud([['Skor',score],['Hedef',this.target.toLocaleString('tr-TR')],['En Büyük',Math.max(...this.g.flat()).toLocaleString('tr-TR')]])},
 key(k){const m={ArrowLeft:0,ArrowRight:1,ArrowUp:2,ArrowDown:3}[k];if(m!==undefined)this.move(m)},
 swipe(dx,dy){if(Math.abs(dx)>Math.abs(dy))this.move(dx>0?1:0);else this.move(dy>0?3:2)}};
 
-/* 11) ÇEKİÇ / TIKLA */
-E.whack={
-start(){this.time=45;this.moles=Array(9).fill(0);this.miss=0;
-this.iv=setInterval(()=>{if(paused)return;this.time--;if(this.time<=0){this.stop();endGame(score>0)}this.draw()},1000);
-this.mv=setInterval(()=>{if(paused)return;const i=Math.floor(Math.random()*9);this.moles[i]=Math.random()<.15?2:1;
-setTimeout(()=>{this.moles[i]=0;this.draw()},Math.max(420,950-score*3));this.draw()},640);
+/* 11: WHACK */
+E.whack={start(lv){this.time=Math.max(20,45-lv*.1);this.moles=Array(9).fill(0);this.target=10+lv*2;this.hits=0;
+this.iv=setInterval(()=>{if(paused)return;this.time--;if(this.time<=0){this.stop();endGame(this.hits>=this.target)}this.draw()},1000);
+this.mv=setInterval(()=>{if(paused)return;const i=Math.floor(Math.random()*9);this.moles[i]=Math.random()<.12?2:Math.random()<.1+curLevel*.001?-1:1;
+setTimeout(()=>{this.moles[i]=0;this.draw()},Math.max(300,900-curLevel*3));this.draw()},Math.max(300,700-curLevel*2));
 this.draw()},
-draw(){ctx.fillStyle='#12211a';ctx.fillRect(0,0,W,H);const t=theme(),cw=180,ch=110,ox=(W-3*cw)/2,oy=70;
-for(let i=0;i<9;i++){const x=ox+(i%3)*cw+cw/2,y=oy+Math.floor(i/3)*ch+ch/2+18;
-ctx.fillStyle='#0a1410';ctx.beginPath();ctx.ellipse(x,y+26,44,15,0,0,7);ctx.fill();
-if(this.moles[i]){ctx.font='46px sans-serif';ctx.textAlign='center';ctx.fillText(this.moles[i]===2?'⭐':cur.i,x,y+18)}}
-ctx.fillStyle='#eef2ff';ctx.font='900 17px Rubik';ctx.textAlign='center';ctx.fillText('🔨 Hedeflere tıkla! Yıldız = 3x puan',400,44);
-hud([['Skor',score],['Süre',this.time+'s'],['Kaçan',this.miss]])},
-down(x,y){const cw=180,ch=110,ox=(W-3*cw)/2,oy=70;let hit=false;
-for(let i=0;i<9;i++){const cx=ox+(i%3)*cw+cw/2,cy=oy+Math.floor(i/3)*ch+ch/2+18;
-if(this.moles[i]&&Math.hypot(x-cx,y-cy-10)<52){score+=this.moles[i]===2?30:10;this.moles[i]=0;hit=true;toast(this.moles===2?'⭐ Bonus!':'🔨 Vurdun!','+'+(this.moles===2?30:10)+' puan');break}}
-if(!hit&&x>ox&&x<ox+3*cw&&y>oy&&y<oy+3*ch){score=Math.max(0,score-5);this.miss++}
-this.draw()},
+draw(){ctx.fillStyle='#12211a';ctx.fillRect(0,0,W,H);const cw=180,ch=110,ox=(W-3*cw)/2,oy=70;
+for(let i=0;i<9;i++){const x=ox+(i%3)*cw+cw/2,y=oy+Math.floor(i/3)*ch+ch/2+16;
+ctx.fillStyle='#0a1410';ctx.beginPath();ctx.ellipse(x,y+24,42,14,0,0,7);ctx.fill();
+if(this.moles[i]){ctx.font='42px sans-serif';ctx.textAlign='center';ctx.fillText(this.moles[i]===2?'⭐':this.moles[i]===-1?'💀':cur.icon,x,y+14)}}
+ctx.fillStyle='#e2e8f0';ctx.font='900 15px Inter';ctx.textAlign='center';ctx.fillText('⭐ = 3x Puan • 💀 = Tuzak, vurma!',400,42);
+hud([['Skor',score],['Hedef',this.hits+'/'+this.target],['Süre',Math.ceil(this.time)+'s']])},
+down(x,y){const cw=180,ch=110,ox=(W-3*cw)/2,oy=70;
+for(let i=0;i<9;i++){const cx=ox+(i%3)*cw+cw/2,cy=oy+Math.floor(i/3)*ch+ch/2+16;
+if(this.moles[i]&&Math.hypot(x-cx,y-cy-8)<50){
+if(this.moles[i]===-1){score=Math.max(0,score-20);toast('💀 Tuzak!','-20 puan')}
+else{const pts=this.moles[i]===2?30:10;score+=pts;this.hits++;toast(this.moles[i]===2?'⭐ Bonus!':'🔨 Vurdun!','+'+pts)}
+this.moles[i]=0;if(this.hits>=this.target){this.stop();return endGame(true)}this.draw();return}}},
 stop(){if(this.iv)clearInterval(this.iv);if(this.mv)clearInterval(this.mv)}};
 
-/* 12) RİTİM / REFLEKS */
-E.reflex={
-start(){this.notes=[];this.f=0;this.lives=3;this.combo=0;this.loop()},
+/* 12: RHYTHM */
+E.reflex={start(lv){this.notes=[];this.f=0;this.lives=5;this.combo=0;this.hits=0;this.target=15+lv*2;this.spd=3+lv*.02;this.loop()},
 loop(){if(!running)return;raf=requestAnimationFrame(()=>this.loop());if(paused)return;this.f++;
-const spd=3+Math.min(4,score*.004);
-if(this.f%Math.max(24,46-Math.floor(score/40))===0)this.notes.push({l:Math.floor(Math.random()*4),y:-30});
-this.notes.forEach(n=>n.y+=spd);
+if(this.f%Math.max(18,44-curLevel*.13)===0)this.notes.push({l:Math.floor(Math.random()*4),y:-30});
+this.notes.forEach(n=>n.y+=this.spd);
 this.notes.forEach(n=>{if(n.y>510&&!n.hit){n.hit=true;this.lives--;this.combo=0;if(this.lives<=0)endGame(false)}});
 this.notes=this.notes.filter(n=>n.y<540);
+if(this.hits>=this.target)return endGame(true);
 this.draw()},
-hit(l){const n=this.notes.find(n=>!n.hit&&n.l===l&&n.y>360&&n.y<480);
-if(n){n.hit=true;this.combo++;score+=10+this.combo*2;this.notes=this.notes.filter(x=>x!==n)}
-else this.combo=0},
-draw(){ctx.fillStyle='#0a0a18';ctx.fillRect(0,0,W,H);const t=theme();
-for(let i=1;i<4;i++){ctx.strokeStyle='rgba(255,255,255,.06)';ctx.beginPath();ctx.moveTo(i*200,0);ctx.lineTo(i*200,H);ctx.stroke()}
-ctx.fillStyle='rgba(255,183,3,.08)';ctx.fillRect(0,380,W,100);
-ctx.strokeStyle='#ffb703';ctx.setLineDash([8,6]);ctx.beginPath();ctx.moveTo(0,430);ctx.lineTo(W,430);ctx.stroke();ctx.setLineDash([]);
-this.notes.forEach(n=>{const x=n.l*200+20;ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=10;rr(x,n.y,160,52,11);ctx.fill();ctx.shadowBlur=0;
-ctx.font='26px sans-serif';ctx.textAlign='center';ctx.fillText(cur.i,x+80,n.y+36)});
-if(this.combo>2){ctx.fillStyle='#ffb703';ctx.font='900 30px Rubik';ctx.textAlign='center';ctx.fillText('KOMBO x'+this.combo,400,60)}
-hud([['Skor',score],['Kombo','x'+this.combo],['Can','❤️'.repeat(this.lives)]])},
+hit(l){const n=this.notes.find(n=>!n.hit&&n.l===l&&n.y>350&&n.y<480);
+if(n){n.hit=true;this.combo++;this.hits++;score+=10+this.combo*2;this.notes=this.notes.filter(x=>x!==n)}else this.combo=0},
+draw(){ctx.fillStyle='#0a0a18';ctx.fillRect(0,0,W,H);const t=cur.color;
+for(let i=1;i<4;i++){ctx.strokeStyle='rgba(255,255,255,.05)';ctx.beginPath();ctx.moveTo(i*200,0);ctx.lineTo(i*200,H);ctx.stroke()}
+ctx.fillStyle='rgba(99,102,241,.06)';ctx.fillRect(0,370,W,110);
+ctx.strokeStyle='rgba(99,102,241,.5)';ctx.setLineDash([6,5]);ctx.beginPath();ctx.moveTo(0,420);ctx.lineTo(W,420);ctx.stroke();ctx.setLineDash([]);
+this.notes.forEach(n=>{const x=n.l*200+18;ctx.fillStyle=t;ctx.shadowColor=t;ctx.shadowBlur=8;rr(x,n.y,164,48,10);ctx.fill();ctx.shadowBlur=0;
+ctx.font='22px sans-serif';ctx.textAlign='center';ctx.fillText(cur.icon,x+82,n.y+33)});
+if(this.combo>3){ctx.fillStyle='#fbbf24';ctx.font='900 26px Inter';ctx.textAlign='center';ctx.fillText('KOMBO x'+this.combo,400,50)}
+hud([['Skor',score],['İlerleme',this.hits+'/'+this.target],['Kombo','x'+this.combo],['Can','❤️'.repeat(this.lives)]])},
 key(k){const m={d:0,f:1,j:2,k:3,ArrowLeft:0,ArrowDown:1,ArrowUp:2,ArrowRight:3}[k];if(m!==undefined)this.hit(m)},
 down(x){this.hit(Math.min(3,Math.floor(x/200)))}};
 
-/* MOTOR YARDIMCILARI */
+/* ENGINE HELPERS */
 function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
 function hex(h){const n=parseInt(h.slice(1),16);return(n>>16&255)+','+(n>>8&255)+','+(n&255)}
+function hud(items){$('ghud').innerHTML=items.map(x=>'<span><span class="hl">'+x[0]+'</span> <b>'+x[1]+'</b></span>').join('')}
 
-/* OYUN AKIŞI */
-function launch(id){stopAll();cur=GAMES[id];score=0;paused=false;
-if(!S.hist.includes(id)){S.hist.unshift(id);if(S.hist.length>12)S.hist.pop()}
-S.plays++;save();
-go('play',null);
-$('plIcon').textContent=cur.i;$('plName').textContent=cur.n;
-$('ibT').textContent=cur.n+' Hakkında';
-$('ibD').textContent=cur.d+' '+cur.v+' imzalı bu '+cur.c.toLowerCase()+' oyunu, '+cur.y+' yılından bu yana '+cur.p+' kez oynandı. Tarayıcında anında, kurulum olmadan çalışır.';
-$('ibTags').innerHTML=cur.t.map(t=>'<span class="tag">#'+t+'</span>').join('')+'<span class="tag" style="background:rgba(255,183,3,.12);color:var(--amber)">#'+cur.z+'</span>';
-$('ibS').innerHTML='<div class="irow"><span class="l">Kategori</span><b>'+cur.c+'</b></div><div class="irow"><span class="l">Geliştirici</span><b>'+cur.v+'</b></div><div class="irow"><span class="l">Çıkış Yılı</span><b>'+cur.y+'</b></div><div class="irow"><span class="l">Oynanma</span><b>'+cur.p+'</b></div><div class="irow"><span class="l">Puan</span><b style="color:var(--amber)">⭐ '+cur.r.toFixed(1)+'</b></div><div class="irow"><span class="l">Zorluk</span><b>'+cur.z+'</b></div>';
-$('ovT').textContent=cur.n;$('ovD').textContent=cur.d;$('ovS').style.display='none';$('ovR').style.display='none';
-$('gov').style.display='flex';$('ghud').innerHTML='';
+/* GAME FLOW */
+function launch(id){stopAll();cur=GAMES[id];curLevel=S.levels[id]||1;score=0;paused=false;
+if(!S.hist.includes(id)){S.hist.unshift(id);if(S.hist.length>20)S.hist.pop()}
+S.plays++;save();nav('play');
+$('plIcon').textContent=cur.icon;$('plName').textContent=cur.name;
+$('lbTitle').textContent='Seviye '+curLevel+' / 200';
+$('lbSub').textContent='Zorluk: '+(curLevel<50?'Kolay':curLevel<100?'Orta':curLevel<150?'Zor':'Usta');
+$('lbFill').style.width=(curLevel/200*100)+'%';
+$('giDesc').textContent=cur.desc;
+$('giHow').textContent=cur.how;
+$('giStats').innerHTML=`<div class="gi-row"><span class="l">Kategori</span><b>${cur.cat}</b></div><div class="gi-row"><span class="l">Geliştirici</span><b>${cur.dev}</b></div><div class="gi-row"><span class="l">Seviye</span><b>${curLevel}/200</b></div><div class="gi-row"><span class="l">Puan</span><b style="color:var(--amber)">⭐ ${cur.rating}</b></div><div class="gi-row"><span class="l">Oynanma</span><b>${cur.plays}</b></div><div class="gi-row"><span class="l">Zorluk</span><b>${cur.dif}</b></div>`;
+const sim=GAMES.filter(g=>g.id!==id).sort(()=>Math.random()-.5).slice(0,4);
+$('giSim').innerHTML=sim.map(g=>`<div class="sim-item" onclick="launch(${g.id})"><span style="font-size:22px">${g.icon}</span><div><b style="font-size:12px">${g.name}</b><div style="font-size:10px;color:var(--txt3)">⭐${g.rating} • 200 Sv.</div></div></div>`).join('');
+loadCmts(id);
+$('ovT').textContent=cur.name+' — Seviye '+curLevel;$('ovD').textContent=cur.how;
+$('ovS').style.display='none';$('ovR').style.display='none';$('gov').style.display='flex';$('ghud').innerHTML='';
 ctx.fillStyle='#0a0f1c';ctx.fillRect(0,0,W,H)}
-function startCur(){if(!cur)return;$('gov').style.display='none';running=true;paused=false;score=0;t0=Date.now();
-if(E[cur.e].start)E[cur.e].start()}
-function stopAll(){running=false;if(raf)cancelAnimationFrame(raf);raf=null;if(cur&&E[cur.e]&&E[cur.e].stop)E[cur.e].stop()}
-function tPause(){if(!running)return;paused=!paused;toast(paused?'⏸️ Duraklatıldı':'▶️ Devam','ESC ile de duraklatabilirsin')}
-function tFS(){const w=$('cwrap');if(!document.fullscreenElement){if(w.requestFullscreen)w.requestFullscreen()}else if(document.exitFullscreen)document.exitFullscreen()}
-function endGame(won){if(!running)return;running=false;if(raf)cancelAnimationFrame(raf);raf=null;if(E[cur.e].stop)E[cur.e].stop();
-const el=Math.floor((Date.now()-t0)/1000);
-const coins=Math.floor(score/20)+5,xpG=Math.floor(score/15)+3;
-S.gold+=coins;S.xp+=xpG;
-while(S.xp>=S.lv*100){S.xp-=S.lv*100;S.lv++;toast('🎉 Seviye '+S.lv+'!','Yeni seviyen hayırlı olsun, oyuncu.')}
-const rec=score>S.best;if(rec)S.best=score;
-save();hudTop();
-$('ovT').textContent=won?'🏆 TEBRİKLER!':'💀 OYUN BİTTİ';
-$('ovD').textContent=(won?'Muhteşem bir performans sergiledin!':'Bir dahaki sefere daha iyisini yapacaksın.')+' • Süre: '+el+'s';
-$('ovS').textContent=score.toLocaleString('tr-TR')+' PUAN';$('ovS').style.display='block';
-$('ovR').innerHTML='<div><b style="color:var(--amber)">+'+coins+'</b><span>🪙 Coin</span></div><div><b style="color:var(--teal)">+'+xpG+'</b><span>⚡ XP</span></div><div><b>'+(rec?'🎉 REKOR!':S.best.toLocaleString('tr-TR'))+'</b><span>En Yüksek</span></div>';
-$('ovR').style.display='flex';
-$('gov').style.display='flex'}
 
-/* GİRDİLER */
-document.addEventListener('keydown',e=>{
-if(e.key==='Escape'){tPause();return}
-if(!running||!cur||paused)return;const en=E[cur.e];
+function startCur(){if(!cur)return;$('gov').style.display='none';running=true;paused=false;score=0;t0=Date.now();
+if(E[cur.id]&&E[cur.id].start)E[cur.id].start(curLevel);
+else{const eng=Object.values(E)[cur.id%12];if(eng.start)eng.start(curLevel)}}
+function getEngine(){return E[['snake','shoot','mem','break','word','run','fish','td','flap','g2048','whack','reflex'][cur.id]]||E.snake}
+function startCur(){if(!cur)return;$('gov').style.display='none';running=true;paused=false;score=0;t0=Date.now();getEngine().start(curLevel)}
+function stopAll(){running=false;if(raf)cancelAnimationFrame(raf);raf=null;if(cur){const e=getEngine();if(e.stop)e.stop()}}
+function tPause(){if(!running)return;paused=!paused;toast(paused?'⏸️':'▶️',paused?'Durduruldu':'Devam ediliyor')}
+function tFS(){const w=$('cwrap');if(!document.fullscreenElement){if(w.requestFullscreen)w.requestFullscreen()}else if(document.exitFullscreen)document.exitFullscreen()}
+
+function endGame(won){if(!running)return;running=false;if(raf)cancelAnimationFrame(raf);raf=null;const e=getEngine();if(e.stop)e.stop();
+const el=Math.floor((Date.now()-t0)/1000);
+if(won){if(curLevel<200){S.levels[cur.id]=curLevel+1;toast('🎉 Seviye Tamamlandı!','Seviye '+(curLevel+1)+' açıldı!')}else toast('🏆 TEBRİKLER!','200 seviyeyi tamamladın!')}
+const coins=Math.floor(score/15)+5,xpG=Math.floor(score/10)+3;
+S.gold+=coins;S.xp+=xpG;
+while(S.xp>=S.lv*100){S.xp-=S.lv*100;S.lv++;toast('⚡ Seviye '+S.lv+'!','Tebrikler, seviye atladın!')}
+if(score>S.best)S.best=score;
+save();hudTop();
+$('ovT').textContent=won?'🎉 Seviye '+curLevel+' Tamamlandı!':'💀 Seviye '+curLevel+' — Tekrar Dene';
+$('ovD').textContent=won?'Harika bir performans! Bir sonraki seviye seni bekliyor.':'Zorluydu, değil mi? Bir daha dene — bu sefer başaracaksın!';
+$('ovS').textContent=score.toLocaleString('tr-TR');$('ovS').style.display='block';
+$('ovR').innerHTML=`<div class="go-stat"><b style="color:var(--amber)">+${coins}</b><span>🪙 Coin</span></div><div class="go-stat"><b style="color:var(--green)">+${xpG}</b><span>⚡ XP</span></div><div class="go-stat"><b>${el}s</b><span>⏱️ Süre</span></div>`;
+$('ovR').style.display='flex';$('gov').style.display='flex';
+if(won)curLevel=S.levels[cur.id]||curLevel}
+
+/* INPUT */
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){tPause();return}if(!running||!cur||paused)return;
 if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
-if(en.key)en.key(e.key)});
-document.addEventListener('keyup',e=>{if(running&&cur&&E[cur.e].kup)E[cur.e].kup(e.key)});
+const en=getEngine();if(en.key)en.key(e.key)});
+document.addEventListener('keyup',e=>{if(running&&cur){const en=getEngine();if(en.kup)en.kup(e.key)}});
 function cvPos(e){const r=cv.getBoundingClientRect();const t=e.touches?e.touches[0]:e;return{x:(t.clientX-r.left)*(W/r.width),y:(t.clientY-r.top)*(H/r.height)}}
-cv.addEventListener('pointerdown',e=>{if(!running||!cur||paused)return;const p=cvPos(e);swP=p;if(E[cur.e].down)E[cur.e].down(p.x,p.y)});
-cv.addEventListener('pointermove',e=>{if(!running||!cur||paused)return;if(E[cur.e].move){const p=cvPos(e);E[cur.e].move(p.x)}});
+let swP=null;
+cv.addEventListener('pointerdown',e=>{if(!running||!cur||paused)return;const p=cvPos(e);swP=p;const en=getEngine();if(en.down)en.down(p.x,p.y)});
+cv.addEventListener('pointermove',e=>{if(!running||!cur||paused)return;const en=getEngine();if(en.move){const p=cvPos(e);en.move(p.x)}});
 cv.addEventListener('pointerup',e=>{if(!running||!cur||!swP)return;const p=cvPos(e),dx=p.x-swP.x,dy=p.y-swP.y;
-if(Math.hypot(dx,dy)>34&&E[cur.e].swipe)E[cur.e].swipe(dx,dy);swP=null});
+if(Math.hypot(dx,dy)>30){const en=getEngine();if(en.swipe)en.swipe(dx,dy)}swP=null});
 cv.addEventListener('contextmenu',e=>e.preventDefault());
 
-/* GÜNLÜK ÖDÜL */
-function renderDaily(){const days=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];let td=new Date().getDay();td=td===0?6:td-1;
-$('dGrid').innerHTML=days.map((d,i)=>'<div class="dday'+(i<td?' done':i===td?' now':'')+'"><div style="font-size:10px;color:var(--mut)">'+d+'</div><div style="font-size:20px;margin:4px 0">'+(i<td?'✅':'🪙')+'</div><div style="font-size:11px;font-weight:900;color:var(--amber)">+'+(i+1)*15+'</div></div>').join('');
-const ok=S.lastD===new Date().toDateString();
-$('dBtn').textContent=ok?'✅ Bugünkü Ödül Alındı':'🎁 Bugünkü Ödülü Al';$('dBtn').disabled=ok;$('dBtn').style.opacity=ok?.5:1}
-function claimDaily(){if(S.lastD===new Date().toDateString())return toast('⏰ Sabırlı ol','Bugünkü ödülünü zaten aldın!');
-S.lastD=new Date().toDateString();S.streak++;const rw=S.streak*15;S.gold+=rw;save();hudTop();renderDaily();
-toast('🎁 Tebrikler!','+'+rw+' coin kazandın • Seri: '+S.streak+' gün 🔥')}
+/* COMMENTS */
+function loadCmts(id){const c=S.comments[id]||[];$('cmtN').textContent=c.length;
+$('cmtList').innerHTML=c.map(x=>`<div class="comment"><div class="comment-head"><div class="comment-av">${x.n[0]}</div><span class="comment-name">${x.n}</span><span class="comment-date">${x.d}</span></div><div class="comment-text">${x.t}</div></div>`).join('')}
+function postCmt(){const t=$('cmtIn').value.trim();if(!t)return;
+if(!S.comments[cur.id])S.comments[cur.id]=[];
+S.comments[cur.id].unshift({n:S.user||'Misafir',t,d:new Date().toLocaleDateString('tr-TR')});
+save();loadCmts(cur.id);$('cmtIn').value='';toast('💬','Yorumun eklendi!')}
+function rate(n){if(!cur)return;S.ratings[cur.id]=n;save();
+document.querySelectorAll('#starsBox span').forEach((s,i)=>s.classList.toggle('on',i<n));
+toast('⭐','Puanın kaydedildi: '+n+'/5')}
 
-/* BAŞARIMLAR */
-function renderAch(){const a=[
-['🎮','İlk Adım','İlk oyununu oyna',S.plays>=1],
-['🔥','Isınıyorsun','10 oyun oyna',S.plays>=10],
-['💜','Koleksiyoncu','5 favori ekle',S.favs.length>=5],
-['🪙','Biriktirici','1.000 coin topla',S.gold>=1000],
-['⚡','Çaylak Değilsin','5. seviyeye ulaş',S.lv>=5],
-['🏆','Skor Ustası','500 puanlık rekor kır',S.best>=500],
-['📅','Sadık Oyuncu','3 günlük seri yap',S.streak>=3],
-['🌟','Kaşif','20 farklı oyun dene',S.hist.length>=20],
-['👑','Efsane','10. seviyeye ulaş',S.lv>=10],
-['💎','Zengin','5.000 coin biriktir',S.gold>=5000]];
-$('achG').innerHTML=a.map(x=>'<div class="ach'+(x[3]?'':' lock')+'"><span class="ai">'+x[0]+'</span><b>'+x[1]+'</b><span>'+x[2]+'</span></div>').join('')}
+/* LIVE COUNTER */
+setInterval(()=>{$('liveCount').textContent=(1500+Math.floor(Math.random()*800)).toLocaleString('tr-TR')},3000);
 
-/* PROFİL */
-function renderProf(){$('pAv').textContent=S.name?S.name[0].toUpperCase():'?';$('pName').textContent=S.name||'Misafir Oyuncu';
-$('pLv').textContent=S.lv;$('pXp').textContent=S.xp;$('pBar').style.width=S.xp+'%';
-$('stP').textContent=S.plays;$('stG').textContent=S.gold.toLocaleString('tr-TR');$('stB').textContent=S.best.toLocaleString('tr-TR');$('stF').textContent=S.favs.length}
-
-/* AUTH */
-function openAuth(){$('authM').classList.add('on')}
-function closeAuth(){$('authM').classList.remove('on')}
-function doLogin(){const n=$('aName').value.trim()||'Oyuncu';S.name=n;save();hudTop();closeAuth();
-$('welT').textContent='HOŞ GELDİN, '+n.toLocaleUpperCase('tr')+'!';$('wel').classList.add('on')}
-function closeWel(){$('wel').classList.remove('on');toast('🎮 Hazırsın!','100 oyun seni bekliyor. İyi eğlenceler!')}
-
-/* ÇEŞİTLİ */
-function ckOk(){localStorage.setItem('gvck','1');$('cbar').classList.add('off')}
-function buildTicker(){const top=[...GAMES].sort((a,b)=>b.plays-a.plays).slice(0,16);
-const items=top.map(g=>'<span>'+g.i+' <b>'+g.n+'</b></span>').join('<span style="color:var(--coral)">🔥</span>');
-$('tk').innerHTML=items+'<span style="color:var(--teal)">👥 Şu an '+$('liveN').textContent+' kişi oynuyor</span>'+items}
-function liveTick(){setInterval(()=>{$('liveN').textContent=(900+Math.floor(Math.random()*1400)).toLocaleString('tr-TR')},2000)}
-const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.06});
-function rv(){document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el))}
-
-/* BAŞLAT */
-(function init(){
-const cats=[...new Set(GAMES.map(g=>g.c))];
-$('sideCats').innerHTML=cats.map(c=>'<div class="si" onclick="filterCatSide(\''+c+'\')"><span class="em">'+({Arcade:'👾','Yarış':'🏎️',Aksiyon:'💥',FPS:'🔫','.io':'🌐',Bulmaca:'🧩','Simülasyon':'🎣',Strateji:'♟️',Spor:'⚽',Macera:'🗺️'}[c]||'🎮')+'</span>'+c+'</div>').join('');
-$('fCat').innerHTML='<option value="">Tüm Kategoriler</option>'+cats.map(c=>'<option>'+c+'</option>').join('');
-renderHome();renderAll();hudTop();buildTicker();liveTick();
-if(!localStorage.getItem('gvck'))$('cbar').classList.remove('off');
-setTimeout(()=>$('loader').classList.add('off'),1100);
-if(!S.name)setTimeout(openAuth,1600);
+/* INIT */
+(function(){
+$('sideCats').innerHTML=CATS.map(c=>`<div class="snav-item" onclick="filterCat('${c}')"><span class="si">${CAT_ICO[c]||'🎮'}</span>${c}</div>`).join('');
+$('fCat').innerHTML='<option value="">Tüm Kategoriler</option>'+CATS.map(c=>'<option>'+c+'</option>').join('');
+renderHome();renderGames();hudTop();
+setTimeout(()=>$('loader').classList.add('off'),1200);
 })();
 </script>
 </body>
