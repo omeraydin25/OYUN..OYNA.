@@ -2,558 +2,749 @@
 <html lang="tr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Sky Runner - ShopNex</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ShopNex — Premium Oyun Platformu</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
-/* TEMEL CSS (Önceki koddan alındı, optimize edildi) */
+:root{
+  --bg:#0a0e1a;--bg2:#111827;--card:rgba(255,255,255,.04);--card2:rgba(255,255,255,.08);
+  --glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.08);--txt:#f1f5f9;--txt2:#94a3b8;--txt3:#64748b;
+  --accent:#6366f1;--accent2:#818cf8;--green:#10b981;--amber:#f59e0b;--red:#ef4444;--pink:#ec4899;
+  --radius:16px;--header-h:64px;
+}
+[data-theme="light"]{
+  --bg:#f8fafc;--bg2:#ffffff;--card:rgba(0,0,0,.03);--card2:rgba(0,0,0,.06);
+  --glass:rgba(255,255,255,.8);--border:rgba(0,0,0,.08);--txt:#0f172a;--txt2:#475569;--txt3:#94a3b8;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0e1a;--bg2:#111827;--glass:rgba(255,255,255,.06);--border:rgba(255,255,255,.08);--txt:#f1f5f9;--txt2:#94a3b8;--accent:#6366f1;--accent2:#818cf8;--green:#10b981;--amber:#f59e0b;--red:#ef4444;--header-h:64px}
-[data-theme="light"]{--bg:#f8fafc;--bg2:#ffffff;--glass:rgba(0,0,0,.03);--border:rgba(0,0,0,.08);--txt:#0f172a;--txt2:#475569}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.5}
-button{cursor:pointer;border:none;font-family:inherit}
-.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:100;display:flex;align-items:center;padding:0 20px;justify-content:space-between}
-.logo{font-family:'Space Grotesk';font-size:22px;font-weight:700;color:var(--accent2)}
-.main{margin-top:var(--header-h);padding:20px;max-width:1200px;margin-left:auto;margin-right:auto}
-.page{display:none;animation:fadeIn .3s ease}.page.on{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.5;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,.08),transparent);pointer-events:none;z-index:0}
+button{cursor:pointer;border:none;font-family:inherit;font-size:inherit}
+input,select,textarea{font-family:inherit}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-/* OYUN ALANI */
-.game-container{position:relative;width:100%;max-width:600px;margin:0 auto;border-radius:16px;overflow:hidden;border:2px solid var(--border);background:#000;box-shadow:0 0 40px rgba(99,102,241,.2)}
-canvas{width:100%;display:block;touch-action:none}
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;display:flex;align-items:center;padding:0 20px;gap:16px}
+.hamburger{display:none;width:40px;height:40px;border-radius:10px;background:var(--card2);border:1px solid var(--border);align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.hamburger span{width:18px;height:2px;background:var(--txt);border-radius:2px;transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-size:22px;font-weight:700;color:var(--accent2)}
+.header-search{flex:1;max-width:400px;position:relative;margin:0 auto}
+.header-search input{width:100%;padding:10px 16px 10px 40px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:var(--txt);font-size:13px;outline:none;transition:.2s}
+.header-search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+.header-search::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.6}
+.search-drop{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:none;box-shadow:0 8px 32px rgba(0,0,0,.3);z-index:100}
+.search-drop.on{display:block}
+.sd-item{padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s;font-size:13px}
+.sd-item:hover{background:var(--card2)}
+.header-actions{display:flex;align-items:center;gap:8px}
+.hbtn{width:38px;height:38px;border-radius:10px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;transition:.2s;color:var(--txt)}
+.hbtn:hover{border-color:var(--accent);background:rgba(99,102,241,.1)}
+.hbtn-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:.2s}
 
-/* UI ELEMENTLERİ */
-.btn{padding:12px 24px;border-radius:12px;font-weight:700;font-size:14px;transition:.2s;display:inline-flex;align-items:center;gap:8px}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;box-shadow:0 4px 12px rgba(99,102,241,.3)}
-.btn-glass{background:var(--glass);border:1px solid var(--border);color:var(--txt)}
-.btn:hover{transform:translateY(-2px)}
+/* SIDEBAR */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1100;opacity:0;transition:.3s}
+.sidebar-overlay.on{display:block;opacity:1}
+.sidebar{position:fixed;top:0;left:-300px;width:280px;height:100vh;background:var(--bg2);border-right:1px solid var(--border);z-index:1200;transition:left .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:20px 0}
+.sidebar.on{left:0}
+.snav-item{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;color:var(--txt2);cursor:pointer;transition:.15s;border-left:3px solid transparent}
+.snav-item:hover,.snav-item.on{color:var(--txt);background:rgba(99,102,241,.1);border-left-color:var(--accent)}
+.snav-sep{height:1px;background:var(--border);margin:12px 20px}
+.snav-title{padding:8px 20px 4px;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt3);font-weight:700}
 
-/* HUD & MENÜLER */
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:10;padding:20px}
-.overlay h1{font-family:'Space Grotesk';font-size:32px;margin-bottom:10px;background:linear-gradient(to right,#fff,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stats-row{display:flex;gap:20px;margin:20px 0}
-.stat-item b{display:block;font-size:20px;color:var(--amber)}.stat-item span{font-size:11px;color:var(--txt2)}
+/* MAIN */
+.main{margin-top:var(--header-h);min-height:calc(100vh - var(--header-h));position:relative;z-index:1}
+.container{max-width:1280px;margin:0 auto;padding:24px 20px 60px}
+.page{display:none;animation:pageIn .4s ease}.page.on{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-/* MAĞAZA KARTLARI */
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:20px}
-.shop-card{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:.2s}
-.shop-card.selected{border-color:var(--green);background:rgba(16,185,129,.1)}
-.shop-card.locked{opacity:.5;filter:grayscale(1)}
-.char-icon{font-size:32px;margin-bottom:8px;display:block}
-.price-tag{font-size:12px;color:var(--amber);font-weight:700}
+/* HERO */
+.hero{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(6,182,212,.1));border:1px solid var(--border);border-radius:24px;padding:40px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero h1{font-family:'Space Grotesk';font-size:clamp(28px,5vw,40px);font-weight:700;margin-bottom:12px}
+.hero h1 span{background:linear-gradient(135deg,var(--accent2),#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--txt2);max-width:500px;margin-bottom:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:12px;font-size:13px;font-weight:600;transition:.2s;border:1px solid transparent}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;box-shadow:0 4px 16px rgba(99,102,241,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.4)}
+.btn-glass{background:var(--glass);border-color:var(--border);color:var(--txt);backdrop-filter:blur(8px)}
+.btn-glass:hover{border-color:var(--accent)}
+
+/* SECTIONS & GRIDS */
+.sec{margin-bottom:36px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.sec-title{font-family:'Space Grotesk';font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
+.sec-title i{width:4px;height:22px;background:linear-gradient(var(--accent),#06b6d4);border-radius:2px}
+.game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.game-card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.25s}
+.game-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 16px 40px rgba(99,102,241,.15)}
+.gc-thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;background:linear-gradient(135deg,var(--card2),var(--card))}
+.gc-body{padding:14px}
+.gc-name{font-size:14px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gc-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--txt3);margin-top:8px}
+.gc-rating{color:var(--amber);font-weight:700}
+
+/* GAME DETAIL PAGE */
+.game-layout{display:grid;grid-template-columns:1fr 340px;gap:24px}
+.canvas-wrap{position:relative;background:#000;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9}
+#gameCanvas{width:100%;height:100%;display:block;touch-action:none}
+.game-overlay{position:absolute;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:10;padding:20px}
+.info-box{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.info-box h3{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.comment-item{padding:12px;background:var(--card);border-radius:10px;margin-bottom:8px}
+.comment-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.comment-av{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.comment-input{display:flex;gap:8px;margin-top:12px}
+.comment-input input{flex:1;padding:10px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--txt);outline:none}
+
+/* LEADERBOARD */
+.lb-table{width:100%;border-collapse:collapse}
+.lb-table th{text-align:left;padding:12px;color:var(--txt3);font-size:12px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.lb-table td{padding:12px;border-bottom:1px solid var(--border);font-size:14px}
+.lb-table tr:hover td{background:var(--card)}
+.rank-1{color:var(--amber);font-weight:700}.rank-2{color:#94a3b8;font-weight:700}.rank-3{color:#b45309;font-weight:700}
+
+/* ACHIEVEMENTS */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.ach-card{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:.2s}
+.ach-card.locked{opacity:.4;filter:grayscale(1)}
+.ach-icon{font-size:32px;margin-bottom:8px;display:block}
+.ach-name{font-size:12px;font-weight:700}.ach-desc{font-size:10px;color:var(--txt3);margin-top:4px}
+
+/* DAILY REWARD MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center}
+.modal-overlay.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:30px;max-width:400px;width:90%;text-align:center;animation:popIn .3s ease}
+@keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.reward-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.reward-day{padding:12px;background:var(--card);border-radius:10px;border:1px solid var(--border);font-size:12px}
+.reward-day.claimed{background:rgba(16,185,129,.1);border-color:var(--green);color:var(--green)}
+.reward-day.today{border-color:var(--amber);background:rgba(245,158,11,.1)}
 
 /* TOAST */
-.toast{position:fixed;top:80px;right:20px;background:var(--bg2);border:1px solid var(--border);padding:12px 20px;border-radius:10px;z-index:999;transform:translateX(150%);transition:.3s}
-.toast.show{transform:none}
+.toast{position:fixed;top:80px;right:20px;background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:14px 18px;z-index:9999;transform:translateX(360px);transition:.35s cubic-bezier(.4,0,.2,1);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.toast.on{transform:none}
+.toast b{display:block;font-size:13px;margin-bottom:2px}.toast span{font-size:11px;color:var(--txt2)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hamburger{display:flex}
+  .header-search{max-width:none;flex:1}
+  .header-actions .hbtn:not(:last-child){display:none}
+  .game-layout{grid-template-columns:1fr}
+  .game-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .gc-thumb{height:90px;font-size:36px}
+  .hero{padding:24px}
+}
+@media(max-width:480px){
+  .game-grid{grid-template-columns:repeat(2,1fr)}
+  .gc-body{padding:10px}
+  .gc-name{font-size:12px}
+}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="header">
-    <div class="logo">🚀 Sky Runner</div>
-    <div style="display:flex;gap:10px;align-items:center">
-        <span id="hudGold" style="font-size:13px;font-weight:700;color:var(--amber)">🪙 0</span>
-        <span id="hudDiamond" style="font-size:13px;font-weight:700;color:#06b6d4">💎 0</span>
-        <button class="btn btn-glass" onclick="toggleTheme()">🌓</button>
-    </div>
+<button class="hamburger" id="hamBtn" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
+<div class="logo" onclick="nav('home')">🎮 Shop<b>Nex</b></div>
+<div class="header-search">
+  <input id="searchIn" placeholder="Oyun ara..." oninput="doSearch(this.value)" autocomplete="off">
+  <div class="search-drop" id="searchDrop"></div>
+</div>
+<div class="header-actions">
+  <button class="hbtn" onclick="toggleTheme()" title="Tema">🌓</button>
+  <button class="hbtn" onclick="nav('achievements')" title="Başarımlar">🏆</button>
+  <div class="hbtn-avatar" id="headerAv" onclick="nav('settings')">?</div>
+</div>
 </header>
 
-<main class="main">
-    
-    <!-- ANA MENÜ -->
-    <div class="page on" id="pg-menu">
-        <div style="text-align:center;padding:40px 0">
-            <h1 style="font-family:'Space Grotesk';font-size:48px;margin-bottom:10px">SKY RUNNER</h1>
-            <p style="color:var(--txt2);margin-bottom:30px">Infinite Rush • v1.0</p>
-            
-            <div style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap">
-                <button class="btn btn-primary btn-lg" onclick="startGame()">▶ OYUNA BAŞLA</button>
-                <button class="btn btn-glass" onclick="nav('shop')">🛒 MAĞAZA</button>
-                <button class="btn btn-glass" onclick="nav('missions')">📋 GÖREVLER</button>
-                <button class="btn btn-glass" onclick="nav('settings')">⚙️ AYARLAR</button>
-            </div>
+<!-- SIDEBAR -->
+<div class="sidebar-overlay" id="sbOverlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="logo" style="padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:12px">🎮 Shop<b>Nex</b></div>
+  <div class="snav-item on" onclick="nav('home',this)"><span>🏠</span>Ana Sayfa</div>
+  <div class="snav-item" onclick="nav('games',this)"><span>🕹️</span>Tüm Oyunlar</div>
+  <div class="snav-item" onclick="nav('leaderboard',this)"><span>📊</span>Liderlik Tablosu</div>
+  <div class="snav-item" onclick="nav('achievements',this)"><span>🎖️</span>Başarımlar</div>
+  <div class="snav-sep"></div>
+  <div class="snav-title">Kategoriler</div>
+  <div id="sideCats"></div>
+  <div class="snav-sep"></div>
+  <div class="snav-item" onclick="nav('settings',this)"><span>⚙️</span>Ayarlar</div>
+</aside>
 
-            <div class="stats-row" style="justify-content:center;margin-top:40px">
-                <div class="stat-item"><b id="menuLevel">1</b><span>Seviye</span></div>
-                <div class="stat-item"><b id="menuBest">0</b><span>En Yüksek</span></div>
-                <div class="stat-item"><b id="menuRuns">0</b><span>Koşu</span></div>
-            </div>
+<!-- MAIN -->
+<main class="main"><div class="container">
+
+<!-- HOME -->
+<div class="page on" id="pg-home">
+  <div class="hero">
+    <h1>Oyun Dünyasının <span>Yeni Adresi</span></h1>
+    <p>Yüksek kaliteli web oyunları, liderlik tabloları, başarımlar ve günlük ödüller. Kurulum yok, tıkla ve oyna.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="nav('games')">🎮 Hemen Oyna</button>
+      <button class="btn btn-glass" onclick="showDailyReward()">🎁 Günlük Ödül</button>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-head"><h2 class="sec-title"><i></i>🔥 Popüler Oyunlar</h2></div>
+    <div class="game-grid" id="homePop"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-head"><h2 class="sec-title"><i style="background:var(--green)"></i>✨ Yeni Eklenenler</h2></div>
+    <div class="game-grid" id="homeNew"></div>
+  </div>
+</div>
+
+<!-- ALL GAMES -->
+<div class="page" id="pg-games">
+  <div class="sec-head"><h2 class="sec-title"><i></i>🕹️ Tüm Oyunlar</h2></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+    <select id="fCat" onchange="renderGames()" style="padding:9px 14px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:var(--txt);font-size:12px;outline:none">
+      <option value="">Tüm Kategoriler</option>
+    </select>
+    <select id="fSort" onchange="renderGames()" style="padding:9px 14px;background:var(--glass);border:1px solid var(--border);border-radius:10px;color:var(--txt);font-size:12px;outline:none">
+      <option value="pop">En Popüler</option>
+      <option value="rate">En Yüksek Puan</option>
+      <option value="new">En Yeni</option>
+    </select>
+  </div>
+  <div class="game-grid" id="gamesGrid"></div>
+</div>
+
+<!-- GAME DETAIL (PLAYER) -->
+<div class="page" id="pg-play">
+  <div class="game-layout">
+    <div>
+      <div class="canvas-wrap">
+        <canvas id="gameCanvas" width="800" height="450"></canvas>
+        <div class="game-overlay" id="gameOverlay">
+          <h2 id="ovTitle" style="font-family:'Space Grotesk';font-size:28px;margin-bottom:8px">Hazır mısın?</h2>
+          <p id="ovDesc" style="color:var(--txt2);margin-bottom:20px;font-size:14px">Kontroller: Yön Tuşları / WASD</p>
+          <button class="btn btn-primary" onclick="startCurrentGame()">▶ OYUNA BAŞLA</button>
+          <button class="btn btn-glass" style="margin-top:10px" onclick="nav('home')">← Ana Menü</button>
         </div>
-    </div>
-
-    <!-- OYUN EKRANI -->
-    <div class="page" id="pg-game">
-        <div class="game-container">
-            <canvas id="gc" width="600" height="800"></canvas>
-            
-            <!-- Oyun İçi HUD -->
-            <div id="gameHud" style="position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;pointer-events:none">
-                <span style="font-weight:800;font-size:20px" id="scoreDisplay">0m</span>
-                <div style="display:flex;gap:10px">
-                    <span style="color:var(--amber)" id="gameGold">🪙 0</span>
-                    <span style="color:#06b6d4" id="gameDia">💎 0</span>
-                </div>
-            </div>
-
-            <!-- Başlangıç / Bitiş Ekranı -->
-            <div class="overlay" id="gameOverlay">
-                <h2 id="ovTitle">Hazır mısın?</h2>
-                <p id="ovDesc" style="color:var(--txt2);margin-bottom:20px">Engellerden kaç, topla!</p>
-                
-                <div id="ovStats" class="stats-row" style="display:none">
-                    <div class="stat-item"><b id="resScore">0</b><span>Puan</span></div>
-                    <div class="stat-item"><b id="resGold">0</b><span>Altın</span></div>
-                </div>
-
-                <button class="btn btn-primary" onclick="startRun()">BAŞLA</button>
-                <button class="btn btn-glass" style="margin-top:10px" onclick="nav('menu')">MENÜ</button>
-            </div>
+      </div>
+      <div class="info-box" style="margin-top:16px">
+        <h3>💬 Yorumlar (<span id="cmtCount">0</span>)</h3>
+        <div class="comment-input">
+          <input id="cmtIn" placeholder="Bu oyun hakkında ne düşünüyorsun?">
+          <button class="btn btn-primary" onclick="postComment()">Gönder</button>
         </div>
-        <div style="text-align:center;margin-top:10px;color:var(--txt3);font-size:12px">
-            PC: Yön Tuşları / WASD • Mobil: Kaydır
+        <div id="cmtList" style="margin-top:12px"></div>
+      </div>
+    </div>
+    <div>
+      <div class="info-box">
+        <h3>📖 Oyun Bilgileri</h3>
+        <p id="gDesc" style="font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:12px"></p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+          <div style="color:var(--txt3)">Kategori</div><div id="gCat" style="text-align:right;font-weight:600"></div>
+          <div style="color:var(--txt3)">Puan</div><div id="gRate" style="text-align:right;font-weight:600;color:var(--amber)"></div>
+          <div style="color:var(--txt3)">Oynanma</div><div id="gPlays" style="text-align:right;font-weight:600"></div>
         </div>
+      </div>
+      <div class="info-box">
+        <h3>🎯 Benzer Oyunlar</h3>
+        <div id="similarGames" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- MAĞAZA -->
-    <div class="page" id="pg-shop">
-        <h2 style="margin-bottom:20px">🛒 Karakter Mağazası</h2>
-        <div class="shop-grid" id="charGrid"></div>
-        <button class="btn btn-glass" style="margin-top:20px" onclick="nav('menu')">← Geri Dön</button>
+<!-- LEADERBOARD -->
+<div class="page" id="pg-leaderboard">
+  <div class="sec-head"><h2 class="sec-title"><i style="background:var(--amber)"></i>📊 Liderlik Tablosu</h2></div>
+  <div class="info-box" style="padding:0;overflow:hidden">
+    <table class="lb-table">
+      <thead><tr><th>Sıra</th><th>Oyuncu</th><th>Oyun</th><th>Puan</th><th>Tarih</th></tr></thead>
+      <tbody id="lbBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div class="page" id="pg-achievements">
+  <div class="sec-head"><h2 class="sec-title"><i style="background:var(--pink)"></i>🎖️ Başarımlar</h2></div>
+  <div class="ach-grid" id="achGrid"></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="pg-settings">
+  <div class="sec-head"><h2 class="sec-title"><i></i>⚙️ Ayarlar</h2></div>
+  <div class="info-box">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span>Karanlık Tema</span>
+        <button class="btn btn-glass" onclick="toggleTheme()">Değiştir</button>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span>Verileri Sıfırla</span>
+        <button class="btn btn-glass" style="color:var(--red);border-color:var(--red)" onclick="clearData()">Tümünü Sil</button>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- GÖREVLER -->
-    <div class="page" id="pg-missions">
-        <h2 style="margin-bottom:20px">📋 Günlük Görevler</h2>
-        <div id="missionList"></div>
-        <button class="btn btn-glass" style="margin-top:20px" onclick="nav('menu')">← Geri Dön</button>
-    </div>
+</div></main>
 
-    <!-- AYARLAR -->
-    <div class="page" id="pg-settings">
-        <h2>Ayarlar</h2>
-        <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
-            <button class="btn btn-glass" onclick="clearData()">🗑️ Verileri Sıfırla</button>
-            <button class="btn btn-glass" onclick="nav('menu')">← Geri Dön</button>
-        </div>
-    </div>
+<!-- DAILY REWARD MODAL -->
+<div class="modal-overlay" id="dailyModal">
+  <div class="modal">
+    <h2 style="font-family:'Space Grotesk';margin-bottom:8px">🎁 Günlük Ödül</h2>
+    <p style="color:var(--txt2);font-size:13px;margin-bottom:16px">Her gün giriş yaparak ödülünü topla!</p>
+    <div class="reward-grid" id="rewardGrid"></div>
+    <button class="btn btn-primary" style="width:100%" onclick="claimDaily()">Ödülü Topla</button>
+    <button class="btn btn-glass" style="width:100%;margin-top:8px" onclick="closeDaily()">Kapat</button>
+  </div>
+</div>
 
-</main>
-
-<div class="toast" id="toast">Bildirim</div>
+<!-- TOAST -->
+<div class="toast" id="toast"><b id="toT"></b><span id="toM"></span></div>
 
 <script>
-/* --- VERİ YÖNETİMİ --- */
-const CHARS = [
-    {id:'alex', name:'Alex', icon:'🏃', cost:0},
-    {id:'luna', name:'Luna', icon:'👩‍🚀', cost:100},
-    {id:'blaze', name:'Blaze', icon:'🔥', cost:250},
-    {id:'shadow', name:'Shadow', icon:'🥷', cost:500},
-    {id:'nova', name:'Nova', icon:'⭐', cost:1000},
-    {id:'cyber', name:'Cyber', icon:'🤖', cost:2000}
+/* --- STATE MANAGEMENT --- */
+let State = {
+  user: 'Misafir', gold: 100, xp: 0, level: 1,
+  lastDaily: null, streak: 0,
+  comments: {}, scores: []
+};
+function loadState(){
+  const s = localStorage.getItem('shopnex_state');
+  if(s) State = JSON.parse(s);
+  document.getElementById('headerAv').textContent = State.user[0].toUpperCase();
+}
+function saveState(){
+  localStorage.setItem('shopnex_state', JSON.stringify(State));
+}
+
+/* --- DATA: GAMES --- */
+const GAMES = [
+  {id:'runner', name:'Sky Runner', cat:'Arcade', icon:'🏃', color:'#6366f1', desc:'Sonsuz koşu pistinde engellerden kaç, altın topla ve en yüksek mesafeye ulaş.', rate:4.8, plays:'12.5K', engine:'runner'},
+  {id:'drift', name:'Drift Legends', cat:'Yarış', icon:'🏎️', color:'#ef4444', desc:'Açık dünyada drift yap, aracını geliştir ve liderlik tablosunda zirveye oyna.', rate:4.9, plays:'8.2K', engine:'drift'},
+  {id:'puzzle', name:'Neon Blok', cat:'Bulmaca', icon:'🧩', color:'#10b981', desc:'Renkli blokları eşleştir, alanı temizle ve stratejik hamlelerle ilerle.', rate:4.5, plays:'5.1K', engine:'demo'},
+  {id:'shooter', name:'Space Defender', cat:'Aksiyon', icon:'🚀', color:'#f59e0b', desc:'Uzay istasyonunu istilacı dalgalara karşı koru. Yükseltmelerle gemini güçlendir.', rate:4.7, plays:'9.8K', engine:'demo'},
+  {id:'clicker', name:'Gold Miner', cat:'Simülasyon', icon:'⛏️', color:'#fbbf24', desc:'Tıkla, kazan, madencini geliştir ve yerin derinliklerine in.', rate:4.3, plays:'15K', engine:'demo'}
 ];
 
-let Data = {
-    gold: 0, diamonds: 0, level: 1, xp: 0, bestScore: 0, totalRuns: 0,
-    unlockedChars: ['alex'], currentChar: 'alex',
-    missions: [
-        {txt:'100m Koş', prog:0, target:100, reward:50, done:false},
-        {txt:'10 Altın Topla', prog:0, target:10, reward:20, done:false},
-        {txt:'5 Kez Zıpla', prog:0, target:5, reward:30, done:false}
-    ]
-};
+const ACHIEVEMENTS = [
+  {id:'first_game', name:'İlk Adım', desc:'İlk oyununu oyna', icon:'🎮', req: s => s.scores.length >= 1},
+  {id:'rich', name:'Zengin', desc:'500 Altın biriktir', icon:'💰', req: s => s.gold >= 500},
+  {id:'commenter', name:'Sosyal', desc:'Bir yorum yap', icon:'💬', req: s => Object.values(s.comments).some(c => c.length > 0)},
+  {id:'streak3', name:'Sadık', desc:'3 gün üst üste giriş yap', icon:'🔥', req: s => s.streak >= 3},
+  {id:'highscore', name:'Şampiyon', desc:'Herhangi bir oyunda 500+ puan al', icon:'🏆', req: s => s.scores.some(sc => sc.score >= 500)},
+  {id:'explorer', name:'Kaşif', desc:'3 farklı oyun oyna', icon:'🧭', req: s => new Set(s.scores.map(x=>x.game)).size >= 3}
+];
 
-function loadData(){
-    const s = localStorage.getItem('skyRunnerData');
-    if(s) Data = JSON.parse(s);
-    updateHUD();
-}
-function saveData(){
-    localStorage.setItem('skyRunnerData', JSON.stringify(Data));
-    updateHUD();
-}
-function updateHUD(){
-    document.getElementById('hudGold').textContent = '🪙 ' + Data.gold;
-    document.getElementById('hudDiamond').textContent = '💎 ' + Data.diamonds;
-    document.getElementById('menuLevel').textContent = Data.level;
-    document.getElementById('menuBest').textContent = Math.floor(Data.bestScore);
-    document.getElementById('menuRuns').textContent = Data.totalRuns;
-}
-
-/* --- NAVİGASYON --- */
-function nav(pageId){
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
-    document.getElementById('pg-'+pageId).classList.add('on');
-    if(pageId === 'shop') renderShop();
-    if(pageId === 'missions') renderMissions();
-    if(pageId === 'menu') {
-        document.getElementById('gameOverlay').style.display = 'flex';
-        document.getElementById('ovTitle').textContent = 'Sky Runner';
-        document.getElementById('ovDesc').textContent = 'Engellerden kaç, topla!';
-        document.getElementById('ovStats').style.display = 'none';
-        document.querySelector('#gameOverlay .btn-primary').textContent = 'BAŞLA';
-    }
+/* --- NAVIGATION & UI --- */
+function nav(id, el){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  const pg = document.getElementById('pg-'+id);
+  if(pg) pg.classList.add('on');
+  
+  document.querySelectorAll('.snav-item').forEach(n => n.classList.remove('on'));
+  if(el) el.classList.add('on');
+  
+  window.scrollTo(0,0);
+  if(window.innerWidth <= 900){
+    document.getElementById('sidebar').classList.remove('on');
+    document.getElementById('sbOverlay').classList.remove('on');
+    document.getElementById('hamBtn').classList.remove('active');
+  }
+  
+  if(id === 'home') renderHome();
+  if(id === 'games') renderGames();
+  if(id === 'leaderboard') renderLeaderboard();
+  if(id === 'achievements') renderAchievements();
+  
+  // Stop any running game
+  if(id !== 'play') stopGameEngine();
 }
 
-function showToast(msg){
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'), 2000);
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('on');
+  document.getElementById('sbOverlay').classList.toggle('on');
+  document.getElementById('hamBtn').classList.toggle('active');
 }
 
 function toggleTheme(){
-    const h = document.documentElement;
-    h.getAttribute('data-theme')==='dark' ? h.setAttribute('data-theme','light') : h.setAttribute('data-theme','dark');
+  const h = document.documentElement;
+  const isDark = h.getAttribute('data-theme') === 'dark';
+  h.setAttribute('data-theme', isDark ? 'light' : 'dark');
 }
 
-/* --- OYUN MOTORU (GAME ENGINE) --- */
-const cv = document.getElementById('gc');
-const ctx = cv.getContext('2d');
-let gameLoop, running = false, paused = false;
-let frame = 0, score = 0, speed = 5;
-let player = { lane: 1, y: 650, jumping: false, jumpH: 0, slide: false };
-let obstacles = [], coins = [];
-let runGold = 0, runDia = 0;
-
-// Lane sistemi: 0 (Sol), 1 (Orta), 2 (Sağ)
-const LANE_W = 200; // 600 / 3
-const LANES = [100, 300, 500]; // X koordinatları
-
-function startGame(){
-    nav('game');
-    // Reset overlay
-    document.getElementById('gameOverlay').style.display = 'flex';
-    document.getElementById('ovTitle').textContent = 'Hazır mısın?';
-    document.getElementById('ovDesc').textContent = 'Engellerden kaç!';
-    document.getElementById('ovStats').style.display = 'none';
-    document.querySelector('#gameOverlay .btn-primary').style.display = 'inline-flex';
-    document.querySelector('#gameOverlay .btn-primary').textContent = 'BAŞLA';
-    
-    // Önizleme çizimi
-    ctx.fillStyle = '#0a0e1a'; ctx.fillRect(0,0,600,800);
-    drawRoad();
-    drawPlayerStatic();
+function toast(t, m){
+  document.getElementById('toT').textContent = t;
+  document.getElementById('toM').textContent = m;
+  const el = document.getElementById('toast');
+  el.classList.add('on');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('on'), 3000);
 }
 
-function startRun(){
-    document.getElementById('gameOverlay').style.display = 'none';
-    resetGameVars();
-    running = true;
-    loop();
+/* --- RENDER FUNCTIONS --- */
+function gameCard(g){
+  return `<div class="game-card" onclick="launchGame('${g.id}')">
+    <div class="gc-thumb" style="background:linear-gradient(135deg,${g.color}22,${g.color}08)">${g.icon}</div>
+    <div class="gc-body">
+      <div class="gc-name">${g.name}</div>
+      <div class="gc-meta">
+        <span style="background:rgba(99,102,241,.1);color:var(--accent2);padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600">${g.cat}</span>
+        <span class="gc-rating">⭐ ${g.rate}</span>
+      </div>
+    </div>
+  </div>`;
 }
 
-function resetGameVars(){
-    frame = 0; score = 0; speed = 6;
-    runGold = 0; runDia = 0;
-    player = { lane: 1, y: 650, jumping: false, jumpH: 0, slide: false };
-    obstacles = []; coins = [];
-    document.getElementById('gameGold').textContent = '🪙 0';
-    document.getElementById('gameDia').textContent = '💎 0';
+function renderHome(){
+  document.getElementById('homePop').innerHTML = GAMES.sort((a,b)=>parseFloat(b.plays)-parseFloat(a.plays)).slice(0,4).map(gameCard).join('');
+  document.getElementById('homeNew').innerHTML = GAMES.slice(0,3).map(gameCard).join('');
 }
 
-function loop(){
-    if(!running) return;
-    update();
-    draw();
+function renderGames(){
+  const cat = document.getElementById('fCat').value;
+  const sort = document.getElementById('fSort').value;
+  let list = [...GAMES];
+  if(cat) list = list.filter(g => g.cat === cat);
+  if(sort === 'pop') list.sort((a,b)=>parseFloat(b.plays)-parseFloat(a.plays));
+  if(sort === 'rate') list.sort((a,b)=>b.rate-a.rate);
+  if(sort === 'new') list.reverse();
+  document.getElementById('gamesGrid').innerHTML = list.map(gameCard).join('');
+}
+
+function doSearch(q){
+  const drop = document.getElementById('searchDrop');
+  if(q.length < 2){ drop.classList.remove('on'); return; }
+  const res = GAMES.filter(g => g.name.toLowerCase().includes(q.toLowerCase()) || g.cat.toLowerCase().includes(q.toLowerCase()));
+  if(!res.length){ drop.classList.remove('on'); return; }
+  drop.innerHTML = res.map(g => `<div class="sd-item" onclick="launchGame('${g.id}');document.getElementById('searchDrop').classList.remove('on');document.getElementById('searchIn').value=''">
+    <span style="font-size:20px">${g.icon}</span>
+    <div><b>${g.name}</b><div style="font-size:10px;color:var(--txt3)">${g.cat} • ⭐${g.rate}</div></div>
+  </div>`).join('');
+  drop.classList.add('on');
+}
+document.addEventListener('click', e => {
+  if(!e.target.closest('.header-search')) document.getElementById('searchDrop').classList.remove('on');
+});
+
+/* --- GAME LAUNCHER & ENGINES --- */
+let currentGameId = null;
+let gameLoop = null;
+let isRunning = false;
+
+function launchGame(id){
+  currentGameId = id;
+  const g = GAMES.find(x => x.id === id);
+  document.getElementById('ovTitle').textContent = g.name;
+  document.getElementById('ovDesc').textContent = g.desc;
+  document.getElementById('gDesc').textContent = g.desc;
+  document.getElementById('gCat').textContent = g.cat;
+  document.getElementById('gRate').textContent = '⭐ ' + g.rate;
+  document.getElementById('gPlays').textContent = g.plays;
+  
+  // Similar games
+  const sim = GAMES.filter(x => x.id !== id && x.cat === g.cat).slice(0,3);
+  document.getElementById('similarGames').innerHTML = sim.length ? sim.map(s => 
+    `<div class="sd-item" onclick="launchGame('${s.id}')" style="padding:8px;background:var(--card);border-radius:8px">
+      <span>${s.icon}</span><div><b style="font-size:12px">${s.name}</b></div>
+    </div>`
+  ).join('') : '<p style="font-size:12px;color:var(--txt3)">Benzer oyun bulunamadı.</p>';
+  
+  renderComments(id);
+  nav('play');
+  
+  // Clear canvas
+  const cv = document.getElementById('gameCanvas');
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#000'; ctx.fillRect(0,0,800,450);
+  document.getElementById('gameOverlay').style.display = 'flex';
+}
+
+function startCurrentGame(){
+  document.getElementById('gameOverlay').style.display = 'none';
+  isRunning = true;
+  State.scores.push({game: currentGameId, score: 0, date: new Date().toLocaleDateString('tr-TR')});
+  saveState();
+  
+  if(currentGameId === 'runner') initRunner();
+  else if(currentGameId === 'drift') initDrift();
+  else initDemoGame(); // For puzzle, shooter, clicker
+}
+
+function stopGameEngine(){
+  isRunning = false;
+  if(gameLoop) cancelAnimationFrame(gameLoop);
+}
+
+// --- DEMO ENGINE (For games without full logic yet) ---
+function initDemoGame(){
+  const cv = document.getElementById('gameCanvas');
+  const ctx = cv.getContext('2d');
+  let frame = 0, score = 0;
+  function loop(){
+    if(!isRunning) return;
+    frame++; score += 0.1;
+    ctx.fillStyle = '#0a0e1a'; ctx.fillRect(0,0,800,450);
+    ctx.fillStyle = '#fff'; ctx.font = '20px Inter'; ctx.textAlign = 'center';
+    ctx.fillText('Demo Modu: Bu oyun yakında tam sürümle eklenecek!', 400, 200);
+    ctx.fillText('Skor: ' + Math.floor(score), 400, 240);
+    ctx.fillText('Çıkmak için Ana Menü\'ye dön', 400, 280);
     gameLoop = requestAnimationFrame(loop);
+  }
+  loop();
 }
 
-function update(){
-    frame++;
-    score += 0.1; // Mesafe bazlı puan
-    speed += 0.001; // Zamanla hızlan
-
-    // Engel oluşturma
-    if(frame % Math.max(40, 100 - Math.floor(speed*2)) === 0){
-        spawnObstacle();
-    }
-    // Altın oluşturma
-    if(frame % 30 === 0 && Math.random() > 0.3){
-        spawnCoin();
-    }
-
-    // Objeleri hareket ettir
-    obstacles.forEach(o => o.y += speed);
-    coins.forEach(c => c.y += speed);
-
-    // Temizlik
-    obstacles = obstacles.filter(o => o.y < 900);
-    coins = coins.filter(c => c.y < 900);
-
-    // Çarpışma Kontrolü
-    checkCollisions();
-    
-    // UI Güncelle
-    document.getElementById('scoreDisplay').textContent = Math.floor(score) + 'm';
+/* --- COMMENTS SYSTEM --- */
+function renderComments(gid){
+  const cmts = State.comments[gid] || [];
+  document.getElementById('cmtCount').textContent = cmts.length;
+  document.getElementById('cmtList').innerHTML = cmts.length ? cmts.map(c => `
+    <div class="comment-item">
+      <div class="comment-head">
+        <div class="comment-av">${c.user[0].toUpperCase()}</div>
+        <span style="font-size:12px;font-weight:600">${c.user}</span>
+        <span style="font-size:10px;color:var(--txt3);margin-left:auto">${c.date}</span>
+      </div>
+      <div style="font-size:12px;color:var(--txt2)">${c.text}</div>
+    </div>
+  `).join('') : '<p style="font-size:12px;color:var(--txt3);text-align:center;padding:20px">Henüz yorum yok. İlk yorumu sen yap!</p>';
 }
 
-function spawnObstacle(){
-    const lane = Math.floor(Math.random()*3);
-    const type = Math.random() > 0.7 ? 'fly' : 'ground'; // fly=düşük engel (eğil), ground=zıpla
-    obstacles.push({ lane, y: -100, type });
+function postComment(){
+  const input = document.getElementById('cmtIn');
+  const text = input.value.trim();
+  if(!text) return;
+  if(!State.comments[currentGameId]) State.comments[currentGameId] = [];
+  State.comments[currentGameId].unshift({
+    user: State.user,
+    text: text,
+    date: new Date().toLocaleDateString('tr-TR')
+  });
+  saveState();
+  input.value = '';
+  renderComments(currentGameId);
+  toast('✅', 'Yorumun eklendi!');
 }
 
-function spawnCoin(){
-    const lane = Math.floor(Math.random()*3);
-    const type = Math.random() > 0.9 ? 'diamond' : 'gold';
-    coins.push({ lane, y: -100, type });
+/* --- LEADERBOARD --- */
+function renderLeaderboard(){
+  const sorted = [...State.scores].sort((a,b) => b.score - a.score).slice(0, 10);
+  const g = GAMES.find(x => x.id === 'runner'); // fallback name
+  document.getElementById('lbBody').innerHTML = sorted.length ? sorted.map((s, i) => {
+    const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'';
+    const gameName = GAMES.find(x => x.id === s.game)?.name || s.game;
+    return `<tr>
+      <td class="${rankClass}">#${i+1}</td>
+      <td style="font-weight:600">${s.user}</td>
+      <td>${gameName}</td>
+      <td style="color:var(--accent2);font-weight:700">${Math.floor(s.score)}</td>
+      <td style="color:var(--txt3);font-size:12px">${s.date}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--txt3)">Henüz kayıt yok. Oyna ve zirveye yerleş!</td></tr>';
 }
 
-function checkCollisions(){
-    const pLane = player.lane;
-    
-    // Altınlar
-    coins.forEach((c, i) => {
-        if(c.lane === pLane && c.y > 600 && c.y < 700){
-            if(c.type === 'gold'){ runGold++; Data.gold++; }
-            else { runDia++; Data.diamonds++; }
-            coins.splice(i, 1);
-            updateHUD();
-            document.getElementById('gameGold').textContent = '🪙 '+runGold;
-            document.getElementById('gameDia').textContent = '💎 '+runDia;
-            checkMissions('coin');
-        }
-    });
-
-    // Engeller
-    obstacles.forEach(o => {
-        if(o.lane === pLane && o.y > 600 && o.y < 720){
-            // Basit çarpışma: Eğer zıplamadıysa (veya uçan ise)
-            let hit = true;
-            if(o.type === 'ground' && player.jumping) hit = false; // Zıplayınca yerdeki engelden kurtul
-            // Kayma mekaniği eklenebilir (fly tipi için)
-            
-            if(hit) gameOver();
-        }
-    });
+/* --- ACHIEVEMENTS --- */
+function renderAchievements(){
+  document.getElementById('achGrid').innerHTML = ACHIEVEMENTS.map(a => {
+    const unlocked = a.req(State);
+    return `<div class="ach-card ${unlocked ? '' : 'locked'}">
+      <span class="ach-icon">${a.icon}</span>
+      <div class="ach-name">${a.name}</div>
+      <div class="ach-desc">${a.desc}</div>
+    </div>`;
+  }).join('');
 }
 
-function gameOver(){
-    running = false;
-    cancelAnimationFrame(gameLoop);
-    
-    Data.totalRuns++;
-    if(score > Data.bestScore) Data.bestScore = score;
-    
-    // XP Hesabı
-    Data.xp += Math.floor(score/10);
-    if(Data.xp >= Data.level * 100){
-        Data.level++;
-        Data.xp = 0;
-        showToast('🎉 Seviye Atladın! Lv.' + Data.level);
-    }
-    
-    checkMissions('distance', Math.floor(score));
-    saveData();
-
-    // Overlay Göster
-    const ov = document.getElementById('gameOverlay');
-    ov.style.display = 'flex';
-    document.getElementById('ovTitle').textContent = 'Oyun Bitti!';
-    document.getElementById('ovStats').style.display = 'flex';
-    document.getElementById('resScore').textContent = Math.floor(score) + 'm';
-    document.getElementById('resGold').textContent = '+' + runGold;
-    document.querySelector('#gameOverlay .btn-primary').style.display = 'none'; // Tekrar butonu gizle, menüye dön
+/* --- DAILY REWARD --- */
+function showDailyReward(){
+  const grid = document.getElementById('rewardGrid');
+  grid.innerHTML = '';
+  for(let i=1; i<=7; i++){
+    const isClaimed = State.streak >= i;
+    const isToday = State.streak === i-1;
+    grid.innerHTML += `<div class="reward-day ${isClaimed?'claimed':''} ${isToday?'today':''}">
+      <div style="font-size:20px;margin-bottom:4px">🎁</div>
+      <div>Gün ${i}</div>
+      <div style="color:var(--amber);font-weight:700;margin-top:4px">+${i*10} 🪙</div>
+    </div>`;
+  }
+  document.getElementById('dailyModal').classList.add('on');
 }
-
-/* --- ÇİZİM FONKSİYONLARI --- */
-function draw(){
-    // Arkaplan (Yol)
-    ctx.fillStyle = '#0a0e1a'; 
-    ctx.fillRect(0,0,600,800);
-    
-    drawRoad();
-    
-    // Gölge efekti (Derinlik)
-    const grad = ctx.createLinearGradient(0,0,0,800);
-    grad.addColorStop(0, 'rgba(10,14,26,1)');
-    grad.addColorStop(1, 'rgba(10,14,26,0.8)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0,0,600,800);
-
-    // Objeler
-    coins.forEach(c => {
-        ctx.font = '30px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(c.type === 'gold' ? '🪙' : '💎', LANES[c.lane], c.y);
-    });
-
-    obstacles.forEach(o => {
-        ctx.fillStyle = o.type === 'ground' ? '#ef4444' : '#f59e0b';
-        // Basit kutu çizimi yerine emoji veya şekil
-        ctx.font = '40px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(o.type === 'ground' ? '🚧' : '🚁', LANES[o.lane], o.y);
-    });
-
-    drawPlayerStatic();
-}
-
-function drawRoad(){
-    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(200,0); ctx.lineTo(200,800);
-    ctx.moveTo(400,0); ctx.lineTo(400,800);
-    ctx.stroke();
-    
-    // Hız çizgileri
-    ctx.fillStyle = 'rgba(99,102,241,0.2)';
-    for(let i=0; i<10; i++){
-        let y = (frame * speed + i * 100) % 800;
-        ctx.fillRect(200-2, y, 4, 40);
-        ctx.fillRect(400-2, y, 4, 40);
-    }
-}
-
-function drawPlayerStatic(){
-    const charObj = CHARS.find(c => c.id === Data.currentChar) || CHARS[0];
-    const x = LANES[player.lane];
-    let y = player.y - player.jumpH;
-    
-    // Gölge
-    ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    ctx.beginPath();
-    ctx.ellipse(x, player.y+20, 20, 10, 0, 0, Math.PI*2);
-    ctx.fill();
-
-    // Karakter
-    ctx.font = '50px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText(charObj.icon, x, y);
-}
-
-/* --- KONTROLLER --- */
-function moveLeft(){ if(player.lane > 0) player.lane--; }
-function moveRight(){ if(player.lane < 2) player.lane++; }
-function jump(){ 
-    if(!player.jumping){
-        player.jumping = true;
-        let h = 0, up = true;
-        const jmp = setInterval(()=>{
-            if(up){ h+=5; if(h>=80) up=false; }
-            else { h-=5; if(h<=0){ h=0; player.jumping=false; clearInterval(jmp); } }
-            player.jumpH = h;
-        }, 16);
-        checkMissions('jump');
-    }
-}
-
-// Klavye
-document.addEventListener('keydown', e => {
-    if(!running) return;
-    if(e.key === 'ArrowLeft' || e.key === 'a') moveLeft();
-    if(e.key === 'ArrowRight' || e.key === 'd') moveRight();
-    if(e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') jump();
-});
-
-// Dokunmatik (Swipe)
-let touchStartX = 0, touchStartY = 0;
-cv.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
-});
-cv.addEventListener('touchend', e => {
-    if(!running) return;
-    const x = e.changedTouches[0].screenX;
-    const y = e.changedTouches[0].screenY;
-    const diffX = x - touchStartX;
-    const diffY = y - touchStartY;
-    
-    if(Math.abs(diffX) > Math.abs(diffY)){
-        if(diffX > 30) moveRight();
-        else if(diffX < -30) moveLeft();
-    } else {
-        if(diffY < -30) jump();
-    }
-});
-
-/* --- MAĞAZA & GÖREVLER --- */
-function renderShop(){
-    const grid = document.getElementById('charGrid');
-    grid.innerHTML = '';
-    CHARS.forEach(c => {
-        const isUnlocked = Data.unlockedChars.includes(c.id);
-        const isSelected = Data.currentChar === c.id;
-        
-        let btnClass = 'shop-card';
-        if(isSelected) btnClass += ' selected';
-        if(!isUnlocked) btnClass += ' locked';
-
-        grid.innerHTML += `
-        <div class="${btnClass}" onclick="buyOrSelect('${c.id}', ${c.cost})">
-            <span class="char-icon">${c.icon}</span>
-            <b>${c.name}</b>
-            <div class="price-tag">${isUnlocked ? (isSelected?'SEÇİLİ':'SEÇ') : c.cost + ' 🪙'}</div>
-        </div>`;
-    });
-}
-
-function buyOrSelect(id, cost){
-    if(Data.unlockedChars.includes(id)){
-        Data.currentChar = id;
-        saveData();
-        renderShop();
-        showToast('Karakter Seçildi: ' + id);
-    } else {
-        if(Data.gold >= cost){
-            Data.gold -= cost;
-            Data.unlockedChars.push(id);
-            Data.currentChar = id;
-            saveData();
-            renderShop();
-            showToast('Satın Alındı! ✅');
-        } else {
-            showToast('Yetersiz Altın! ❌');
-        }
-    }
-}
-
-function renderMissions(){
-    const list = document.getElementById('missionList');
-    list.innerHTML = '';
-    Data.missions.forEach(m => {
-        const percent = Math.min(100, (m.prog/m.target)*100);
-        list.innerHTML += `
-        <div style="background:var(--glass);padding:15px;border-radius:10px;margin-bottom:10px;border:1px solid var(--border)">
-            <div style="display:flex;justify-content:space-between;margin-bottom:5px">
-                <b>${m.txt}</b>
-                <span style="color:var(--amber)">+${m.reward} 🪙</span>
-            </div>
-            <div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden">
-                <div style="height:100%;width:${percent}%;background:var(--accent)"></div>
-            </div>
-            <div style="font-size:11px;color:var(--txt3);margin-top:4px;text-align:right">${m.prog} / ${m.target}</div>
-        </div>`;
-    });
-}
-
-function checkMissions(type, val){
-    let updated = false;
-    Data.missions.forEach(m => {
-        if(m.done) return;
-        if(type === 'coin' && m.txt.includes('Altın')) { m.prog++; updated=true; }
-        if(type === 'distance' && m.txt.includes('Koş')) { m.prog = val; updated=true; }
-        if(type === 'jump' && m.txt.includes('Zıpla')) { m.prog++; updated=true; }
-        
-        if(m.prog >= m.target){
-            m.done = true;
-            m.prog = m.target;
-            Data.gold += m.reward;
-            showToast('Görev Tamamlandı! +' + m.reward);
-        }
-    });
-    if(updated) saveData();
+function closeDaily(){ document.getElementById('dailyModal').classList.remove('on'); }
+function claimDaily(){
+  const today = new Date().toDateString();
+  if(State.lastDaily === today){
+    toast('⚠️', 'Bugün zaten ödülünü aldın!');
+    return;
+  }
+  State.streak++;
+  State.lastDaily = today;
+  State.gold += State.streak * 10;
+  saveState();
+  toast('🎉', `Günlük ödül alındı: +${State.streak * 10} Altın!`);
+  closeDaily();
 }
 
 function clearData(){
-    if(confirm('Tüm ilerlemen silinecek! Emin misin?')){
-        localStorage.removeItem('skyRunnerData');
-        location.reload();
-    }
+  if(confirm('Tüm ilerlemen, yorumların ve ayarların silinecek. Emin misin?')){
+    localStorage.removeItem('shopnex_state');
+    location.reload();
+  }
 }
 
-/* BAŞLAT */
-loadData();
+/* --- INITIALIZATION --- */
+(function init(){
+  loadState();
+  renderHome();
+  
+  // Populate categories
+  const cats = [...new Set(GAMES.map(g => g.cat))];
+  const catSelect = document.getElementById('fCat');
+  const sideCats = document.getElementById('sideCats');
+  cats.forEach(c => {
+    catSelect.innerHTML += `<option value="${c}">${c}</option>`;
+    sideCats.innerHTML += `<div class="snav-item" onclick="document.getElementById('fCat').value='${c}';nav('games')"><span>🏷️</span>${c}</div>`;
+  });
+
+  // Check daily reward on first load
+  const today = new Date().toDateString();
+  if(State.lastDaily !== today && State.lastDaily !== null){
+    setTimeout(showDailyReward, 1000);
+  }
+})();
+</script>
+
+<!-- GAME ENGINES (Runner & Drift - Compact Versions) -->
+<script>
+/* SKY RUNNER ENGINE */
+let rState = {lane:1, y:350, jumpH:0, isJumping:false, obs:[], coins:[], score:0, speed:5, frame:0};
+function initRunner(){
+  rState = {lane:1, y:350, jumpH:0, isJumping:false, obs:[], coins:[], score:0, speed:5, frame:0};
+  const cv = document.getElementById('gameCanvas');
+  const ctx = cv.getContext('2d');
+  function loop(){
+    if(!isRunning || currentGameId !== 'runner') return;
+    rState.frame++; rState.score += 0.1; rState.speed += 0.002;
+    
+    if(rState.frame % Math.max(40, 80 - Math.floor(rState.speed)) === 0) 
+      rState.obs.push({lane: Math.floor(Math.random()*3), y: -50});
+    if(rState.frame % 30 === 0 && Math.random() > 0.5) 
+      rState.coins.push({lane: Math.floor(Math.random()*3), y: -50});
+      
+    rState.obs.forEach(o => o.y += rState.speed);
+    rState.obs = rState.obs.filter(o => o.y < 500);
+    rState.coins.forEach(c => c.y += rState.speed);
+    rState.coins = rState.coins.filter(c => c.y < 500);
+    
+    // Collision
+    rState.obs.forEach(o => {
+      if(o.lane === rState.lane && o.y > 320 && o.y < 400 && !rState.isJumping){
+        isRunning = false;
+        document.getElementById('ovTitle').textContent = 'Oyun Bitti!';
+        document.getElementById('ovDesc').textContent = 'Skorun: ' + Math.floor(rState.score);
+        document.getElementById('gameOverlay').style.display = 'flex';
+        State.scores[State.scores.length-1].score = rState.score;
+        saveState();
+      }
+    });
+    rState.coins.forEach((c,i) => {
+      if(c.lane === rState.lane && c.y > 320 && c.y < 400){
+        State.gold += 5; rState.coins.splice(i,1); saveState();
+      }
+    });
+    
+    // Draw
+    ctx.fillStyle = '#0a0e1a'; ctx.fillRect(0,0,800,450);
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(266,0); ctx.lineTo(266,450); ctx.moveTo(533,0); ctx.lineTo(533,450); ctx.stroke();
+    
+    const lanes = [133, 400, 666];
+    rState.coins.forEach(c => { ctx.font = '24px Arial'; ctx.fillText('🪙', lanes[c.lane]-10, c.y); });
+    rState.obs.forEach(o => { ctx.font = '32px Arial'; ctx.fillText('🚧', lanes[o.lane]-16, o.y); });
+    
+    let py = rState.y - rState.jumpH;
+    ctx.font = '40px Arial'; ctx.fillText('🏃', lanes[rState.lane]-20, py);
+    
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 16px Inter'; ctx.textAlign = 'left';
+    ctx.fillText('Mesafe: ' + Math.floor(rState.score) + 'm', 20, 30);
+    
+    gameLoop = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+/* DRIFT LEGENDS ENGINE */
+let dState = {x:400, y:225, ang:0, speed:0, score:0};
+let keys = {};
+function initDrift(){
+  dState = {x:400, y:225, ang:0, speed:0, score:0};
+  const cv = document.getElementById('gameCanvas');
+  const ctx = cv.getContext('2d');
+  function loop(){
+    if(!isRunning || currentGameId !== 'drift') return;
+    
+    if(keys['ArrowUp']||keys['w']) dState.speed += 0.2;
+    if(keys['ArrowDown']||keys['s']) dState.speed -= 0.2;
+    if(keys[' ']) dState.speed *= 0.95; // El freni
+    dState.speed *= 0.98; // Sürtünme
+    
+    if(Math.abs(dState.speed) > 0.5){
+      if(keys['ArrowLeft']||keys['a']) dState.ang -= 0.06 * (keys[' '] ? 2.5 : 1);
+      if(keys['ArrowRight']||keys['d']) dState.ang += 0.06 * (keys[' '] ? 2.5 : 1);
+    }
+    
+    dState.x += Math.cos(dState.ang) * dState.speed;
+    dState.y += Math.sin(dState.ang) * dState.speed;
+    if(dState.x>800) dState.x=0; if(dState.x<0) dState.x=800;
+    if(dState.y>450) dState.y=0; if(dState.y<0) dState.y=450;
+    
+    if(keys[' '] && Math.abs(dState.speed)>3) dState.score += 1;
+    
+    ctx.fillStyle = '#1e293b'; ctx.fillRect(0,0,800,450);
+    ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
+    for(let i=0;i<800;i+=100){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,450);ctx.stroke()}
+    for(let i=0;i<450;i+=100){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(800,i);ctx.stroke()}
+    
+    ctx.save(); ctx.translate(dState.x, dState.y); ctx.rotate(dState.ang);
+    ctx.font = '36px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('🏎️', 0, 0);
+    if(keys[' '] || dState.speed>5){
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.beginPath(); ctx.moveTo(18,-8); ctx.lineTo(80,-30); ctx.lineTo(80,30); ctx.lineTo(18,8); ctx.fill();
+    }
+    ctx.restore();
+    
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 16px Inter'; ctx.textAlign = 'left';
+    ctx.fillText('Drift Puanı: ' + dState.score, 20, 30);
+    ctx.fillText('Hız: ' + Math.floor(dState.speed*10) + ' km/h', 20, 55);
+    
+    gameLoop = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// Global Input
+window.addEventListener('keydown', e => {
+  keys[e.key] = true;
+  if(currentGameId === 'runner' && isRunning){
+    if((e.key==='ArrowLeft'||e.key==='a') && rState.lane>0) rState.lane--;
+    if((e.key==='ArrowRight'||e.key==='d') && rState.lane<2) rState.lane++;
+    if((e.key==='ArrowUp'||e.key===' ') && !rState.isJumping){
+      rState.isJumping = true;
+      let h=0, up=true;
+      let j = setInterval(()=>{
+        if(up){h+=4; if(h>=70) up=false}
+        else{h-=4; if(h<=0){h=0; rState.isJumping=false; clearInterval(j)}}
+        rState.jumpH = h;
+      }, 16);
+    }
+  }
+});
+window.addEventListener('keyup', e => keys[e.key] = false);
 </script>
 </body>
 </html>
