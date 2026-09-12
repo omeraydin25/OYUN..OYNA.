@@ -7,606 +7,639 @@
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 html,body{
-    width:100%;
-    min-height:100%;
+  width:100%;
+  min-height:100%;
 }
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-    color:white;
-    background:
-        radial-gradient(circle at 20% 10%,rgba(255,77,145,.28),transparent 34%),
-        radial-gradient(circle at 80% 30%,rgba(156,80,255,.22),transparent 35%),
-        linear-gradient(145deg,#10000d,#350524 45%,#190015);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:22px;
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  color:white;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,54,125,.30),transparent 30%),
+    radial-gradient(circle at 85% 25%,rgba(166,70,255,.25),transparent 32%),
+    radial-gradient(circle at 50% 100%,rgba(255,35,105,.18),transparent 40%),
+    linear-gradient(145deg,#10000d,#370524 48%,#170012);
 }
 
-/* ARKA PLAN IŞIKLARI */
-
-.blur{
-    position:fixed;
-    width:350px;
-    height:350px;
-    border-radius:50%;
-    filter:blur(100px);
-    opacity:.35;
-    pointer-events:none;
+/* Arka plan ışıkları */
+.glow{
+  position:fixed;
+  width:380px;
+  height:380px;
+  border-radius:50%;
+  filter:blur(110px);
+  opacity:.28;
+  pointer-events:none;
+  animation:glowMove 8s ease-in-out infinite alternate;
 }
 
-.blur1{
-    background:#ff4081;
-    top:-100px;
-    left:-100px;
+.g1{
+  background:#ff337f;
+  top:-160px;
+  left:-130px;
 }
 
-.blur2{
-    background:#7e57ff;
-    right:-120px;
-    bottom:-120px;
+.g2{
+  background:#9a4cff;
+  right:-150px;
+  bottom:-160px;
+  animation-delay:2s;
 }
 
-/* ANA KART */
+@keyframes glowMove{
+  to{
+    transform:translate(70px,60px) scale(1.2);
+  }
+}
 
+/* Yıldızlar */
+.stars{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.35;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px);
+  background-size:42px 42px;
+}
+
+/* Ana kart */
 .card{
-    width:min(100%,720px);
-    text-align:center;
-    padding:42px 25px 28px;
-    border-radius:34px;
-
-    background:rgba(255,255,255,.075);
-    border:1px solid rgba(255,255,255,.16);
-
-    box-shadow:
-        0 35px 90px rgba(0,0,0,.45),
-        inset 0 1px rgba(255,255,255,.15);
-
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-
-    position:relative;
-    z-index:10;
+  width:min(94vw,680px);
+  max-height:96vh;
+  overflow:auto;
+  position:relative;
+  z-index:10;
+  text-align:center;
+  padding:35px 25px 25px;
+  border-radius:34px;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.045)
+  );
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.48),
+    inset 0 1px 0 rgba(255,255,255,.2);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
 }
-
-/* ÜST KÜÇÜK YAZI */
 
 .tag{
-    font-size:12px;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    color:rgba(255,255,255,.58);
-    margin-bottom:14px;
+  display:inline-block;
+  padding:7px 13px;
+  border-radius:30px;
+  margin-bottom:15px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:#ffd4e5;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
 }
-
-/* BAŞLIK */
 
 h1{
-    font-size:clamp(35px,8vw,67px);
-    line-height:1;
-    letter-spacing:-2px;
-
-    background:linear-gradient(
-        180deg,
-        #ffffff,
-        #ffd0e4 55%,
-        #ff73ad
-    );
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-
-    filter:drop-shadow(0 8px 20px rgba(255,70,140,.25));
+  font-size:clamp(34px,8vw,62px);
+  line-height:.98;
+  letter-spacing:-2px;
+  background:linear-gradient(180deg,#fff,#ffd0e2 58%,#ff75ac);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 8px 22px rgba(255,55,130,.28));
 }
 
-.main-text{
-    font-size:clamp(21px,5vw,34px);
-    font-weight:800;
-    margin-top:12px;
+.title2{
+  margin-top:10px;
+  font-size:clamp(20px,5vw,31px);
+  font-weight:900;
 }
 
 .desc{
-    max-width:500px;
-    margin:14px auto 22px;
-
-    color:rgba(255,255,255,.68);
-    line-height:1.6;
-    font-size:15px;
+  max-width:500px;
+  margin:13px auto 5px;
+  color:rgba(255,255,255,.67);
+  line-height:1.55;
+  font-size:14px;
 }
 
-/* FOTOĞRAF */
-
-.photo-area{
-    width:min(300px,77vw);
-    margin:0 auto 18px;
-    position:relative;
-    animation:float 3.3s ease-in-out infinite;
+/* Kalp alanı */
+.love-center{
+  position:relative;
+  width:250px;
+  height:220px;
+  margin:3px auto 3px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
 
-.photo-area::before{
-    content:"";
-    position:absolute;
-    width:75%;
-    height:75%;
-    top:20%;
-    left:12%;
+.ring{
+  position:absolute;
+  left:50%;
+  top:50%;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
 
-    background:#ff4388;
-    border-radius:50%;
-    filter:blur(55px);
+.r1{
+  width:140px;
+  height:140px;
+  border:1px solid rgba(255,105,165,.35);
+  box-shadow:
+    0 0 35px rgba(255,50,120,.18),
+    inset 0 0 35px rgba(255,50,120,.10);
+  animation:pulseRing 2.5s ease-in-out infinite;
+}
+
+.r2{
+  width:185px;
+  height:185px;
+  border:1px solid rgba(255,255,255,.10);
+  animation:pulseRing 2.5s ease-in-out infinite .5s;
+}
+
+.r3{
+  width:220px;
+  height:220px;
+  border:1px solid rgba(255,100,170,.06);
+  animation:pulseRing 2.5s ease-in-out infinite 1s;
+}
+
+@keyframes pulseRing{
+  0%,100%{
+    transform:translate(-50%,-50%) scale(.9);
     opacity:.35;
-    z-index:-1;
+  }
+  50%{
+    transform:translate(-50%,-50%) scale(1.08);
+    opacity:1;
+  }
 }
 
-.photo{
-    width:100%;
-    display:block;
-    object-fit:contain;
-
-    filter:
-        drop-shadow(0 20px 25px rgba(0,0,0,.38))
-        drop-shadow(0 0 12px rgba(255,255,255,.16));
-}
-
-@keyframes float{
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-10px);
-    }
-}
-
-/* SORU */
-
-.question{
-    font-size:clamp(20px,5vw,28px);
-    font-weight:800;
-    margin:15px 0 22px;
-}
-
-/* EVET BUTONU */
-
-#yesBtn{
-    border:0;
-    outline:none;
-
-    min-width:210px;
-    height:62px;
-
-    border-radius:20px;
-
-    color:white;
-    font-size:20px;
-    font-weight:900;
-
-    cursor:pointer;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff2976,
-            #ff4f83,
-            #ff718f
-        );
-
-    box-shadow:
-        0 14px 40px rgba(255,45,120,.36),
-        inset 0 1px rgba(255,255,255,.45);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-}
-
-#yesBtn:hover{
-    transform:translateY(-3px) scale(1.04);
-
-    box-shadow:
-        0 18px 50px rgba(255,45,120,.48);
-}
-
-#yesBtn:active{
-    transform:scale(.96);
-}
-
-/* ALT YAZI */
-
-.note{
-    margin-top:18px;
-    color:rgba(255,255,255,.48);
-    font-size:13px;
-}
-
-.credit{
-    margin-top:25px;
-    padding-top:20px;
-    border-top:1px solid rgba(255,255,255,.09);
-
-    color:rgba(255,255,255,.45);
-    font-size:12px;
-}
-
-/* UÇAN KALPLER */
-
-.heart{
-    position:fixed;
-    bottom:-40px;
-
-    pointer-events:none;
-    z-index:4;
-
-    animation:heartUp linear forwards;
-}
-
-@keyframes heartUp{
-
-    0%{
-        opacity:0;
-        transform:translateY(0) scale(.6) rotate(0deg);
-    }
-
-    15%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-        transform:translateY(-115vh) scale(1.4) rotate(300deg);
-    }
-}
-
-/* BAŞARILI EKRAN */
-
-.success{
-    position:fixed;
-    inset:0;
-
-    display:none;
-    align-items:center;
-    justify-content:center;
-
-    padding:20px;
-
-    z-index:100;
-
-    background:rgba(13,0,11,.72);
-
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-}
-
-.success.active{
-    display:flex;
-    animation:fade .45s ease;
-}
-
-.success-box{
-    width:min(100%,560px);
-
-    padding:45px 25px;
-
-    text-align:center;
-
-    border-radius:32px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.16),
-            rgba(255,255,255,.06)
-        );
-
-    border:1px solid rgba(255,255,255,.22);
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.55);
-
-    animation:zoom .55s cubic-bezier(.2,1.4,.4,1);
-}
-
-.success-heart{
-    font-size:74px;
-    animation:beat .7s infinite alternate;
-}
-
-.success h2{
-    font-size:clamp(40px,10vw,65px);
-    margin-top:8px;
-}
-
-.success p{
-    margin-top:14px;
-    font-size:clamp(17px,4.5vw,23px);
-    color:#ffd2e4;
-    line-height:1.5;
-}
-
-@keyframes zoom{
-    from{
-        transform:scale(.55);
-        opacity:0;
-    }
-
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
-}
-
-@keyframes fade{
-    from{opacity:0}
-    to{opacity:1}
+.main-heart{
+  position:relative;
+  z-index:5;
+  font-size:82px;
+  line-height:1;
+  filter:
+    drop-shadow(0 0 12px rgba(255,50,115,.85))
+    drop-shadow(0 0 35px rgba(255,50,115,.55));
+  animation:beat 1.05s ease-in-out infinite;
 }
 
 @keyframes beat{
-    to{
-        transform:scale(1.16);
-    }
+  0%,100%{transform:scale(1)}
+  15%{transform:scale(1.13)}
+  30%{transform:scale(1)}
+  45%{transform:scale(1.08)}
+  60%{transform:scale(1)}
 }
 
-/* KONFETİ */
-
-.confetti{
-    position:fixed;
-    top:-30px;
-    z-index:120;
-    pointer-events:none;
-
-    animation:confettiFall linear forwards;
+.names{
+  position:relative;
+  z-index:6;
+  margin-top:12px;
+  font-size:17px;
+  font-weight:900;
 }
 
-@keyframes confettiFall{
-    to{
-        transform:
-            translateY(115vh)
-            rotate(720deg);
-
-        opacity:.3;
-    }
+.names span{
+  margin:0 7px;
+  color:#ff78ad;
+  font-size:23px;
+  text-shadow:0 0 15px #ff3d86;
 }
 
-/* TELEFON */
+.small-love{
+  position:relative;
+  z-index:6;
+  margin-top:3px;
+  font-size:12px;
+  color:rgba(255,255,255,.5);
+}
 
+.question{
+  margin:5px 0 18px;
+  font-size:clamp(19px,5vw,27px);
+  font-weight:900;
+}
+
+/* Evet butonu */
+#yes{
+  border:0;
+  outline:0;
+  cursor:pointer;
+  width:min(90%,310px);
+  height:61px;
+  border-radius:19px;
+  color:white;
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.2px;
+  background:linear-gradient(135deg,#ff236f,#ff4c82,#ff718f);
+  box-shadow:
+    0 15px 42px rgba(255,38,112,.38),
+    inset 0 1px 0 rgba(255,255,255,.45);
+  transition:.2s;
+}
+
+#yes:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 20px 50px rgba(255,38,112,.5);
+}
+
+#yes:active{
+  transform:scale(.95);
+}
+
+.hint{
+  margin-top:13px;
+  font-size:12px;
+  color:rgba(255,255,255,.43);
+}
+
+.credit{
+  margin-top:20px;
+  padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.08);
+  font-size:11px;
+  color:rgba(255,255,255,.4);
+}
+
+/* Uçan kalpler */
+.floating-heart{
+  position:fixed;
+  bottom:-50px;
+  z-index:4;
+  pointer-events:none;
+  animation:fly linear forwards;
+  filter:drop-shadow(0 0 8px rgba(255,50,120,.45));
+}
+
+@keyframes fly{
+  0%{
+    opacity:0;
+    transform:translateY(0) rotate(0) scale(.5);
+  }
+  15%{opacity:.9}
+  100%{
+    opacity:0;
+    transform:translateY(-115vh) rotate(360deg) scale(1.3);
+  }
+}
+
+/* Canvas havai fişek */
+#fireworks{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:80;
+  pointer-events:none;
+}
+
+/* Son ekran */
+.success{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(10,0,10,.76);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+}
+
+.success.show{
+  display:flex;
+  animation:fadeIn .4s ease;
+}
+
+.success-card{
+  width:min(92vw,540px);
+  padding:42px 22px;
+  text-align:center;
+  border-radius:32px;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.17),
+    rgba(255,255,255,.055)
+  );
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 30px 100px rgba(0,0,0,.55);
+  animation:pop .55s cubic-bezier(.2,1.4,.4,1);
+}
+
+.success-heart{
+  font-size:78px;
+  animation:beat 1s infinite;
+}
+
+.success h2{
+  margin-top:10px;
+  font-size:clamp(38px,10vw,64px);
+}
+
+.success p{
+  margin-top:12px;
+  color:#ffd2e3;
+  font-size:clamp(17px,4vw,22px);
+  line-height:1.55;
+  font-weight:700;
+}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes pop{
+  from{
+    opacity:0;
+    transform:scale(.45);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+/* Telefon */
 @media(max-width:600px){
+  body{
+    padding:10px;
+    overflow:auto;
+  }
 
-    body{
-        padding:12px;
-    }
+  .card{
+    padding:27px 15px 20px;
+    border-radius:28px;
+    max-height:none;
+  }
 
-    .card{
-        padding:30px 16px 22px;
-        border-radius:27px;
-    }
+  .love-center{
+    width:220px;
+    height:195px;
+  }
 
-    .photo-area{
-        width:min(235px,70vw);
-    }
+  .main-heart{
+    font-size:70px;
+  }
 
-    #yesBtn{
-        width:80%;
-        max-width:280px;
-    }
+  .r1{width:125px;height:125px}
+  .r2{width:165px;height:165px}
+  .r3{width:195px;height:195px}
+
+  #yes{
+    height:57px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="blur blur1"></div>
-<div class="blur blur2"></div>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+<div class="stars"></div>
 
-<div class="card">
+<canvas id="fireworks"></canvas>
 
-    <div class="tag">
-        Sadece senin için
+<main class="card">
+
+  <div class="tag">Sadece senin için ❤️</div>
+
+  <h1>ECRİN EBRAR ARAS</h1>
+
+  <div class="title2">
+    LÜTFEN BARIŞALIM ❤️
+  </div>
+
+  <p class="desc">
+    Bazen tek istediğin, değer verdiğin biriyle
+    yeniden güzel şeyler yaşayabilmektir.
+    Ben de senden sadece bir şans daha istiyorum.
+  </p>
+
+  <div class="love-center">
+
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+
+    <div class="main-heart">❤️</div>
+
+    <div class="names">
+      Ömer <span>∞</span> Ecrin
     </div>
 
-    <h1>
-        ECRİN EBRAR ARAS
-    </h1>
-
-    <div class="main-text">
-        LÜTFEN BARIŞALIM ❤️
+    <div class="small-love">
+      Belki yeniden, bu kez daha güzel... ✨
     </div>
 
-    <p class="desc">
-        Bazı insanlar hayatımıza tesadüfen girer,
-        ama sonra hayatımızın en güzel parçası olur.
-        Ben sadece yeniden güzel olalım istiyorum.
-    </p>
+  </div>
 
-    <div class="photo-area">
+  <div class="question">
+    Benimle barışır mısın? 🥺❤️
+  </div>
 
-        <img
-            src="ecrin.png"
-            alt="Ecrin"
-            class="photo"
-        >
+  <button id="yes">
+    ❤️ EVET, BARIŞALIM
+  </button>
 
-    </div>
+  <div class="hint">
+    Burada küçük bir sürpriz var ✨
+  </div>
 
-    <div class="question">
-        Benimle barışır mısın? ❤️
-    </div>
+  <div class="credit">
+    Yapan: Ömer Aydın ❤️
+  </div>
 
-    <button id="yesBtn">
-        ❤️ EVET, BARIŞALIM
-    </button>
-
-    <div class="note">
-        Bu butona basınca küçük bir sürpriz var ✨
-    </div>
-
-    <div class="credit">
-        Yapan: Ömer Aydın ❤️
-    </div>
-
-</div>
+</main>
 
 
 <div class="success" id="success">
 
-    <div class="success-box">
+  <div class="success-card">
 
-        <div class="success-heart">
-            ❤️
-        </div>
+    <div class="success-heart">❤️</div>
 
-        <h2>
-            BİLİYORDUM!
-        </h2>
+    <h2>BİLİYORDUM!</h2>
 
-        <p>
-            İyi ki varsın Ecrin ❤️
-            <br><br>
-            Şimdi yeniden çok güzel olalım.
-        </p>
+    <p>
+      İyi ki varsın Ecrin ❤️
+      <br>
+      Yeni bir başlangıca hoş geldin ✨
+    </p>
 
-    </div>
+  </div>
 
 </div>
 
 
 <script>
 
-const yesBtn =
-document.getElementById("yesBtn");
-
-const success =
-document.getElementById("success");
-
-
 /* UÇAN KALPLER */
 
-function createHeart(){
+function heart(){
 
-    const heart =
-    document.createElement("div");
+  const h=document.createElement("div");
 
-    heart.className="heart";
+  h.className="floating-heart";
 
-    const list=[
-        "❤️",
-        "💗",
-        "💕",
-        "💖",
-        "🌹"
-    ];
+  const items=["❤️","💕","💗","💖","🌹"];
 
-    heart.innerHTML=
-    list[
-        Math.floor(
-            Math.random()*list.length
-        )
-    ];
+  h.textContent=
+    items[Math.floor(Math.random()*items.length)];
 
-    heart.style.left=
-    Math.random()*100+"vw";
+  h.style.left=Math.random()*100+"vw";
 
-    heart.style.fontSize=
-    18+Math.random()*22+"px";
+  h.style.fontSize=
+    (15+Math.random()*22)+"px";
 
-    heart.style.animationDuration=
-    4+Math.random()*4+"s";
+  h.style.animationDuration=
+    (5+Math.random()*3)+"s";
 
-    document.body.appendChild(heart);
+  document.body.appendChild(h);
 
-    setTimeout(()=>{
-        heart.remove();
-    },8500);
-
+  setTimeout(()=>h.remove(),8500);
 }
 
-
-/* ARKA PLANDA NORMAL KALPLER */
-
-setInterval(
-    createHeart,
-    800
-);
+setInterval(heart,850);
 
 
-/* KONFETİ */
+/* HAVAİ FİŞEK */
 
-function createConfetti(){
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
 
-    const item=
-    document.createElement("div");
+let particles=[];
+let running=false;
 
-    item.className="confetti";
+function resize(){
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+}
 
-    const symbols=[
-        "❤️",
-        "💖",
-        "✨",
-        "🌸",
-        "💕",
-        "⭐"
-    ];
+resize();
+window.addEventListener("resize",resize);
 
-    item.innerHTML=
-    symbols[
-        Math.floor(
-            Math.random()*symbols.length
-        )
-    ];
+function explode(x,y){
 
-    item.style.left=
-    Math.random()*100+"vw";
+  const colors=[
+    "#ff347d",
+    "#ff85b2",
+    "#ffffff",
+    "#ffd45e",
+    "#c77dff"
+  ];
 
-    item.style.fontSize=
-    16+Math.random()*25+"px";
+  for(let i=0;i<80;i++){
 
-    item.style.animationDuration=
-    2.5+Math.random()*3+"s";
+    const angle=Math.random()*Math.PI*2;
+    const speed=2+Math.random()*6;
 
-    document.body.appendChild(item);
+    particles.push({
+      x:x,
+      y:y,
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed,
+      life:80+Math.random()*35,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      size:1+Math.random()*3
+    });
+  }
+}
 
-    setTimeout(()=>{
-        item.remove();
-    },6000);
+function animate(){
 
+  if(!running)return;
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  for(let i=particles.length-1;i>=0;i--){
+
+    const p=particles[i];
+
+    p.x+=p.vx;
+    p.y+=p.vy;
+
+    p.vy+=0.035;
+    p.vx*=0.99;
+
+    p.life--;
+
+    ctx.globalAlpha=Math.max(p.life/100,0);
+    ctx.fillStyle=p.color;
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+
+    if(p.life<=0){
+      particles.splice(i,1);
+    }
+  }
+
+  ctx.globalAlpha=1;
+
+  requestAnimationFrame(animate);
+}
+
+function startFireworks(){
+
+  running=true;
+  animate();
+
+  const timer=setInterval(()=>{
+
+    explode(
+      60+Math.random()*(window.innerWidth-120),
+      60+Math.random()*(window.innerHeight*.60)
+    );
+
+  },330);
+
+  setTimeout(()=>{
+    clearInterval(timer);
+  },10000);
 }
 
 
 /* EVET BUTONU */
 
-yesBtn.addEventListener(
-"click",
-function(){
+document.getElementById("yes")
+.addEventListener("click",()=>{
 
-    success.classList.add("active");
+  document
+    .getElementById("success")
+    .classList.add("show");
 
-    for(let i=0;i<100;i++){
+  startFireworks();
 
-        setTimeout(
-            createConfetti,
-            i*25
-        );
-
-    }
-
-    for(let i=0;i<45;i++){
-
-        setTimeout(
-            createHeart,
-            i*45
-        );
-
-    }
+  for(let i=0;i<70;i++){
+    setTimeout(heart,i*35);
+  }
 
 });
+
 </script>
 
 </body>
